@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LSR</title>
+  <script src="build/lsr.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="build/lsr.css">
+  <style type="text/css">
+    body { 
+      background: #fff;
+      font-family: sans-serif;
+      color: rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    div.lsr {
+      display: block;
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+      margin: 100px auto 0 auto;
+    }
+
+    footer {
+      padding-top: 10px;
+      width: 200px;
+      margin: 20px auto 0 auto;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .lsr .router {
+      background-image: url(icon.png);
+    }
+
+    a,
+    a:hover,
+    a:visited {
+      color: rgba(237, 0, 255, 1.0);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="lsr" tabindex="1">
+    <div class="lsr-layer" data-class="router">Text content for layer goes here</div>
+  </div>
+
+<!--
+  <label>
+    <input type="checkbox" name="" value=""> Shine
+  </label>
+  <label>
+    <input type="checkbox" name="" value="">
+  </label>
+-->
+
+  <footer>
+    <a href="https://github.com/davidfmiller/lsr">LSR</a>
+    by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(event) {
+      new window.LSR({
+        node : null,
+        shadow : false,
+        shine : false,
+        scale : 1.1,
+        rotation : {
+          x : 0.1,
+          y : 0.1
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

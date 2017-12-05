@@ -1,0 +1,91 @@
+$modalDuration : 0.2s;
+
+.modal-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  cursor: pointer;
+  z-index: 0;
+  transition: background 0.2s;
+  opacity: 1;
+  transition: opacity 0.2s;
+
+  &:hover {
+    background: rgba(0,0,0,0.9);
+  }
+
+  &.dismiss {
+    opacity: 0;
+  }
+}
+
+
+.modal {
+  > section {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  opacity: 0;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  cursor: pointer;
+  z-index: 1;
+  transition: opacity $modalDuration;
+  background: #000;
+
+  button.modal-dismiss {
+    position: absolute;
+    cursor: pointer;
+    right: -15px;
+    top: -15px;
+    background: #000;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    transition: background-color $modalDuration;
+
+    &:hover {
+      background: #fff;
+    }
+
+    text-indent: -1000em;
+    overflow: hidden;
+  }
+
+  iframe {
+    background: #000;
+  }
+
+  &.modal-focus {
+    opacity: 1;
+  }
+
+  /* */
+  &.modal-node {
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+  }
+
+  /* youtube & video */
+  &.modal-video {
+    width: 80%;
+    height: 80%;
+    left: 10%;
+    top: 10%;
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
