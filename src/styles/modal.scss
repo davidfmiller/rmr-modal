@@ -36,6 +36,10 @@ $modalDuration : 0.2s;
   box-shadow: 1px 1px 10px #000;
   cursor: default;
 
+  &:focus {
+    outline: none;
+  }
+
   button.modal-dismiss {
     position: absolute;
     cursor: pointer;
