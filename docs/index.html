@@ -63,6 +63,19 @@
       background: yellow;
     }
 
+    .init button {
+      border-radius: 3px;
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .init button:hover {
+      background: #ddd;
+    }
+
   </style>
 </head>
 <body>
@@ -74,10 +87,12 @@
     </p>
   </div>
 
-  <button class="youtube">YouTube</button>
-  <button class="vimeo">Vimeo</button>
-  <button class="node">Node</button>
-  <button class="html">HTML</button>
+  <div class="init">
+    <button class="youtube" title="Open a YouTube modal">YouTube</button>
+    <button class="vimeo" title="Open a Vimeo modal">Vimeo</button>
+    <button class="node" title="Open a modal containing an existing node in the document">Node</button>
+    <button class="html" title="Open a modal containing new markup">HTML</button>
+  </div>
   <footer>
     <a href="https://github.com/davidfmiller/modal">Modal</a>
     by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
