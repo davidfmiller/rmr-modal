@@ -124,95 +124,108 @@
   Modal.prototype.show = function() {
     const self = this;
 
-    this.bg = document.createElement('div');
-    this.bg.classList.add('modal-bg');
-
-    this.container = document.createElement('div');
-    this.container.classList.add('modal');
-    this.container.setAttribute('tabindex', -1);
-    this.container.setAttribute('role', 'dialog');
-    this.container.setAttribute('aria-hidden', 'true');
-
     const
     dismiss = function() {
       self.remove();
     },
-    button = function() {
+    init = function() {
+      self.bg = document.createElement('div');
+      self.bg.classList.add('modal-bg');
+
+      self.container = document.createElement('div');
+      self.container.classList.add('modal');
+      self.container.setAttribute('tabindex', -1);
+      self.container.setAttribute('role', 'dialog');
+      self.container.setAttribute('aria-hidden', 'true');
+    },
+    post = function() {
       const but = document.createElement('button');
       but.classList.add('modal-dismiss');
       but.innerHTML = localize('close');
       but.setAttribute('title', localize('close'));
       self.container.appendChild(but);
       but.addEventListener('click', dismiss);
+
+      self.resizeListener = window.addEventListener('resize', function escapeLisenter() {
+        // console.log('resize!!!!!!!!!!!');
+      });
+
+      self.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
+        if (event.keyCode === 27) { // escape key
+          self.remove();
+        }
+      });
+
+      if (self.options.hasOwnProperty('class')) {
+        self.container.classList.add(self.options.class);
+      }
+
+      self.bg.addEventListener('click', dismiss);
+      window.setTimeout(function() {
+        self.container.classList.add('modal-focus');
+      }, 100);
+      document.body.appendChild(self.container);
+      document.body.appendChild(self.bg);
     };
 
     if (this.options.url) {
+
+      init();
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-         
-          self.container.classList.add('modal-node');
-          self.container.innerHTML = '<section>' + this.responseText + '</section>';
 
-          if (self.options.hasOwnProperty('class')) {
-            self.container.classList.add(self.options.class);
+        if (this.readyState === 4) {
+          if (this.status === 200) {
+            self.container.classList.add('modal-node');
+            self.container.innerHTML = '<section>' + this.responseText + '</section>';
+            post();
+          } else {
+// TODO
           }
-          button();
         }
       };
       xhttp.open(this.options.hasOwnProperty('method') ? this.options.method : 'get', this.options.url, true);
       xhttp.send();
-    }
-    else if (this.options.node) {
+
+    } else if (this.options.node) {
+
+      init();
       const node = typeof this.options.node === 'string' ? document.querySelector(this.options.node) : this.options.node;
       if (! node) {
         throw new Error('Invalid node for modal :' + node);
         return;
       }
 
-      this.container.classList.add('modal-node');
+      self.container.classList.add('modal-node');
 
       if (this.options.hasOwnProperty('class')) {
         this.container.classList.add(this.options.class);
       }
       this.container.innerHTML = '<section>' + node.innerHTML + '</section>';
-    } else if (this.options.html) {
-      this.container.classList.add('modal-node');
+      post();
 
-      if (this.options.hasOwnProperty('class')) {
-        this.container.classList.add(this.options.class);
-      }
+    } else if (this.options.html) {
+
+      init();
+      this.container.classList.add('modal-node');
       this.container.innerHTML = '<section>' + this.options.html + '</section>';
+      post();
+
     } else if (this.options.youtube || this.options.vimeo) {
+
+      init();
       const
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
       iframe = '<iframe src="' + player + (this.options.youtube ? this.options.youtube : this.options.vimeo)  + '?autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
       this.container.classList.add('modal-video');
       this.container.innerHTML = iframe;
+      post();
+
     } else {
       throw new Error('Invalid modal parameters: ' + JSON.stringify(this.options));
       return;
     }
-
-    this.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-      // console.log('resize!!!!!!!!!!!');
-    });
-
-    this.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
-      if (event.keyCode === 27) { // escape key
-        self.remove();
-      }
-    });
-
-    window.setTimeout(function() {
-      self.container.classList.add('modal-focus');
-    }, 100);
-   
-    self.bg.addEventListener('click', dismiss);
-    button();
-    document.body.appendChild(this.container);
-    document.body.appendChild(this.bg);
 
     return this;
   };
