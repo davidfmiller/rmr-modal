@@ -170,6 +170,7 @@
       self.bg.addEventListener('click', dismiss);
       window.setTimeout(function() {
         self.container.classList.add(PREFIX + 'focus');
+        self.bg.classList.add(PREFIX + 'focus');
       }, 100);
     };
 
@@ -201,7 +202,7 @@
           xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
           xhttp.send();
         }
-      }, 2000);
+      }, 0);
 
     } else if (this.options.node) {
 
@@ -260,7 +261,7 @@
       this.container.classList.remove(PREFIX + 'focus');
     }
     if (self.bg) {
-      this.bg.classList.add('dismiss');
+      this.bg.classList.add(PREFIX + 'dismiss');
     }
 
     window.setTimeout(
