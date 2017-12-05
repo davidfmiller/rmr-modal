@@ -100,6 +100,9 @@
 
   /**
    * Presents the modal
+   *
+   * @return {Object} - instance for chaining
+   * @chainable
    */
   Modal.prototype.show = function() {
     const self = this;
@@ -109,6 +112,9 @@
 
     this.container = document.createElement('div');
     this.container.classList.add('modal');
+    this.container.setAttribute('tabindex', -1);
+    this.container.setAttribute('role', 'dialog');
+    this.container.setAttribute('aria-hidden', 'true');
 
     if (this.options.node) {
       const node = typeof this.options.node === 'string' ? document.querySelector(this.options.node) : this.options.node;
@@ -126,7 +132,7 @@
       this.container.innerHTML = '<section>' + node.innerHTML + '</section>';
     } else if (this.options.youtube || this.options.vimeo) {
       const
-      player = this.options.youtube === 'youtube' ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
+      player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
       iframe = '<iframe src="' + player + (this.options.youtube ? this.options.youtube : this.options.vimeo)  + '?autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
       this.container.classList.add('modal-video');
@@ -137,12 +143,12 @@
     }
 
     this.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-      console.log('resize!!!!!!!!!!!');
+      //console.log('resize!!!!!!!!!!!');
     });
 
     this.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
       if (event.keyCode === 27) { // escape key
-        self.dismiss();
+        self.remove();
       }
     });
 
@@ -151,37 +157,57 @@
     }, 100);
 
     const dismiss = function() {
-      self.dismiss();
+      self.remove();
     };
 
-    this.bg.addEventListener('click', dismiss);
     const button = document.createElement('button');
     button.classList.add('modal-dismiss');
     button.innerHTML = 'Close';
+
     button.addEventListener('click', dismiss);
+    this.bg.addEventListener('click', dismiss);
 
     this.container.appendChild(button);
 
     document.body.appendChild(this.container);
     document.body.appendChild(this.bg);
+
+    return this;
   };
 
-  Modal.prototype.dismiss = function() {
-    this.container.classList.remove('modal-focus');
-    this.bg.classList.add('dismiss');
+  /**
+   * Remove the modal
+   *
+   * @return {Object} - instance for chaining
+   * @chainable
+   */
+  Modal.prototype.remove = function() {
 
     const self = this;
+  
+    if (self.container) {
+      this.container.classList.remove('modal-focus');
+    }
+    if (self.bg) {
+      this.bg.classList.add('dismiss');
+    }
 
     window.setTimeout(
       function() {
-        document.body.removeChild(self.bg);
-        document.body.removeChild(self.container);
+        if (self.bg) {
+          document.body.removeChild(self.bg);
+        }
+        if (self.container) {
+          document.body.removeChild(self.container);
+        }
         self.resizeListener = self.keyListener = self.options = self.bg = self.container = null;
       }, 200
     );
 
-    window.removeEventListener('resize', this.resizeListener);
-    document.removeEventListener('keydown', this.keyListener);
+    window.removeEventListener('resize', self.resizeListener);
+    document.removeEventListener('keydown', self.keyListener);
+    
+    return this;
   };
   module.exports = Modal;
 })();

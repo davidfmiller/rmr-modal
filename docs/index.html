@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>LSR</title>
-  <script src="build/lsr.bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="build/lsr.css">
+  <title>Modal</title>
+  <script src="build/modal.bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="build/modal.css">
   <style type="text/css">
     body { 
       background: #fff;
@@ -16,17 +16,8 @@
       height: 100%;
     }
 
-    div.lsr {
-      display: block;
-      width: 200px;
-      height: 200px;
-      cursor: pointer;
-      margin: 100px auto 0 auto;
-    }
-
     footer {
       padding-top: 10px;
-      width: 200px;
       margin: 20px auto 0 auto;
       border-top: 1px solid rgba(0,0,0,0.2);
       text-align: center;
@@ -40,48 +31,88 @@
       text-decoration: underline;
     }
 
-    .lsr .router {
-      background-image: url(icon.png);
-    }
-
     a,
     a:hover,
     a:visited {
       color: rgba(237, 0, 255, 1.0);
     }
 
+    #node-target {
+      display: none;
+    }
+
+    .modal.modal-node {
+      background: #fff;
+      color: #000;
+      padding: 10px;
+      width: 50%;
+      left: 25%;
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="lsr" tabindex="1">
-    <div class="lsr-layer" data-class="router">Text content for layer goes here</div>
+  <div id="node-target">
+    <h1>This header appear in the modal</h1>
+    <p>
+      This paragraph will also appear in the modal.
+    </p>
   </div>
 
-<!--
-  <label>
-    <input type="checkbox" name="" value=""> Shine
-  </label>
-  <label>
-    <input type="checkbox" name="" value="">
-  </label>
--->
-
+  <button class="youtube">YouTube</button>
+  <button class="vimeo">Vimeo</button>
+  <button class="node">Node</button>
   <footer>
-    <a href="https://github.com/davidfmiller/lsr">LSR</a>
+    <a href="https://github.com/davidfmiller/modal">Modal</a>
     by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function(event) {
-      new window.LSR({
-        node : null,
-        shadow : false,
-        shine : false,
-        scale : 1.1,
-        rotation : {
-          x : 0.1,
-          y : 0.1
+
+      var modal = null;
+      var youtube = function() {
+        if (modal) {
+          modal.remove();
+        }
+        modal = new Modal({ youtube : 'ybFrhA9waJs' });
+        modal.show();
+      },
+      vimeo = function() {
+        if (modal) {
+          modal.remove();
+        }
+        modal = new Modal({ vimeo : '244264989' });
+        modal.show();
+      },
+      node = function() {
+        if (modal) {
+          modal.remove();
+        }
+        modal = new Modal({ node : '#node-target' });
+        modal.show();
+      };      
+      
+      document.querySelector('.youtube').addEventListener('click', youtube);
+      document.querySelector('.vimeo').addEventListener('click', vimeo);
+      document.querySelector('.node').addEventListener('click', node);
+
+      document.addEventListener('keydown', function escapeLisenter(event) {
+        console.log(event.keyCode);
+
+        switch (event.keyCode) {
+          case 49:
+            youtube();
+            break;
+          case 50:
+            vimeo();
+            break;
+          case 51:
+            node();
+            break;
+          default:
+            // 
         }
       });
     });
