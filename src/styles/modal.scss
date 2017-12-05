@@ -52,7 +52,7 @@ $modalDuration : 0.2s;
     height: 30px;
     padding: 0;
     transition: background-color $modalDuration;
-    box-shadow: 1px 1px 5px rga(0,0,0,0.5);
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 
     &:hover {
       background: #fff;

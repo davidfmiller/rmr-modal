@@ -58,6 +58,10 @@
       padding: 0.25em 0;
       margin: 0;
     }
+    
+    .modal.random-class {
+      background: yellow;
+    }
 
   </style>
 </head>
@@ -108,7 +112,7 @@
         if (modal) {
           modal.remove();
         }
-        modal = new Modal({ html : '<h1>Markup</h1><p>More markup</p>' });
+        modal = new Modal({ html : '<h1>Markup</h1><p>More markup</p>', class : 'random-class' });
         modal.show();
       };      
       document.querySelector('.youtube').addEventListener('click', youtube);
