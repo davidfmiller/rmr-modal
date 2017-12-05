@@ -1,12 +1,16 @@
 {
   "name": "modal",
   "version": "0.0.1",
-  "description": "",
+  "description": "Modal content presentation for your website",
   "directories": {
     "doc": "docs"
   },
   "scripts": {},
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:davidfmiller/modal.git"
+  },
+  "author": "davidfmiller",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -19,5 +23,9 @@
     "grunt-contrib-uglify": "^3.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "webpack": "^3.10.0"
-  }
+  },
+  "bugs" : {
+    "url": "https://github.com/davidfmiller/modal/issues"
+  },
+  "homepage": "https://davidfmiller.github.io/modal"
 }
