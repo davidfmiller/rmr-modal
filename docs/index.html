@@ -44,9 +44,19 @@
     .modal.modal-node {
       background: #fff;
       color: #000;
-      padding: 10px;
+      padding: 20px 10px;
       width: 50%;
       left: 25%;
+    }
+    
+    .modal h1 {
+      padding: 0 0 0.25em 0;
+      margin: 0;
+    }
+    
+    .modal p {
+      padding: 0.25em 0;
+      margin: 0;
     }
 
   </style>
@@ -54,15 +64,16 @@
 <body>
 
   <div id="node-target">
-    <h1>This header appear in the modal</h1>
+    <h1>Modal</h1>
     <p>
-      This paragraph will also appear in the modal.
+      A neat little JavaScript module
     </p>
   </div>
 
   <button class="youtube">YouTube</button>
   <button class="vimeo">Vimeo</button>
   <button class="node">Node</button>
+  <button class="html">HTML</button>
   <footer>
     <a href="https://github.com/davidfmiller/modal">Modal</a>
     by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
@@ -92,24 +103,34 @@
         }
         modal = new Modal({ node : '#node-target' });
         modal.show();
+      },
+      html = function() {
+        if (modal) {
+          modal.remove();
+        }
+        modal = new Modal({ html : '<h1>Markup</h1><p>More markup</p>' });
+        modal.show();
       };      
-      
       document.querySelector('.youtube').addEventListener('click', youtube);
       document.querySelector('.vimeo').addEventListener('click', vimeo);
       document.querySelector('.node').addEventListener('click', node);
+      document.querySelector('.html').addEventListener('click', html);
 
       document.addEventListener('keydown', function escapeLisenter(event) {
-        console.log(event.keyCode);
+//        console.log(event.keyCode);
 
         switch (event.keyCode) {
-          case 49:
+          case 49: // 1
             youtube();
             break;
-          case 50:
+          case 50: // 2
             vimeo();
             break;
-          case 51:
+          case 51: // 3
             node();
+            break;
+          case 52: // 4
+            html();
             break;
           default:
             // 

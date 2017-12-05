@@ -17,6 +17,24 @@
   const
   // VERSION = '0.0.1',
 
+  LANG = {
+    'close' : 'Close'
+  },
+
+  localize = function(key, lookup) {
+
+    if (! lookup) { 
+      lookup = LANG;
+    }
+
+    if (LANG.hasOwnProperty(key)) {
+      return LANG[key];
+    }
+
+    console.warn('No localization for ' + key);
+    return key;
+  },
+
   /*
    * Convert an array-like thing (ex: NodeList or arguments object) into a proper array
    *
@@ -128,8 +146,14 @@
       if (this.options.hasOwnProperty('class')) {
         this.container.classList.add(this.options.class);
       }
-
       this.container.innerHTML = '<section>' + node.innerHTML + '</section>';
+    } else if (this.options.html) {
+      this.container.classList.add('modal-node');
+
+      if (this.options.hasOwnProperty('class')) {
+        this.container.classList.add(this.options.class);
+      }
+      this.container.innerHTML = '<section>' + this.options.html + '</section>';
     } else if (this.options.youtube || this.options.vimeo) {
       const
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
@@ -162,8 +186,8 @@
 
     const button = document.createElement('button');
     button.classList.add('modal-dismiss');
-    button.innerHTML = 'Close';
-
+    button.innerHTML = localize('close');
+    button.setAttribute('title', localize('close'));
     button.addEventListener('click', dismiss);
     this.bg.addEventListener('click', dismiss);
 

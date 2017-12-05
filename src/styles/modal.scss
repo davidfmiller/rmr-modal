@@ -9,9 +9,8 @@ $modalDuration : 0.2s;
   background: rgba(0,0,0,0.8);
   cursor: pointer;
   z-index: 0;
-  transition: background 0.2s;
   opacity: 1;
-  transition: opacity 0.2s;
+  transition: background 0.2s, opacity 0.2s;
 
   &:hover {
     background: rgba(0,0,0,0.9);
