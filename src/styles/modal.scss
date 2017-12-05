@@ -31,7 +31,7 @@ $modalDuration : 0.2s;
   left: 0;
   cursor: pointer;
   z-index: 1;
-  transition: opacity $modalDuration;
+  transition: background $modalDuration, opacity $modalDuration, width $modalDuration, left $modalDuration, right $modalDuration, top $modalDuration, height $modalDuration;
   background: #000;
   box-shadow: 1px 1px 10px #000;
   cursor: default;
@@ -67,8 +67,12 @@ $modalDuration : 0.2s;
     overflow: hidden;
   }
 
-  iframe {
+  > iframe {
     background: #000;
+  }
+
+  > section {
+    transition: opacity $modalDuration;
   }
 
   &.modal-focus {
@@ -81,6 +85,7 @@ $modalDuration : 0.2s;
       width: 100%;
       height: 100%;
       position: relative;
+      opacity: 1;
     }
     width: 80%;
     height: auto;
@@ -89,8 +94,22 @@ $modalDuration : 0.2s;
     border-radius: 5px;
   }
 
+  &.modal-loading {
+    > section {
+      opacity: 1;
+    }
+    border-radius: 5px; 
+    opacity: 1;
+    width: 10%;
+    height: 10%;
+    left: 45%;
+    right: 45%;
+    top: 20%;
+  }
+
   /* youtube & video */
   &.modal-video {
+
     width: 80%;
     height: 80%;
     left: 10%;
