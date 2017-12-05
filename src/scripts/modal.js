@@ -18,12 +18,11 @@
   // VERSION = '0.0.1',
 
   LANG = {
-    'close' : 'Close'
+    'close': 'Close'
   },
 
   localize = function(key, lookup) {
-
-    if (! lookup) { 
+    if (! lookup) {
       lookup = LANG;
     }
 
@@ -167,7 +166,7 @@
     }
 
     this.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-      //console.log('resize!!!!!!!!!!!');
+      // console.log('resize!!!!!!!!!!!');
     });
 
     this.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
@@ -206,9 +205,8 @@
    * @chainable
    */
   Modal.prototype.remove = function() {
-
     const self = this;
-  
+
     if (self.container) {
       this.container.classList.remove('modal-focus');
     }
@@ -230,7 +228,7 @@
 
     window.removeEventListener('resize', self.resizeListener);
     document.removeEventListener('keydown', self.keyListener);
-    
+
     return this;
   };
   module.exports = Modal;
