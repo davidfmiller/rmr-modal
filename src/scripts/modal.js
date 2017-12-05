@@ -133,7 +133,37 @@
     this.container.setAttribute('role', 'dialog');
     this.container.setAttribute('aria-hidden', 'true');
 
-    if (this.options.node) {
+    const
+    dismiss = function() {
+      self.remove();
+    },
+    button = function() {
+      const but = document.createElement('button');
+      but.classList.add('modal-dismiss');
+      but.innerHTML = localize('close');
+      but.setAttribute('title', localize('close'));
+      self.container.appendChild(but);
+      but.addEventListener('click', dismiss);
+    };
+
+    if (this.options.url) {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         
+          self.container.classList.add('modal-node');
+          self.container.innerHTML = '<section>' + this.responseText + '</section>';
+
+          if (self.options.hasOwnProperty('class')) {
+            self.container.classList.add(self.options.class);
+          }
+          button();
+        }
+      };
+      xhttp.open(this.options.hasOwnProperty('method') ? this.options.method : 'get', this.options.url, true);
+      xhttp.send();
+    }
+    else if (this.options.node) {
       const node = typeof this.options.node === 'string' ? document.querySelector(this.options.node) : this.options.node;
       if (! node) {
         throw new Error('Invalid node for modal :' + node);
@@ -178,20 +208,9 @@
     window.setTimeout(function() {
       self.container.classList.add('modal-focus');
     }, 100);
-
-    const dismiss = function() {
-      self.remove();
-    };
-
-    const button = document.createElement('button');
-    button.classList.add('modal-dismiss');
-    button.innerHTML = localize('close');
-    button.setAttribute('title', localize('close'));
-    button.addEventListener('click', dismiss);
-    this.bg.addEventListener('click', dismiss);
-
-    this.container.appendChild(button);
-
+   
+    self.bg.addEventListener('click', dismiss);
+    button();
     document.body.appendChild(this.container);
     document.body.appendChild(this.bg);
 
