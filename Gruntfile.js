@@ -18,8 +18,10 @@ module.exports = function(grunt) {
     },
 */
     compass: {
+      
       dist: {
         options: {
+/*          sourcemap: true,*/
           sassDir: 'src/styles',
           cssDir: 'docs/build',
           environment: 'production',

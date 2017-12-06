@@ -169,8 +169,19 @@
 
       self.bg.addEventListener('click', dismiss);
       window.setTimeout(function() {
-        self.container.classList.add(PREFIX + 'focus');
-        self.bg.classList.add(PREFIX + 'focus');
+        if (! self) {
+          return;
+        }
+        if (self.container) {
+          self.container.classList.add(PREFIX + 'focus');
+        }
+        if (self.bg) {
+          self.bg.classList.add(PREFIX + 'focus');
+        }
+
+        if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
+          self.options.on.show(self.options);
+        }
       }, 100);
     };
 
@@ -266,6 +277,14 @@
 
     window.setTimeout(
       function() {
+        if (! self) {
+          return;
+        }
+
+        if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
+          self.options.on.remove(self.options);
+        }
+
         if (self.bg) {
           document.body.removeChild(self.bg);
         }
