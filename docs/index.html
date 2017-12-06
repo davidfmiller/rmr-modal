@@ -112,15 +112,15 @@
   <script src="build/modal.bundle.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', function(event) {
-    var modal = null;
+   var modal = null;
     
-    const init = function(args) {
+    var init = function(args) {
       if (modal) { modal.remove(); }
       modal = new Modal(arguments[0]);
       modal.show();    
     }
 
-    const
+    var
     youtube = function() { init({ youtube : 'sNaR1JRNayU' }); },
     vimeo = function() { init({ vimeo : '244264989' }); },
     reference = function() { init({ node : document.querySelector('#node-reference') }); },
@@ -130,14 +130,11 @@
         url: 'xhr.html',
         class : 'xhr-class',
         on: {
-          show: function(options) {
-            console.log('show', options);
-          },
-          remove: function(options) {
-            console.log('remove', options);
-          }
+          show: function(options) { console.log('show', options); },
+          remove: function(options) { console.log('remove', options); }
         }
-      }); };
+      });
+    };
 
     document.querySelector('.youtube').addEventListener('click', youtube);
     document.querySelector('.vimeo').addEventListener('click', vimeo);
