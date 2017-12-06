@@ -17,7 +17,7 @@
   const
   // VERSION = '0.0.1',
 
-  MOBILE = true || typeof window.orientation !== 'undefined',
+  MOBILE = typeof window.orientation !== 'undefined',
 
   PREFIX = 'modal-',
   LANG = {
