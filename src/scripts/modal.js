@@ -166,6 +166,10 @@
 
       const resizer = function() {
 
+        if (! self || ! self.options) { 
+          return;
+        }
+
         const
         buffer = 0.20, // portion of window that should be padding around modal
         aspect = self.options.aspect,
