@@ -85,7 +85,7 @@
    * @param b {Object}
 
    * @return Object
-
+   */
   merge = function(a, b) {
     const o = {};
     let i;
@@ -103,15 +103,20 @@
       }
     }
     return o;
-  };
-   */
+  },
+
   /**
    * Create a Modal instance
    *
    * @param {Object} options - args
    */
   Modal = function(options) {
-    this.options = options;
+
+    const defaults = {
+      autoplay: 1
+    };
+
+    this.options = merge(defaults, options);
     this.bg = null;
     this.container = null;
   };
@@ -160,31 +165,30 @@
       but.addEventListener('click', dismiss);
 
       const resizer = function() {
-      
+
         const
-        buffer = 0.10,
+        buffer = 0.20, // portion of window that should be padding around modal
         aspect = self.options.aspect,
         modalSize = { width: 0, height: 0},
         windowSize = { width: window.innerWidth, height: window.innerHeight },
         verticalLimiter = (window.innerWidth / window.innerHeight) > aspect ? true : false;
 
         if (verticalLimiter) {
-          modalSize.height = (windowSize.height - windowSize.height * buffer * 2);
+          modalSize.height = (windowSize.height - windowSize.height * buffer);
           modalSize.width = modalSize.height * aspect;
-        }
-        else {
-          modalSize.width = (windowSize.width - windowSize.width * buffer * 2);
+        } else {
+          modalSize.width = (windowSize.width - windowSize.width * buffer);
           modalSize.height = modalSize.width / aspect;
         }
 
         self.container.style.right = '';
         self.container.style.width = modalSize.width + 'px';
-        self.container.style.height = modalSize.height + 'px';      
+        self.container.style.height = modalSize.height + 'px';
         self.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
         self.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
       };
 
-      if (self.options.aspect) {
+      if (self.options.hasOwnProperty('aspect')) {
         resizer();
         self.resizeListener = window.addEventListener('resize', resizer);
       }
@@ -233,7 +237,7 @@
           }
         }
       };
-      
+
       window.setTimeout(function() {
         if (self.options) {
           xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
@@ -271,7 +275,7 @@
       init();
       const
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
-      iframe = '<iframe src="' + player + (this.options.youtube ? this.options.youtube : this.options.vimeo)  + '?autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+      iframe = '<iframe src="' + player + (this.options.youtube ? this.options.youtube : this.options.vimeo)  + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
       this.container.classList.add(PREFIX + 'video');
       this.container.innerHTML = iframe;
