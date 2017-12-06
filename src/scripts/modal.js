@@ -160,7 +160,7 @@
       but.addEventListener('click', dismiss);
 
       self.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-        // console.log('resize!!!!!!!!!!!');
+        console.log('resize!!!!!!!!!!!');
       });
 
       if (self.options.hasOwnProperty('class')) {
@@ -180,7 +180,7 @@
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
-          self.options.on.show(self.options);
+          self.options.on.show(self.container, self.options);
         }
       }, 100);
     };
@@ -275,14 +275,14 @@
       this.bg.classList.add(PREFIX + 'dismiss');
     }
 
+    if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
+      self.options.on.remove(self.container, self.options);
+    }
+
     window.setTimeout(
       function() {
         if (! self) {
           return;
-        }
-
-        if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
-          self.options.on.remove(self.options);
         }
 
         if (self.bg) {

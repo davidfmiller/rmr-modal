@@ -24,7 +24,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "webpack": "^3.10.0"
   },
-  "bugs" : {
+  "bugs": {
     "url": "https://github.com/davidfmiller/modal/issues"
   },
   "homepage": "https://davidfmiller.github.io/modal"
