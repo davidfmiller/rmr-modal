@@ -6,17 +6,15 @@ $modalDuration : 0.2s;
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.9);
   z-index: 0;
   opacity: 0;
   transition: background 0.2s, opacity 0.2s;
 
-/*
   &:hover {
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.8);
   }
-*/
-  
+
   &.modal-focus {
     cursor: pointer;    
     opacity: 1;
@@ -44,6 +42,12 @@ $modalDuration : 0.2s;
   &:focus {
     outline: none;
   }
+  
+  &:hover {
+    button.modal-dismiss {
+      opacity: 1;
+    }
+  }
 
   button.modal-dismiss {
     position: absolute;
@@ -55,7 +59,8 @@ $modalDuration : 0.2s;
     width: 24px;
     height: 24px;
     padding: 0;
-    transition: transform $modalDuration, background-color $modalDuration;
+    opacity: 0;
+    transition: opacity $modalDuration, transform $modalDuration, background-color $modalDuration;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 
     background-color: #000;

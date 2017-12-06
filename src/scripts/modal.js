@@ -159,9 +159,35 @@
       self.container.appendChild(but);
       but.addEventListener('click', dismiss);
 
-      self.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-        //console.log('resize!!!!!!!!!!!');
-      });
+      const resizer = function() {
+      
+        const
+        buffer = 0.10,
+        aspect = self.options.aspect,
+        modalSize = { width: 0, height: 0},
+        windowSize = { width: window.innerWidth, height: window.innerHeight },
+        verticalLimiter = (window.innerWidth / window.innerHeight) > aspect ? true : false;
+
+        if (verticalLimiter) {
+          modalSize.height = (windowSize.height - windowSize.height * buffer * 2);
+          modalSize.width = modalSize.height * aspect;
+        }
+        else {
+          modalSize.width = (windowSize.width - windowSize.width * buffer * 2);
+          modalSize.height = modalSize.width / aspect;
+        }
+
+        self.container.style.right = '';
+        self.container.style.width = modalSize.width + 'px';
+        self.container.style.height = modalSize.height + 'px';      
+        self.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
+        self.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
+      };
+
+      if (self.options.aspect) {
+        resizer();
+        self.resizeListener = window.addEventListener('resize', resizer);
+      }
 
       if (self.options.hasOwnProperty('class')) {
         self.container.classList.add(self.options.class);
