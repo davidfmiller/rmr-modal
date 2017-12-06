@@ -18,7 +18,7 @@
   // VERSION = '0.0.1',
 
   // if mobile then open url in browser
-  MOBILE = (true) || ('touchstart' in window || navigator.msMaxTouchPoints),
+  MOBILE = (false) || ('touchstart' in window || navigator.msMaxTouchPoints),
 
   PREFIX = 'modal-',
   LANG = {
