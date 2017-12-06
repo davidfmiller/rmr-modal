@@ -42,7 +42,13 @@ $modalDuration : 0.2s;
   &:focus {
     outline: none;
   }
-  
+
+  &.modal-mobile {
+    button.modal-dismiss { 
+      display: none;
+    }
+  }
+
   &:hover {
     button.modal-dismiss {
       opacity: 1;

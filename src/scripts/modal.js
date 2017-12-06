@@ -17,7 +17,7 @@
   const
   // VERSION = '0.0.1',
 
-  MOBILE = typeof window.orientation !== 'undefined',
+  MOBILE = true || typeof window.orientation !== 'undefined',
 
   PREFIX = 'modal-',
   LANG = {
@@ -210,6 +210,9 @@
         }
         if (self.container) {
           self.container.classList.add(PREFIX + 'focus');
+          if (MOBILE) {
+            self.container.classList.add(PREFIX + 'mobile');
+          }
         }
         if (self.bg) {
           self.bg.classList.add(PREFIX + 'focus');
