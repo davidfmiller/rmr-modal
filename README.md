@@ -4,4 +4,5 @@
 
 ## TODO
 
-- URL
+- Handle aspect ratio on videos
+- 

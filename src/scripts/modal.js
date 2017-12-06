@@ -160,7 +160,7 @@
       but.addEventListener('click', dismiss);
 
       self.resizeListener = window.addEventListener('resize', function escapeLisenter() {
-        console.log('resize!!!!!!!!!!!');
+        //console.log('resize!!!!!!!!!!!');
       });
 
       if (self.options.hasOwnProperty('class')) {
