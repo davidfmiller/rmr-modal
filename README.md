@@ -4,5 +4,5 @@
 
 ## TODO
 
-- Handle aspect ratio on videos
+- Mobile
 - 

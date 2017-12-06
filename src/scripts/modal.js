@@ -17,6 +17,9 @@
   const
   // VERSION = '0.0.1',
 
+  // if mobile then open url in browser
+  MOBILE = (true) || ('touchstart' in window || navigator.msMaxTouchPoints),
+
   PREFIX = 'modal-',
   LANG = {
     'close': 'Close'
@@ -171,7 +174,7 @@
         }
 
         const
-        buffer = 0.20, // portion of window that should be padding around modal
+        buffer = MOBILE ? 0 : 0.20, // portion of window that should be padding around modal
         aspect = self.options.aspect,
         modalSize = { width: 0, height: 0},
         windowSize = { width: window.innerWidth, height: window.innerHeight },
@@ -202,7 +205,7 @@
       }
 
       self.bg.addEventListener('click', dismiss);
-      window.setTimeout(function() {
+      window.setTimeout(function timeout() {
         if (! self) {
           return;
         }
