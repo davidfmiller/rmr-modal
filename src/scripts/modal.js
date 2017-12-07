@@ -116,7 +116,8 @@
   Modal = function(options) {
 
     const defaults = {
-      autoplay: 1
+      autoplay: 1,
+      z : 1
     };
 
     this.options = merge(defaults, options);
@@ -140,12 +141,14 @@
     init = function() {
       self.bg = document.createElement('div');
       self.bg.classList.add(PREFIX + 'bg');
+      self.bg.style.zIndex = parseInt(self.options.z, 10);
 
       self.container = document.createElement('div');
       self.container.classList.add(PREFIX + 'dialog');
       self.container.setAttribute('tabindex', -1);
       self.container.setAttribute('role', 'dialog');
       self.container.setAttribute('aria-hidden', 'true');
+      self.container.style.zIndex = parseInt(self.options.z + 1, 10);
       self.container.innerHTML = '<section></section>';
       document.body.appendChild(self.bg);
       document.body.appendChild(self.container);
