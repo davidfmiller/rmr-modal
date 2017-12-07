@@ -19,11 +19,30 @@
   <p>Modal content presentation for your website. View the page source for now, documentation forthcoming…</p>
 
   <pre>var m = new Modal({
-  youtube : '{clip}' 
+
+  {youtube|vimeo|node|selector|html|xhr}: '{value}',
+
+  // optional params
+
+  z: {index}, // force modal to appear above other elements with z-index applied
+
+  // optional params for youtube &amp; vimeo:
+
+  autoplay: {true|false} // autoplay videos
+  aspect: {ratio}        // aspect ratio of the video to properly size dialog
+
+  // optional event handlers which are invoked at relevant time(s)
+
+  on: {
+    show: function(params) { },
+    remove: function(params) { } 
+  }
+
 });
-m.show();
+
+m.show();   // display dialog
 …
-m.remove();
+m.remove(); // remove dialog
 </pre>
 
   <!-- This module -->
