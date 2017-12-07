@@ -147,8 +147,9 @@
       self.container.setAttribute('role', 'dialog');
       self.container.setAttribute('aria-hidden', 'true');
       self.container.innerHTML = '<section></section>';
-      document.body.appendChild(self.bg);
-      document.body.appendChild(self.container);
+
+      document.body.insertBefore(self.bg, document.body.childNodes[0]);
+      document.body.insertBefore(self.container, document.body.childNodes[0]);
 
       self.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
         if (event.keyCode === 27) { // escape key
