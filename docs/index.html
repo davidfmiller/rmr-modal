@@ -7,7 +7,6 @@
   <link rel="stylesheet" type="text/css" href="build/modal.css">
   <link rel="stylesheet" type="text/css" href="//davidfmiller.github.io/man/man.css">
 
-
   <link rel="stylesheet" type="text/css" href="index.css">
   <style>
 
@@ -86,9 +85,9 @@ m.remove();
       });
     };
 
-    var xhr = document.querySelector('.xhr');
+    var xhrbut = document.querySelector('.xhr');
     if (document.location.protocol == 'file:') {
-      xhr.setAttribute('disabled', 1);
+      xhrbut.setAttribute('disabled', 1);
     }
 
     document.querySelector('.youtube').addEventListener('click', youtube);
@@ -96,7 +95,7 @@ m.remove();
     document.querySelector('.reference').addEventListener('click', reference);
     document.querySelector('.selector').addEventListener('click', selector);
     document.querySelector('.html').addEventListener('click', html);
-    xhr.addEventListener('click', xhr);
+    xhrbut.addEventListener('click', xhr);
 
     document.addEventListener('keydown', function escapeLisenter(event) {
       switch (event.keyCode) {
