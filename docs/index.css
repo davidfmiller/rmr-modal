@@ -1,0 +1,61 @@
+body { 
+  background: #fff;
+}
+
+footer {
+
+}
+
+.modal-target {
+  display: none;
+}
+
+.rmr-modal-dialog.rmr-modal-node {
+  background: #fff;
+  color: #000;
+  padding: 20px 10px;
+  width: 50%;
+  left: 25%;
+  font-family: sans-serif;
+}
+
+.rmr-modal-dialog h1 {
+  padding: 0 0 0.25em 0;
+  margin: 0;
+}
+
+.rmr-modal-dialog p {
+  padding: 0.25em 0;
+  margin: 0;
+}
+
+.rmr-modal-dialog.random-class {
+  background: yellow;
+}
+.rmr-modal-dialog.xhr-class {
+  background: aqua;
+}
+
+.init button {
+  border-radius: 2px;
+  padding: 5px 10px;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.05);
+  font-family: consolas, menlo, monaco, monospace-serif;
+  transition: background-color 0.2s, transform 0.05s;
+}
+
+.init button[disabled] {
+  opacity: 0.8;
+}
+
+.init button:not([disabled]):hover {
+  background: #ddd;
+  transform: translate(0px, 2px);
+  cursor: pointer;
+
+}
+
+body.rmr-modal-open .init button {
+ visibility: hidden;
+}

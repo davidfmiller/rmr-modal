@@ -7,7 +7,7 @@
  * https://readmeansrun.com
  *
  * modal is licensed under the MIT license:
- *   http://www.opensource.org/licenses/mit-license.php
+ * http://www.opensource.org/licenses/mit-license.php
  *
  */
 
@@ -19,7 +19,7 @@
 
   MOBILE = typeof window.orientation !== 'undefined',
 
-  PREFIX = 'modal-',
+  PREFIX = 'rmr-modal-',
   LANG = {
     'close': 'Close'
   },
@@ -57,6 +57,7 @@
     return ret;
   },
    */
+
   /*
    * Retrieve an object containing { top : xx, left : xx, bottom: xx, right: xx, width: xx, height: xx }
    *
@@ -141,7 +142,7 @@
       self.bg.classList.add(PREFIX + 'bg');
 
       self.container = document.createElement('div');
-      self.container.classList.add('modal');
+      self.container.classList.add(PREFIX + 'dialog');
       self.container.setAttribute('tabindex', -1);
       self.container.setAttribute('role', 'dialog');
       self.container.setAttribute('aria-hidden', 'true');
@@ -199,6 +200,7 @@
         self.resizeListener = window.addEventListener('resize', resizer);
       }
 
+      document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
         self.container.classList.add(self.options.class);
       }
@@ -313,6 +315,8 @@
     if (self.bg) {
       this.bg.classList.add(PREFIX + 'dismiss');
     }
+
+    document.body.classList.remove(PREFIX + 'open');
 
     if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
       self.options.on.remove(self.container, self.options);
