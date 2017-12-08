@@ -29,6 +29,10 @@ footer {
   margin: 0;
 }
 
+.rmr-modal-bg.random-class {
+  background: rgba(255,255,255,0.9);
+}
+
 .rmr-modal-dialog.random-class {
   background: yellow;
 }
