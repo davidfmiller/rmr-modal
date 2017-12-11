@@ -13,14 +13,40 @@
   <h1><i>📌</i> modal</h1>
   <p>Modal content presentation for your website. View the page source for now, documentation forthcoming…</p>
 
+<pre><span></span><span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Modal</span><span class="p">({</span>
+
+<span class="c1">//  {youtube|vimeo|node|selector|html|xhr}: &#39;{value}&#39;,</span>
+
+  <span class="c1">// optional params</span>
+
+  <span class="nx">z</span><span class="o">:</span> <span class="p">{</span><span class="nx">index</span><span class="p">},</span> <span class="c1">// force modal to appear above other elements with z-index applied</span>
+
+  <span class="c1">// optional params for youtube &amp;amp; vimeo:</span>
+
+  <span class="nx">autoplay</span><span class="o">:</span> <span class="p">{</span><span class="kc">true</span><span class="o">|</span><span class="kc">false</span><span class="p">}</span> <span class="c1">// autoplay videos</span>
+  <span class="nx">aspect</span><span class="o">:</span> <span class="p">{</span><span class="nx">ratio</span><span class="p">}</span>        <span class="c1">// aspect ratio of the video to properly size dialog</span>
+
+  <span class="c1">// optional event handlers which are invoked at relevant time(s)</span>
+
+  <span class="nx">on</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="p">},</span>
+    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span> 
+  <span class="p">}</span>
+
+<span class="p">});</span>
+
+<span class="nx">m</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>   <span class="c1">// display dialog</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span> <span class="c1">// remove dialog</span>
+</pre>
+
+<!--
   <pre>var m = new Modal({
 
-  {youtube|vimeo|node|selector|html|xhr}: '{value}',
+//  {youtube|vimeo|node|selector|html|xhr}: '{value}',
 
   // optional params
 
   z: {index}, // force modal to appear above other elements with z-index applied
-  prefix : {string}, // css prefix applied to modal element classnames
 
   // optional params for youtube &amp; vimeo:
 
@@ -39,6 +65,7 @@
 m.show();   // display dialog
 …
 m.remove(); // remove dialog</pre>
+-->
 
   <!-- This module -->
   <div id="node-reference" class="modal-target">
@@ -100,7 +127,6 @@ m.remove(); // remove dialog</pre>
     },
     reference = function() {
       init({
-        prefix : 'mod-',
         node: document.querySelector('#node-reference')
       });
     },
