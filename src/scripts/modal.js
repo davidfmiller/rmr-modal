@@ -17,7 +17,7 @@
   const
   // VERSION = '0.0.1',
 
-  MOBILE = typeof window.orientation !== 'undefined',
+  MOBILE typeof window.orientation !== 'undefined',
 
   PREFIX = 'rmr-modal-',
   LANG = {
@@ -207,7 +207,6 @@
       document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
         self.container.classList.add(self.options.class);
-        self.bg.classList.add(self.options.class);
       }
 
       self.bg.addEventListener('click', dismiss);
