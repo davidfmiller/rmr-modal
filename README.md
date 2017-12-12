@@ -4,5 +4,5 @@
 
 ## TODO
 
-- Mobile index
+- loader for xhr
 - 
