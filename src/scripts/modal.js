@@ -11,7 +11,7 @@
  *
  */
 
-(function() {
+(() => {
   'use strict';
 
   const
@@ -255,12 +255,12 @@
         }
       };
 
-      window.setTimeout(function() {
+//      window.setTimeout(function () {
         if (self.options) {
           xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
           xhttp.send();
         }
-      }, 0);
+//      }, 0);
 
     } else if (this.options.node) {
 
@@ -331,7 +331,7 @@
     }
 
     window.setTimeout(
-      function() {
+      function timeout() {
         if (! self) {
           return;
         }
