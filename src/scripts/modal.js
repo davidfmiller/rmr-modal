@@ -143,6 +143,8 @@
       self.bg.classList.add(PREFIX + 'bg');
       self.bg.style.zIndex = parseInt(self.options.z, 10);
 
+      document.body.classList.add(PREFIX + 'open');
+
       self.container = document.createElement('div');
       self.container.classList.add(PREFIX + 'dialog');
       self.container.setAttribute('tabindex', -1);
@@ -312,6 +314,8 @@
    */
   Modal.prototype.remove = function() {
     const self = this;
+
+    document.body.classList.remove(PREFIX + 'open');
 
     if (self.container) {
       this.container.classList.remove(PREFIX + 'focus');
