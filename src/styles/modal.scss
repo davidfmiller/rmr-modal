@@ -113,6 +113,7 @@ $modalDuration : 0.2s;
     border: 2px solid #fff;
     width: 24px;
     height: 24px;
+    margin: 0;
     padding: 0;
     opacity: 0;
     transition: opacity $modalDuration, transform $modalDuration, background-color $modalDuration;
