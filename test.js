@@ -32,5 +32,9 @@ describe('Video Clip ID', function() {
      expect(clip('https://vimeo.com/247423335')).to.equal('247423335');
      expect(clip('http://vimeo.com/247423335')).to.equal('247423335');
 
+     // vimeo account
+     expect(clip('https://vimeo.com/davidfmiller')).to.equal(null);
+     expect(clip('http://vimeo.com/davidfmiller/')).to.equal(null);
+
  });
 });
