@@ -5,7 +5,9 @@
   "directories": {
     "doc": "docs"
   },
-  "scripts": {},
+  "scripts": {
+    "test" : "mocha"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:davidfmiller/modal.git"
@@ -17,11 +19,13 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.3.13",
+    "chai": "^4.1.2",
     "grunt": "^1.0.1",
     "grunt-contrib-compass": "^1.1.1",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.1.0",
     "grunt-contrib-watch": "^1.0.0",
+    "mocha": "^4.0.1",
     "webpack": "^3.10.0"
   },
   "bugs": {

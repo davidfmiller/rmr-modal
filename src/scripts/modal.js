@@ -12,10 +12,13 @@
  */
 
 (() => {
+
   'use strict';
 
   const
   // VERSION = '0.0.1',
+
+  getClipID = require('./clip'),
 
   MOBILE = typeof window.orientation !== 'undefined',
 
@@ -117,7 +120,7 @@
 
     const defaults = {
       autoplay: 1,
-      z : 1
+      z: 1
     };
 
     this.options = merge(defaults, options);
@@ -175,7 +178,7 @@
 
       const resizer = function() {
 
-        if (! self || ! self.options) { 
+        if (! self || ! self.options) {
           return;
         }
 
@@ -289,10 +292,12 @@
 
     } else if (this.options.youtube || this.options.vimeo) {
 
+      const clip = getClipID(this.options.youtube ? this.options.youtube : this.options.vimeo);
+
       init();
       const
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
-      iframe = '<iframe src="' + player + (this.options.youtube ? this.options.youtube : this.options.vimeo)  + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+      iframe = '<iframe src="' + player + clip  + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
       this.container.classList.add(PREFIX + 'video');
       this.container.innerHTML = iframe;
@@ -351,5 +356,10 @@
 
     return this;
   };
-  module.exports = Modal;
+
+  module.exports = {
+    Modal: Modal,
+    clip: getClipID
+  };
+
 })();
