@@ -4,7 +4,7 @@
 
   'use strict';
 
-  const URL = typeof window !== 'undefined' ? window.URL :  require('url').URL;
+  const URL = typeof window !== 'undefined' ? window.URL : require('url').URL;
 
   /**
    * Parse a YouTube or Vimeo video ID from its URL
@@ -21,6 +21,11 @@
       return url;
     }
 
+    // unsupported
+    if (typeof URL === 'undefined') {
+      return null;
+    }
+
     const
     o = new URL(url),
     params = o.searchParams;
@@ -29,8 +34,29 @@
       if (params.get('v')) {
         return params.get('v');
       }
-    } else if (o.hostname.indexOf('player.vimeo.com') !== -1) {
+
+      const paths = o.pathname.split('/');
+      let i = paths.length - 1;
+      // [ '', 'embed', 'sNaR1JRNayU', '' ]
+      while (i >= 0) {
+        if (paths[i]) { return paths[i]; }
+        i--;
+      }      
+
+//      if (o.pathname 
+
+    } else if (o.hostname.indexOf('vimeo.com') !== -1) {
+
+      if (o.hostname.indexOf('player.vimeo.com') !== -1) {
+        return o.pathname.split('/').pop();
+      }
+
+//      console.log(o.pathname.split('/'));
+
       return o.pathname.split('/').pop();
+    
+    
+      
     }
 
     return url;

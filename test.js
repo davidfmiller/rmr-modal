@@ -6,12 +6,12 @@ const
 //  assert = chai.assert,
   expect = chai.expect;
 
-// describe('Video Clip ID', function() {
-//  this.timeout(10000);
-// 
-//  it('clip', function extensionFor() {
-// 
-//     expect(clip('abc')).to.equal('abc');
+describe('Video Clip ID', function() {
+ this.timeout(10000);
+
+ it('clip', function extensionFor() {
+
+    expect(clip('abc')).to.equal('abc');
 
     // youtube watch & continue
       expect(clip('https://www.youtube.com/watch?time_continue=3&v=ybFrhA9waJs')).to.equal('ybFrhA9waJs');
@@ -22,8 +22,8 @@ const
      expect(clip('http://player.vimeo.com/video/244264989')).to.equal('244264989');
 
 //     // youtube embed
-//     expect(clip('https://www.youtube.com/embed/sNaR1JRNayU?autoplay=1')).to.equal('sNaR1JRNayU');
-//     expect(clip('http://www.youtube.com/embed/sNaR1JRNayU?autoplay=1')).to.equal('sNaR1JRNayU');
+     expect(clip('https://www.youtube.com/embed/sNaR1JRNayU/?autoplay=1')).to.equal('sNaR1JRNayU');
+     expect(clip('http://www.youtube.com/embed/sNaR1JRNayU?autoplay=1')).to.equal('sNaR1JRNayU');
 
 // 
 //     // vimeo staff picks
@@ -32,10 +32,8 @@ const
 
 // 
 //     // vimeo clip
-//     expect(clip('https://vimeo.com/247423335').to.equal('247423335'));
-//     expect(clip('http://vimeo.com/247423335').to.equal('247423335'));
+     expect(clip('https://vimeo.com/247423335')).to.equal('247423335');
+     expect(clip('http://vimeo.com/247423335')).to.equal('247423335');
 
-// 
-//  });
-// 
-// });
+ });
+});
