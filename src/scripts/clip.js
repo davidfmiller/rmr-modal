@@ -39,11 +39,11 @@
       let i = paths.length - 1;
       // [ '', 'embed', 'sNaR1JRNayU', '' ]
       while (i >= 0) {
-        if (paths[i]) { return paths[i]; }
+        if (paths[i]) {
+          return paths[i];
+        }
         i--;
-      }      
-
-//      if (o.pathname 
+      }
 
     } else if (o.hostname.indexOf('vimeo.com') !== -1) {
 
@@ -51,12 +51,7 @@
         return o.pathname.split('/').pop();
       }
 
-//      console.log(o.pathname.split('/'));
-
       return o.pathname.split('/').pop();
-    
-    
-      
     }
 
     return url;
