@@ -7,7 +7,7 @@
   const URL = typeof window !== 'undefined' ? window.URL : require('url').URL;
 
   /**
-   * Parse a YouTube or Vimeo video ID from its URL
+   * Parse a YouTube or Vimeo URL and retrieve the video/clip ID 
    *
    * @param {String} url the URL to be parsed
    * @return {String} the clip id

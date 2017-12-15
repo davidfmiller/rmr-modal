@@ -7,9 +7,8 @@ const
   expect = chai.expect;
 
 describe('Video Clip ID', function() {
- this.timeout(10000);
 
- it('clip', function extensionFor() {
+  it('clip', function extensionFor() {
 
     expect(clip('abc')).to.equal('abc');
 
@@ -21,17 +20,15 @@ describe('Video Clip ID', function() {
      expect(clip('https://player.vimeo.com/video/244264989')).to.equal('244264989');
      expect(clip('http://player.vimeo.com/video/244264989')).to.equal('244264989');
 
-//     // youtube embed
+     // youtube embed
      expect(clip('https://www.youtube.com/embed/sNaR1JRNayU/?autoplay=1')).to.equal('sNaR1JRNayU');
      expect(clip('http://www.youtube.com/embed/sNaR1JRNayU?autoplay=1')).to.equal('sNaR1JRNayU');
 
-// 
-//     // vimeo staff picks
-//     expect(clip('https://vimeo.com/channels/staffpicks/247423335')).to.equal('247423335');
-//     expect(clip('http://vimeo.com/channels/staffpicks/247423335')).to.equal('247423335');
+     // vimeo staff picks
+     expect(clip('https://vimeo.com/channels/staffpicks/247423335')).to.equal('247423335');
+     expect(clip('http://vimeo.com/channels/staffpicks/247423335')).to.equal('247423335');
 
-// 
-//     // vimeo clip
+     // vimeo clip
      expect(clip('https://vimeo.com/247423335')).to.equal('247423335');
      expect(clip('http://vimeo.com/247423335')).to.equal('247423335');
 
