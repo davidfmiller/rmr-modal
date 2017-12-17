@@ -96,7 +96,7 @@
      const n = document.createElement(type);
 
      for (const i in attrs) {
-       if (attrs.hasOwnProperty(i)) {
+       if (attrs.hasOwnProperty(i) && attrs[i]) {
          n.setAttribute(i, attrs[i]);
        }
      }
@@ -172,11 +172,8 @@
 
       document.body.classList.add(PREFIX + 'open');
 
-      self.container = document.createElement('div');
+      self.container = makeElement('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
       self.container.classList.add(PREFIX + 'dialog');
-      self.container.setAttribute('tabindex', -1);
-      self.container.setAttribute('role', 'dialog');
-      self.container.setAttribute('aria-hidden', 'true');
       self.container.style.zIndex = parseInt(self.options.z + 1, 10);
 
       document.body.insertBefore(self.bg, document.body.childNodes[0]);
@@ -270,6 +267,8 @@
           self.options.on.show(self.container, self.options);
         }
       }, 100);
+
+      self.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
     };
 
     if (this.options.url) {
