@@ -80,7 +80,6 @@ m.remove(); // remove dialog</pre>
     </p>
   </div>
 
-
   <div class="init">
     <button class="youtube" title="Open a YouTube modal">YouTube</button>
     <button class="vimeo" title="Open a Vimeo modal">Vimeo</button>
@@ -88,12 +87,23 @@ m.remove(); // remove dialog</pre>
     <button class="selector" title="Open a modal containing an existing node in the document">Selector</button>
     <button class="html" title="Open a modal containing new markup">HTML</button>
     <button class="xhr" title="Open a modal containing an XHR response">XHR</button>
+    <button class="video" title="Open a modal containing a video">Video</button>
+    <button class="image" disabled title="Open a modal containing an image">Image</button>
   </div>
+
+  <h2 id="todo"><a href="#todo" aria-hidden="true">#</a>TODO</h2>
+  <ul>
+    <li><code>&lt;video&gt;</code></li>
+    <li><code>&lt;img&gt;</code></li>
+    <li><code>width</code> &amp; <code>height</code> on modal</li>
+  </ul>
   <hr>
-  <p>
-    <a href="https://github.com/davidfmiller/modal">modal</a>
-    by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
-  </p>
+  <footer>
+    <p>
+      <a href="https://github.com/davidfmiller/modal">modal</a>
+      by <a href="https://readmeansrun.com" title="READMEANSRUN">READMEANSRUN</a>
+    </p>
+  </footer>
   </div>
   <script src="https://davidfmiller.github.io/man/man.js"></script>
   <script>window.Man({ pre: true } );</script>
@@ -120,6 +130,17 @@ m.remove(); // remove dialog</pre>
     vimeo = function() {
       init({
         vimeo: 'https://vimeo.com/175289264',
+        aspect: 966 / 405,
+        autoplay: 0
+      });
+    },
+    video = function() {
+      init({
+        video: {
+          'video/mp4' : 'assets/video.mp4',
+          'video/ogg' : 'assets/video.ogv',
+          'video/webm' : 'video/webm'
+        },
         aspect: 966 / 405,
         autoplay: 0
       });
@@ -162,6 +183,7 @@ m.remove(); // remove dialog</pre>
     document.querySelector('.reference').addEventListener('click', reference);
     document.querySelector('.selector').addEventListener('click', selector);
     document.querySelector('.html').addEventListener('click', html);
+    document.querySelector('button.video').addEventListener('click', video);
     xhrbut.addEventListener('click', xhr);
 
     document.addEventListener('keydown', function escapeLisenter(event) {
@@ -183,6 +205,9 @@ m.remove(); // remove dialog</pre>
           break;
         case 53: // 6
           xhr();
+          break;
+        case 54: // 7
+          video();
           break;
 
         default:
