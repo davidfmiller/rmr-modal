@@ -85,6 +85,25 @@
    */
 
   /*
+   * Create an element with a set of attributes/values
+   *
+   * @param type (String)
+   * @param attrs {Object}
+   *
+   * @return HTMLElement
+   */
+  makeElement = function(type, attrs) {
+     const n = document.createElement(type);
+
+     for (const i in attrs) {
+       if (attrs.hasOwnProperty(i)) {
+         n.setAttribute(i, attrs[i]);
+       }
+     }
+     return n;
+  },
+
+  /*
    * Merge two objects into one, values in b take precedence over values in a
    *
    * @param a {Object}
@@ -120,8 +139,13 @@
 
     const defaults = {
       autoplay: 1,
-      z: 1
+      z: 1,
+      attrs : {}
     };
+
+    if (options.hasOwnProperty('aspect') && options.hasOwnProperty('size')) {
+      throw new Error('Invalid arguments: aspect and size provided. Specify one or the other.');
+    }
 
     this.options = merge(defaults, options);
     this.bg = null;
@@ -154,7 +178,6 @@
       self.container.setAttribute('role', 'dialog');
       self.container.setAttribute('aria-hidden', 'true');
       self.container.style.zIndex = parseInt(self.options.z + 1, 10);
-      self.container.innerHTML = '<section></section>';
 
       document.body.insertBefore(self.bg, document.body.childNodes[0]);
       document.body.insertBefore(self.container, document.body.childNodes[0]);
@@ -176,6 +199,10 @@
       self.container.appendChild(but);
       but.addEventListener('click', dismiss);
 
+      if (self.options.hasOwnProperty('class')) {
+        self.container.classList.add(self.options.class);
+      }
+
       const resizer = function() {
 
         if (! self || ! self.options) {
@@ -183,19 +210,29 @@
         }
 
         const
+        aspect = self.options.hasOwnProperty('aspect') ? self.options.aspect : self.options.size.width / self.options.size.height,
         buffer = MOBILE ? 0 : 0.20, // portion of window that should be padding around modal
-        aspect = self.options.aspect,
+        size = self.options.size,
         modalSize = { width: 0, height: 0},
         windowSize = { width: window.innerWidth, height: window.innerHeight },
         verticalLimiter = (window.innerWidth / window.innerHeight) > aspect ? true : false;
 
-        if (verticalLimiter) {
-          modalSize.height = (windowSize.height - windowSize.height * buffer);
-          modalSize.width = modalSize.height * aspect;
-        } else {
-          modalSize.width = (windowSize.width - windowSize.width * buffer);
-          modalSize.height = modalSize.width / aspect;
+        // set size via aspect ratio that fits in browser window
+        if (self.options.hasOwnProperty('aspect')) {
+          if (verticalLimiter) {
+            modalSize.height = (windowSize.height - windowSize.height * buffer);
+            modalSize.width = modalSize.height * aspect;
+          } else {
+            modalSize.width = (windowSize.width - windowSize.width * buffer);
+            modalSize.height = modalSize.width / aspect;
+          }
         }
+        // set size via options parameters
+        else if (self.options.hasOwnProperty('size')) {
+          modalSize.width = self.options.size.width;
+          modalSize.height = self.options.size.height;
+        }
+        // undefined sizing behaviour 
 
         self.container.style.right = '';
         self.container.style.width = modalSize.width + 'px';
@@ -204,7 +241,7 @@
         self.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
       };
 
-      if (self.options.hasOwnProperty('aspect')) {
+      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
         resizer();
         self.resizeListener = window.addEventListener('resize', resizer);
       }
@@ -265,6 +302,27 @@
         }
 //      }, 0);
 
+    } else if (this.options.video) {
+
+      init();
+
+      self.container.classList.add(PREFIX + 'loading');
+
+      const video = makeElement('video', this.options.attrs);
+      for (const i in this.options.video) {
+        if (this.options.video.hasOwnProperty(i)) {
+          const source = makeElement('source', { type: i, src: this.options.video[i] });
+          video.appendChild(source);
+        }
+      }
+
+      video.addEventListener('loadeddata', () => {
+        self.container.classList.remove(PREFIX + 'loading');
+      });
+
+      this.container.appendChild(video);
+      post();
+
     } else if (this.options.node) {
 
       init();
@@ -277,9 +335,6 @@
 
       self.container.classList.add(PREFIX + 'node');
 
-      if (this.options.hasOwnProperty('class')) {
-        this.container.classList.add(this.options.class);
-      }
       this.container.innerHTML = '<section>' + node.innerHTML + '</section>';
       post();
 

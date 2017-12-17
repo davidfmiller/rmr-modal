@@ -26,7 +26,6 @@ $modalDuration : 0.2s;
   border-radius: 5px;
   box-shadow: 1px 1px 10px #000;
   box-sizing: border-box;
-  cursor: default;
   cursor: pointer;
   left: 0;
   opacity: 0;
@@ -34,6 +33,11 @@ $modalDuration : 0.2s;
   top: 0;
   transition: background $modalDuration, opacity $modalDuration, width $modalDuration, left $modalDuration, right $modalDuration, top $modalDuration, height $modalDuration;
   z-index: 1;
+
+  > video {
+    width: 100%;
+    height: 100%;
+  }
 
   &:focus {
     outline: none;
