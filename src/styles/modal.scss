@@ -25,15 +25,20 @@ $modalDuration : 0.2s;
 .rmr-modal-dialog {
 
   background: #000;
+  border-radius: 5px;
   box-shadow: 1px 1px 10px #000;
   box-sizing: border-box;
-/*  cursor: pointer;*/
   opacity: 0;
   position: fixed;
   transition: background $modalDuration, opacity $modalDuration;
   z-index: 1;
 
+  &.rmr-modal-xhr {
+    transition: background $modalDuration, opacity $modalDuration, width $modalDuration, left $modalDuration, right $modalDuration, top $modalDuration, height $modalDuration;
+  }
+
   &.rmr-modal-loading {
+
     .rmr-modal-curtains {
       opacity: 1;
     }

@@ -322,6 +322,7 @@
       init();
 
       self.elements.container.classList.add(PREFIX + 'loading');
+      self.elements.container.classList.add(PREFIX + 'xhr');
 
       addCurtains(self.elements.container);
 
@@ -351,7 +352,7 @@
           xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
           xhttp.send();
         }
-      }, 200);
+      }, 400);
 
     } else if (this.options.video) {
 

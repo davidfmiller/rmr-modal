@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 //    xhrbut.setAttribute('disabled', 1);
   }
 
+  // attach event listeners for example buttons
   document.querySelector('.youtube').addEventListener('click', youtube);
   document.querySelector('.vimeo').addEventListener('click', vimeo);
   document.querySelector('.reference').addEventListener('click', reference);
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   document.querySelector('button.image').addEventListener('click', image);
   xhrbut.addEventListener('click', xhr);
 
+  // attach key listener for keyboard shortcuts
   document.addEventListener('keydown', function escapeLisenter(event) {
     switch (event.keyCode) {
       case 49: // 1
