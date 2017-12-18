@@ -210,6 +210,11 @@
       }
 
       document.body.insertBefore(self.elements.bg, document.body.childNodes[0]);
+
+      window.setTimeout(function() {
+        self.elements.bg.classList.add(PREFIX + 'focus');
+      }, 0);
+
       document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
 
       self.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
@@ -269,6 +274,7 @@
         self.elements.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
         self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
 
+        // position svg loader
         const svg = self.elements.container.querySelector('svg');
         if (svg) {
           svg.style.left = (modalSize.width - 40) / 2  + 'px';
@@ -299,7 +305,7 @@
           }
         }
         if (self.elements.bg) {
-          self.elements.bg.classList.add(PREFIX + 'focus');
+//          self.elements.bg.classList.add(PREFIX + 'focus');
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {

@@ -8,7 +8,7 @@ $modalDuration : 0.2s;
   opacity: 0;
   position: fixed;
   top: 0;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background 0.2s, opacity 0.5s;
   width: 100%;
   z-index: 0;
 
@@ -25,15 +25,12 @@ $modalDuration : 0.2s;
 .rmr-modal-dialog {
 
   background: #000;
-  border-radius: 5px;
   box-shadow: 1px 1px 10px #000;
   box-sizing: border-box;
 /*  cursor: pointer;*/
-  left: 0;
   opacity: 0;
   position: fixed;
-  top: 0;
-  transition: background $modalDuration, opacity $modalDuration; /*width $modalDuration, left $modalDuration, right $modalDuration, top $modalDuration, height $modalDuration;*/
+  transition: background $modalDuration, opacity $modalDuration;
   z-index: 1;
 
   &.rmr-modal-loading {
@@ -50,7 +47,6 @@ $modalDuration : 0.2s;
     transition: opacity 0.2s;
     width: 100%;
     z-index: 2;
-    border-radius: 5px;
 
     svg#rmr-loader {
 
@@ -77,15 +73,15 @@ $modalDuration : 0.2s;
       rect,path {
         fill: rgba(255,255,255,0.8);
         transition: opacity 0.2s;
-        border-radius: 0;
       }
 
     }
   }
 
   > video {
-    width: 100%;
+    background: #000;
     height: 100%;
+    width: 100%;
   }
 
   &:focus {
@@ -132,8 +128,6 @@ $modalDuration : 0.2s;
   }
 
   &.rmr-modal-loading {
-
-    border-radius: 5px; 
     height: 60px;
     left: 45%;
     opacity: 1;
@@ -149,7 +143,6 @@ $modalDuration : 0.2s;
 
   /* youtube & video */
   &.rmr-modal-video {
-    border-radius: 0;
     height: 80%;
     left: 10%;
     top: 10%;
