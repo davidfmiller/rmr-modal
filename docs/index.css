@@ -39,7 +39,3 @@ footer {
 .rmr-modal-dialog.xhr-class {
   background: aqua;
 }
-
-body.rmr-modal-open .init button {
- visibility: hidden;
-}
