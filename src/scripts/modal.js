@@ -68,11 +68,12 @@
   },
    */
 
+
   /*
    * Retrieve an object containing { top : xx, left : xx, bottom: xx, right: xx, width: xx, height: xx }
    *
    * @param node (DOMNode)
-
+   */
   getRect = function(node) {
     const
     rect = node.getBoundingClientRect(),
@@ -89,7 +90,7 @@
 
     return ret;
   },
-   */
+
 
   /*
    * Create an element with a set of attributes/values
@@ -137,6 +138,22 @@
     return o;
   },
 
+  /*
+   *
+   */
+  addCurtains = function(parent) {
+    const curtains = makeElement('div', { class : PREFIX + 'curtains' });
+    curtains.innerHTML = LOADING_SVG;
+    parent.appendChild(curtains);
+
+    const rect = getRect(parent),
+    svg = parent.querySelector('svg');
+
+    console.log(rect);
+    svg.style.left = (rect.width - 40) / 2  + 'px';
+    svg.style.top = (rect.height - 40) / 2  + 'px';
+  },
+
   /**
    * Create a Modal instance
    *
@@ -157,6 +174,10 @@
     this.options = merge(defaults, options);
     this.bg = null;
     this.container = null;
+    this.elements = {
+      bg: null,
+      container: null
+    };
   };
 
   /**
@@ -173,18 +194,23 @@
       self.remove();
     },
     init = function() {
-      self.bg = document.createElement('div');
-      self.bg.classList.add(PREFIX + 'bg');
-      self.bg.style.zIndex = parseInt(self.options.z, 10);
+      self.elements.bg = document.createElement('div');
+      self.elements.bg.classList.add(PREFIX + 'bg');
+      self.elements.bg.style.zIndex = parseInt(self.options.z, 10);
 
       document.body.classList.add(PREFIX + 'open');
 
-      self.container = makeElement('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
-      self.container.classList.add(PREFIX + 'dialog');
-      self.container.style.zIndex = parseInt(self.options.z + 1, 10);
+      self.elements.container = makeElement('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
+      self.elements.container.classList.add(PREFIX + 'dialog');
+      self.elements.container.style.zIndex = parseInt(self.options.z + 1, 10);
 
-      document.body.insertBefore(self.bg, document.body.childNodes[0]);
-      document.body.insertBefore(self.container, document.body.childNodes[0]);
+      if (self.options.size) {
+        self.elements.container.style.width = self.options.size.width + 'px';
+        self.elements.container.style.height = self.options.size.height + 'px';
+      }
+
+      document.body.insertBefore(self.elements.bg, document.body.childNodes[0]);
+      document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
 
       self.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
         if (event.keyCode === 27) { // escape key
@@ -200,11 +226,11 @@
       but.classList.add(PREFIX + 'dismiss');
       but.innerHTML = localize('close');
       but.setAttribute('title', localize('close'));
-      self.container.appendChild(but);
+      self.elements.container.appendChild(but);
       but.addEventListener('click', dismiss);
 
       if (self.options.hasOwnProperty('class')) {
-        self.container.classList.add(self.options.class);
+        self.elements.container.classList.add(self.options.class);
       }
 
       const resizer = function() {
@@ -237,11 +263,18 @@
         }
         // undefined sizing behaviour
 
-        self.container.style.right = '';
-        self.container.style.width = modalSize.width + 'px';
-        self.container.style.height = modalSize.height + 'px';
-        self.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
-        self.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
+        self.elements.container.style.right = '';
+        self.elements.container.style.width = modalSize.width + 'px';
+        self.elements.container.style.height = modalSize.height + 'px';
+        self.elements.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
+        self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
+
+        const svg = self.elements.container.querySelector('svg');
+        if (svg) {
+          svg.style.left = (modalSize.width - 40) / 2  + 'px';
+          svg.style.top = (modalSize.height - 40) / 2  + 'px';
+        }
+
       };
 
       if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
@@ -251,22 +284,22 @@
 
       document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
-        self.container.classList.add(self.options.class);
+        self.elements.container.classList.add(self.options.class);
       }
 
-      self.bg.addEventListener('click', dismiss);
+      self.elements.bg.addEventListener('click', dismiss);
       window.setTimeout(function timeout() {
         if (! self) {
           return;
         }
-        if (self.container) {
-          self.container.classList.add(PREFIX + 'focus');
+        if (self.elements.container) {
+          self.elements.container.classList.add(PREFIX + 'focus');
           if (MOBILE) {
-            self.container.classList.add(PREFIX + 'mobile');
+            self.elements.container.classList.add(PREFIX + 'mobile');
           }
         }
-        if (self.bg) {
-          self.bg.classList.add(PREFIX + 'focus');
+        if (self.elements.bg) {
+          self.elements.bg.classList.add(PREFIX + 'focus');
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
@@ -274,17 +307,18 @@
         }
       }, 100);
 
-      self.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
+      self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
     };
 
     if (this.options.url) {
 
       init();
 
-      self.container.classList.add(PREFIX + 'loading');
-      self.container.innerHTML = LOADING_SVG;
+      self.elements.container.classList.add(PREFIX + 'loading');
 
-      self.container.querySelector('svg').addEventListener('click', function(e) {
+      addCurtains(self.elements.container);
+
+      self.elements.container.querySelector('svg').addEventListener('click', function(e) {
         self.remove();
       });
 
@@ -293,10 +327,10 @@
 
         if (this.readyState === 4) {
           if (this.status === 200) {
-            if (self.container) {
-              self.container.classList.add(PREFIX + 'node');
-              self.container.classList.remove(PREFIX + 'loading');
-              self.container.innerHTML = '<section>' + this.responseText + '</section>';
+            if (self.elements.container) {
+              self.elements.container.classList.add(PREFIX + 'node');
+              self.elements.container.classList.remove(PREFIX + 'loading');
+              self.elements.container.innerHTML = '<section>' + this.responseText + '</section>';
               post();
             }
           } else {
@@ -316,7 +350,7 @@
 
       init();
 
-      self.container.classList.add(PREFIX + 'loading');
+      self.elements.container.classList.add(PREFIX + 'loading');
 
       const video = makeElement('video', this.options.attrs);
       for (const i in this.options.video) {
@@ -326,11 +360,15 @@
         }
       }
 
+      addCurtains(self.elements.container);
+
       video.addEventListener('loadeddata', () => {
-        self.container.classList.remove(PREFIX + 'loading');
+      window.setTimeout(function() {
+        self.elements.container.classList.remove(PREFIX + 'loading');
+        }, 400);
       });
 
-      this.container.appendChild(video);
+      self.elements.container.appendChild(video);
       post();
 
     } else if (this.options.node) {
@@ -343,16 +381,16 @@
         return;
       }
 
-      self.container.classList.add(PREFIX + 'node');
+      self.elements.container.classList.add(PREFIX + 'node');
 
-      this.container.innerHTML = '<section>' + node.innerHTML + '</section>';
+      self.elements.container.innerHTML = '<section>' + node.innerHTML + '</section>';
       post();
 
     } else if (this.options.html) {
 
       init();
-      this.container.classList.add(PREFIX + 'node');
-      this.container.innerHTML = '<section>' + this.options.html + '</section>';
+      self.elements.container.classList.add(PREFIX + 'node');
+      self.elements.container.innerHTML = '<section>' + this.options.html + '</section>';
       post();
 
     } else if (this.options.youtube || this.options.vimeo) {
@@ -364,8 +402,8 @@
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
       iframe = '<iframe src="' + player + (clip ? clip : '')  + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
-      this.container.classList.add(PREFIX + 'video');
-      this.container.innerHTML = iframe;
+      self.elements.container.classList.add(PREFIX + 'video');
+      self.elements.container.innerHTML = iframe;
       post();
 
     } else {
@@ -387,17 +425,17 @@
 
     document.body.classList.remove(PREFIX + 'open');
 
-    if (self.container) {
-      this.container.classList.remove(PREFIX + 'focus');
+    if (self.elements.container) {
+      self.elements.container.classList.remove(PREFIX + 'focus');
     }
-    if (self.bg) {
-      this.bg.classList.add(PREFIX + 'dismiss');
+    if (self.elements.bg) {
+      self.elements.bg.classList.add(PREFIX + 'dismiss');
     }
 
     document.body.classList.remove(PREFIX + 'open');
 
     if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
-      self.options.on.remove(self.container, self.options);
+      self.options.on.remove(self.elements.container, self.options);
     }
 
     window.setTimeout(
@@ -406,13 +444,14 @@
           return;
         }
 
-        if (self.bg) {
-          document.body.removeChild(self.bg);
+        if (self.elements.bg) {
+          document.body.removeChild(self.elements.bg);
         }
-        if (self.container) {
-          document.body.removeChild(self.container);
+        if (self.elements.container) {
+          document.body.removeChild(self.elements.container);
         }
-        self.resizeListener = self.keyListener = self.options = self.bg = self.container = null;
+        self.resizeListener = self.keyListener = self.options = null;
+        self.elements = { container: null, bg: null };
       }, 200
     );
 
