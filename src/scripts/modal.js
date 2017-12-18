@@ -218,8 +218,8 @@
 
       document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
 
-      self.keyListener = document.addEventListener('keydown', function escapeLisenter(event) {
-        if (event.keyCode === 27) { // escape key
+      self.keyListener = document.addEventListener('keydown', (e) => {
+        if (e.keyCode === 27) { // escape key
           self.remove();
         }
       });
@@ -295,7 +295,7 @@
       }
 
       self.elements.bg.addEventListener('click', dismiss);
-      window.setTimeout(function timeout() {
+      window.setTimeout(() => {
         if (! self) {
           return;
         }
