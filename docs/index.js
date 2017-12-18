@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   var xhrbut = document.querySelector('.xhr');
   if (document.location.protocol == 'file:') {
-    xhrbut.setAttribute('disabled', 1);
+//    xhrbut.setAttribute('disabled', 1);
   }
 
   document.querySelector('.youtube').addEventListener('click', youtube);
