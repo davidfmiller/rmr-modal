@@ -223,7 +223,7 @@
 
         if (e.keyCode === 27) { // escape key
           self.remove();
-        } else if (e.keyCode === 32 && self.options.video) { // spacebar
+        } else if (e.keyCode === 32 && self.options && self.options.video) { // spacebar
 
           const video = self.elements.container.querySelector('video');
           if (video) {
