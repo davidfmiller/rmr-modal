@@ -225,6 +225,8 @@
           self.remove();
         } else if (e.keyCode === 32 && self.options && self.options.video) { // spacebar
 
+          e.preventDefault();
+
           const video = self.elements.container.querySelector('video');
           if (video) {
             if (video.paused) {
@@ -236,11 +238,6 @@
         }
       });
 
-      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
-      but.innerHTML = localize('close');
-      self.elements.container.appendChild(but);
-      but.addEventListener('click', dismiss);
-      but.focus();
     },
     post = function() {
       if (! self.options) {
@@ -250,6 +247,17 @@
       if (self.options.hasOwnProperty('class')) {
         self.elements.container.classList.add(self.options.class);
       }
+
+      const curtains = self.elements.container.querySelector('.' + PREFIX + 'curtains');
+      if (curtains) {
+        window.setTimeout(function() { curtains.parentNode.removeChild(curtains); }, 200);
+      }
+
+      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
+      but.innerHTML = localize('close');
+      self.elements.container.appendChild(but);
+      but.addEventListener('click', dismiss);
+      but.focus();
 
       const resizer = function() {
 
@@ -382,10 +390,11 @@
 
       window.setTimeout(function() {
         image.srcset = self.options.image;
-      }, 400);
+        post();
+      }, 500);
 
       self.elements.container.appendChild(image);
-      post();
+
 
     } else if (this.options.video) {
 
@@ -394,6 +403,7 @@
       self.elements.container.classList.add(PREFIX + 'loading');
 
       const video = makeElement('video', this.options.attrs);
+      video.setAttribute('tabindex', -1);
       for (const i in this.options.video) {
         if (this.options.video.hasOwnProperty(i)) {
           const source = makeElement('source', { type: i, src: this.options.video[i] });
@@ -404,7 +414,7 @@
       addCurtains(self.elements.container);
 
       video.addEventListener('loadeddata', () => {
-        video.focus();
+//        video.focus();
         window.setTimeout(function() {
           self.elements.container.classList.remove(PREFIX + 'loading');
         }, 400);
