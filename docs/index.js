@@ -68,7 +68,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
     init({
       node: '#node-selector',
       aspect: 3 / 2,
-      z: 3
+      z: 3,
+      on : {
+        show : function(container) {
+        console.log(arguments);
+          container.querySelector('footer button').addEventListener('click', function(e) {
+            modal.remove();
+          });
+        }
+      }
     });
   },
 
@@ -115,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   // attach key listener for keyboard shortcuts
   document.addEventListener('keydown', function escapeLisenter(event) {
+
+//    console.log(event.keyCode);
+
     switch (event.keyCode) {
       case 49: // 1
         youtube();
@@ -131,14 +142,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
       case 53: // 5
         html();
         break;
-      case 53: // 6
+      case 54: // 6
         xhr();
         break;
-      case 54: // 7
+      case 55: // 7
         videoScale();
         break;
-      case 55: // 8
+      case 56: // 8
         videoFixed();
+        break;
+      case 57: // 9
+        image();
         break;
 
       default:

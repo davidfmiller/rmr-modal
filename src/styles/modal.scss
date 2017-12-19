@@ -188,7 +188,9 @@ $modalDuration : 0.2s;
     width: 24px;
     z-index: 3;
 
+    &:focus,
     &:hover {
+      outline: none;
       transform: scale(1.2, 1.2);
     }
   }

@@ -227,10 +227,8 @@
       if (! self.options) {
         return;
       }
-      const but = document.createElement('button');
-      but.classList.add(PREFIX + 'dismiss');
+      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
       but.innerHTML = localize('close');
-      but.setAttribute('title', localize('close'));
       self.elements.container.appendChild(but);
       but.addEventListener('click', dismiss);
 
@@ -309,11 +307,12 @@
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
-          self.options.on.show(self.container, self.options);
+          self.options.on.show(self.elements.container, self.options);
         }
       }, 100);
 
       self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
+      but.focus();
     };
 
     if (this.options.url) {
