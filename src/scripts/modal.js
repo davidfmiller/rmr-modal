@@ -265,8 +265,10 @@
           return;
         }
 
+        let resize = false;
+
         const
-        aspect = self.options.hasOwnProperty('aspect') ? self.options.aspect : self.options.size.width / self.options.size.height,
+        aspect = self.options.hasOwnProperty('aspect') ? self.options.aspect : self.options.hasOwnProperty('size') ? self.options.size.width / self.options.size.height : 0,
         buffer = MOBILE ? 0 : 0.20, // portion of window that should be padding around modal
         modalSize = { width: 0, height: 0},
         windowSize = { width: window.innerWidth, height: window.innerHeight },
@@ -274,6 +276,7 @@
 
         // set size via aspect ratio that fits in browser window
         if (self.options.hasOwnProperty('aspect')) {
+          resize = true;
           if (verticalLimiter) {
             modalSize.height = (windowSize.height - windowSize.height * buffer);
             modalSize.width = modalSize.height * aspect;
@@ -284,30 +287,41 @@
 
         // set size via options parameters
         } else if (self.options.hasOwnProperty('size')) {
+          resize = true;
           modalSize.width = self.options.size.width;
           modalSize.height = self.options.size.height;
+        } else {
+
+          const section = self.elements.container.querySelector('section.' + PREFIX + 'section');
+          if (section) {
+            section.style.maxHeight = (windowSize.height * (1 - buffer))  + 'px';
+          }
+
         }
         // undefined sizing behaviour
 
-        self.elements.container.style.right = '';
-        self.elements.container.style.width = modalSize.width + 'px';
-        self.elements.container.style.height = modalSize.height + 'px';
-        self.elements.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
-        self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
+        if (resize) {
+          self.elements.container.style.right = '';
+          self.elements.container.style.width = modalSize.width + 'px';
+          self.elements.container.style.height = modalSize.height + 'px';
+          self.elements.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
+          self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
 
-        // position svg loader
-        const svg = self.elements.container.querySelector('svg');
-        if (svg) {
-          svg.style.left = (modalSize.width - 40) / 2  + 'px';
-          svg.style.top = (modalSize.height - 40) / 2  + 'px';
+          // position svg loader
+          const svg = self.elements.container.querySelector('svg');
+          if (svg) {
+            svg.style.left = (modalSize.width - 40) / 2  + 'px';
+            svg.style.top = (modalSize.height - 40) / 2  + 'px';
+          }
         }
 
+//        console.log('resize');
       };
 
-      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
-        resizer();
+      resizer();
+//      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
         self.resizeListener = window.addEventListener('resize', resizer);
-      }
+//      }
 
       document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
@@ -357,7 +371,7 @@
             if (self.elements.container) {
               self.elements.container.classList.add(PREFIX + 'node');
               self.elements.container.classList.remove(PREFIX + 'loading');
-              self.elements.container.innerHTML = '<section>' + this.responseText + '</section>';
+              self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.responseText + '</section>';
               post();
             }
           } else {
@@ -435,14 +449,14 @@
 
       self.elements.container.classList.add(PREFIX + 'node');
 
-      self.elements.container.innerHTML = '<section>' + node.innerHTML + '</section>';
+      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + node.innerHTML + '</section>';
       post();
 
     } else if (this.options.html) {
 
       init();
       self.elements.container.classList.add(PREFIX + 'node');
-      self.elements.container.innerHTML = '<section>' + this.options.html + '</section>';
+      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
       post();
 
     } else if (this.options.youtube || this.options.vimeo) {

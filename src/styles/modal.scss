@@ -116,6 +116,7 @@ $modalDuration : 0.2s;
 
   > section {
     transition: opacity $modalDuration;
+    overflow: auto;    
   }
 
   &.rmr-modal-focus {
