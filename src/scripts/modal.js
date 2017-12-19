@@ -218,19 +218,34 @@
       document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
 
       self.keyListener = document.addEventListener('keydown', (e) => {
+
+//        console.log(e.keyCode);
+
         if (e.keyCode === 27) { // escape key
           self.remove();
+        } else if (e.keyCode === 32 && self.options.video) { // spacebar
+
+          const video = self.elements.container.querySelector('video');
+          if (video) {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          }
         }
       });
+
+      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
+      but.innerHTML = localize('close');
+      self.elements.container.appendChild(but);
+      but.addEventListener('click', dismiss);
+      but.focus();
     },
     post = function() {
       if (! self.options) {
         return;
       }
-      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
-      but.innerHTML = localize('close');
-      self.elements.container.appendChild(but);
-      but.addEventListener('click', dismiss);
 
       if (self.options.hasOwnProperty('class')) {
         self.elements.container.classList.add(self.options.class);
@@ -312,7 +327,6 @@
       }, 100);
 
       self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
-      but.focus();
     };
 
     if (this.options.url) {
@@ -390,8 +404,9 @@
       addCurtains(self.elements.container);
 
       video.addEventListener('loadeddata', () => {
-      window.setTimeout(function() {
-        self.elements.container.classList.remove(PREFIX + 'loading');
+        video.focus();
+        window.setTimeout(function() {
+          self.elements.container.classList.remove(PREFIX + 'loading');
         }, 400);
       });
 
@@ -425,6 +440,7 @@
       const clip = getClipID(this.options.youtube ? this.options.youtube : this.options.vimeo);
 
       init();
+
       const
       player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
       iframe = '<iframe src="' + player + (clip ? clip : '')  + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
