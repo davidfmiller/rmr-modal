@@ -39,6 +39,10 @@ $modalDuration : 0.2s;
 
   &.rmr-modal-loading {
 
+    button.rmr-modal-dismiss {
+      display: none;
+    }
+
     .rmr-modal-curtains {
       opacity: 1;
     }
@@ -83,6 +87,7 @@ $modalDuration : 0.2s;
     }
   }
 
+  > img,
   > video {
     background: #000;
     height: 100%;

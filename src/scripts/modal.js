@@ -150,7 +150,6 @@
     const rect = getRect(parent),
     svg = parent.querySelector('svg');
 
-    console.log(rect);
     svg.style.left = (rect.width - 40) / 2  + 'px';
     svg.style.top = (rect.height - 40) / 2  + 'px';
   },
@@ -322,7 +321,6 @@
       init();
 
       self.elements.container.classList.add(PREFIX + 'loading');
-      self.elements.container.classList.add(PREFIX + 'xhr');
 
       addCurtains(self.elements.container);
 
@@ -352,7 +350,29 @@
           xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
           xhttp.send();
         }
+      }, 200);
+
+    } else if (this.options.image) {
+
+      init();
+
+      self.elements.container.classList.add(PREFIX + 'loading');
+
+      const image = makeElement('img', this.options.attrs);
+
+      addCurtains(self.elements.container);
+
+      image.onload = () => {
+        self.elements.container.classList.remove(PREFIX + 'loading');
+        post();
+      };
+
+      window.setTimeout(function() {
+        image.srcset = self.options.image;
       }, 400);
+
+      self.elements.container.appendChild(image);
+      post();
 
     } else if (this.options.video) {
 

@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   selector = function() {
     init({
       node: '#node-selector',
-      aspect: 1.5,
+      aspect: 3 / 2,
       z: 3
     });
   },
@@ -80,7 +80,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
   },
 
   image = function() {
-    alert('todo!');
+    init({
+      image: 'assets/image.jpg',
+      aspect : 3 / 2
+    });
   },
 
   xhr = function() {
