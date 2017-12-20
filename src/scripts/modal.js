@@ -249,9 +249,8 @@
       }
 
       const curtains = self.elements.container.querySelector('.' + PREFIX + 'curtains');
-      if (curtains) {
-        window.setTimeout(function() { curtains.parentNode.removeChild(curtains); }, 200);
-      }
+      window.setTimeout(function() { if (curtains && curtains.parentNode) { curtains.parentNode.removeChild(curtains); } }, 200);
+
 
       const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
       but.innerHTML = localize('close');
