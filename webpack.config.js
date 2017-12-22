@@ -13,16 +13,16 @@ const config = {
     filename: 'modal.bundle.js'
   },
   watch: true,
-  plugins : [/*
+  plugins : [
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     })
-  */],
+  ],
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
+//        include: path.resolve(__dirname, 'src'),
         use: [{
           loader: 'babel-loader',
           options: {
