@@ -3,6 +3,8 @@
  */
 document.addEventListener('DOMContentLoaded', function(event) {
 
+//  window.Man({ pre: true } );
+
   var
  
   // 

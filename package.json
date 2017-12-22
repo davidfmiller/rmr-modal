@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test" : "mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/davidfmiller/modal/issues"
   },
-  "homepage": "https://davidfmiller.github.io/modal"
+  "homepage": "https://davidfmiller.github.io/modal",
+  "dependencies": {
+    "rmr-util": "^1.0.0"
+  }
 }

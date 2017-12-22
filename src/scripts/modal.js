@@ -18,16 +18,11 @@
   const
   // VERSION = '0.0.1',
 
-  LOADING_SVG = '<svg version="1.1" id="rmr-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">' +
-    '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"></path>' +
-    '<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z">' +
-    '<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.8s" repeatCount="indefinite"></animateTransform>' +
-    '</path>' +
-    '</svg>',
+  RMR = require('rmr-util'),
 
   getClipID = require('./clip'),
 
-  MOBILE = typeof window.orientation !== 'undefined',
+  MOBILE = RMR.Browser.isTouch(),
 
   PREFIX = 'rmr-modal-',
   LANG = {
@@ -48,106 +43,15 @@
   },
 
   /*
-   * Convert an array-like thing (ex: NodeList or arguments object) into a proper array
-   *
-   * @param list (array-like thing)
-   * @return Array
-  arr = function(list) {
-    const ret = [];
-    let i = 0;
-
-    if (! list.length) {
-      return ret;
-    }
-
-    for (i = 0; i < list.length; i++) {
-      ret.push(list[i]);
-    }
-
-    return ret;
-  },
-   */
-
-
-  /*
-   * Retrieve an object containing { top : xx, left : xx, bottom: xx, right: xx, width: xx, height: xx }
-   *
-   * @param node (DOMNode)
-   */
-  getRect = function(node) {
-    const
-    rect = node.getBoundingClientRect(),
-    ret = { top: rect.top, left: rect.left, bottom: rect.bottom, right: rect.right }; // create a new object that is not read-only
-
-    ret.top += window.pageYOffset;
-    ret.left += window.pageXOffset;
-
-    ret.bottom += window.pageYOffset;
-    ret.right += window.pageYOffset;
-
-    ret.width = rect.right - rect.left;
-    ret.height = rect.bottom - rect.top;
-
-    return ret;
-  },
-
-
-  /*
-   * Create an element with a set of attributes/values
-   *
-   * @param type (String)
-   * @param attrs {Object}
-   *
-   * @return HTMLElement
-   */
-  makeElement = function(type, attrs) {
-     const n = document.createElement(type);
-
-     for (const i in attrs) {
-       if (attrs.hasOwnProperty(i) && attrs[i]) {
-         n.setAttribute(i, attrs[i]);
-       }
-     }
-     return n;
-  },
-
-  /*
-   * Merge two objects into one, values in b take precedence over values in a
-   *
-   * @param a {Object}
-   * @param b {Object}
-
-   * @return Object
-   */
-  merge = function(a, b) {
-    const o = {};
-    let i;
-    for (i in a) {
-      if (a.hasOwnProperty(i)) {
-        o[i] = a[i];
-      }
-    }
-    if (! b) {
-      return o;
-    }
-    for (i in b) {
-      if (b.hasOwnProperty(i)) {
-        o[i] = b[i];
-      }
-    }
-    return o;
-  },
-
-  /*
    *
    */
   addCurtains = function(parent) {
 
-    const curtains = makeElement('div', { class: PREFIX + 'curtains' });
-    curtains.innerHTML = LOADING_SVG;
+    const curtains = RMR.Node.make('div', { class: PREFIX + 'curtains' });
+    curtains.innerHTML = RMR.Node.loader();
     parent.appendChild(curtains);
 
-    const rect = getRect(parent),
+    const rect = RMR.Node.getRect(parent),
     svg = parent.querySelector('svg');
 
     svg.style.left = (rect.width - 40) / 2  + 'px';
@@ -171,7 +75,7 @@
       throw new Error('Invalid arguments: aspect and size provided. Specify one or the other.');
     }
 
-    this.options = merge(defaults, options);
+    this.options = RMR.Object.merge(defaults, options);
     this.bg = null;
     this.container = null;
     this.elements = {
@@ -200,7 +104,7 @@
 
       document.body.classList.add(PREFIX + 'open');
 
-      self.elements.container = makeElement('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
+      self.elements.container = RMR.Node.make('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
       self.elements.container.classList.add(PREFIX + 'dialog');
       self.elements.container.style.zIndex = parseInt(self.options.z + 1, 10);
 
@@ -252,7 +156,7 @@
       window.setTimeout(function() { if (curtains && curtains.parentNode) { curtains.parentNode.removeChild(curtains); } }, 200);
 
 
-      const but = makeElement('button', { class: PREFIX + 'dismiss', title: localize('close')} );
+      const but = RMR.Node.make('button', { class: PREFIX + 'dismiss', title: localize('close')} );
       but.innerHTML = localize('close');
       self.elements.container.appendChild(but);
       but.addEventListener('click', dismiss);
@@ -392,7 +296,7 @@
 
       self.elements.container.classList.add(PREFIX + 'loading');
 
-      const image = makeElement('img', this.options.attrs);
+      const image = RMR.Node.make('img', this.options.attrs);
 
       addCurtains(self.elements.container);
 
@@ -415,11 +319,11 @@
 
       self.elements.container.classList.add(PREFIX + 'loading');
 
-      const video = makeElement('video', this.options.attrs);
+      const video = RMR.Node.make('video', this.options.attrs);
       video.setAttribute('tabindex', -1);
       for (const i in this.options.video) {
         if (this.options.video.hasOwnProperty(i)) {
-          const source = makeElement('source', { type: i, src: this.options.video[i] });
+          const source = RMR.Node.make('source', { type: i, src: this.options.video[i] });
           video.appendChild(source);
         }
       }

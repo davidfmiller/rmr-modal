@@ -1,1 +1,2638 @@
-!function(t){function e(o){if(n[o])return n[o].exports;var s=n[o]={i:o,l:!1,exports:{}};return t[o].call(s.exports,s,s.exports,e),s.l=!0,s.exports}var n={};e.m=t,e.c=n,e.d=function(t,n,o){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=0)}([function(t,e,n){"use strict";!function(){window.Modal=n(1).Modal}()},function(t,e,n){"use strict";!function(){var e=n(2),o=void 0!==window.orientation,s="rmr-modal-",r={close:"Close"},i=function(t,e){return e||(e=r),r.hasOwnProperty(t)?r[t]:(console.warn("No localization for "+t),t)},a=function(t){var e=t.getBoundingClientRect(),n={top:e.top,left:e.left,bottom:e.bottom,right:e.right};return n.top+=window.pageYOffset,n.left+=window.pageXOffset,n.bottom+=window.pageYOffset,n.right+=window.pageYOffset,n.width=e.right-e.left,n.height=e.bottom-e.top,n},h=function(t,e){var n=document.createElement(t);for(var o in e)e.hasOwnProperty(o)&&e[o]&&n.setAttribute(o,e[o]);return n},l=function(t,e){var n={},o=void 0;for(o in t)t.hasOwnProperty(o)&&(n[o]=t[o]);if(!e)return n;for(o in e)e.hasOwnProperty(o)&&(n[o]=e[o]);return n},c=function(t){var e=h("div",{class:s+"curtains"});e.innerHTML='<svg version="1.1" id="rmr-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve"><path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"></path><path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.8s" repeatCount="indefinite"></animateTransform></path></svg>',t.appendChild(e);var n=a(t),o=t.querySelector("svg");o.style.left=(n.width-40)/2+"px",o.style.top=(n.height-40)/2+"px"},u=function(t){var e={autoplay:1,z:1,attrs:{}};if(t.hasOwnProperty("aspect")&&t.hasOwnProperty("size"))throw new Error("Invalid arguments: aspect and size provided. Specify one or the other.");this.options=l(e,t),this.bg=null,this.container=null,this.elements={bg:null,container:null}};u.prototype.show=function(){var t=this,n=function(){t.remove()},r=function(){t.elements.bg=document.createElement("div"),t.elements.bg.classList.add(s+"bg"),t.elements.bg.style.zIndex=parseInt(t.options.z,10),document.body.classList.add(s+"open"),t.elements.container=h("div",{tabindex:-1,role:"dialog","aria-hidden":!0}),t.elements.container.classList.add(s+"dialog"),t.elements.container.style.zIndex=parseInt(t.options.z+1,10),t.options.size&&(t.elements.container.style.width=t.options.size.width+"px",t.elements.container.style.height=t.options.size.height+"px"),document.body.insertBefore(t.elements.bg,document.body.childNodes[0]),window.setTimeout(function(){t.elements.bg.classList.add(s+"focus")},0),document.body.insertBefore(t.elements.container,document.body.childNodes[0]),t.keyListener=document.addEventListener("keydown",function(e){if(27===e.keyCode)t.remove();else if(32===e.keyCode&&t.options&&t.options.video){e.preventDefault();var n=t.elements.container.querySelector("video");n&&(n.paused?n.play():n.pause())}})},a=function(){if(t.options){t.options.hasOwnProperty("class")&&t.elements.container.classList.add(t.options.class);var e=t.elements.container.querySelector(".rmr-modal-curtains");window.setTimeout(function(){e&&e.parentNode&&e.parentNode.removeChild(e)},200);var r=h("button",{class:s+"dismiss",title:i("close")});r.innerHTML=i("close"),t.elements.container.appendChild(r),r.addEventListener("click",n),r.focus();var a=function(){if(t&&t.options){var e=!1,n=t.options.hasOwnProperty("aspect")?t.options.aspect:t.options.hasOwnProperty("size")?t.options.size.width/t.options.size.height:0,s=o?0:.2,r={width:0,height:0},i={width:window.innerWidth,height:window.innerHeight},a=window.innerWidth/window.innerHeight>n;if(t.options.hasOwnProperty("aspect"))e=!0,a?(r.height=i.height-i.height*s,r.width=r.height*n):(r.width=i.width-i.width*s,r.height=r.width/n);else if(t.options.hasOwnProperty("size"))e=!0,r.width=t.options.size.width,r.height=t.options.size.height;else{var h=t.elements.container.querySelector("section.rmr-modal-section");h&&(h.style.maxHeight=i.height*(1-s)+"px")}if(e){t.elements.container.style.right="",t.elements.container.style.width=r.width+"px",t.elements.container.style.height=r.height+"px",t.elements.container.style.left=(i.width-r.width)/2+"px",t.elements.container.style.top=(i.height-r.height)/2+"px";var l=t.elements.container.querySelector("svg");l&&(l.style.left=(r.width-40)/2+"px",l.style.top=(r.height-40)/2+"px")}}};a(),t.resizeListener=window.addEventListener("resize",a),document.body.classList.add(s+"open"),t.options.hasOwnProperty("class")&&t.elements.container.classList.add(t.options.class),t.elements.bg.addEventListener("click",n),window.setTimeout(function(){t&&(t.elements.container&&(t.elements.container.classList.add(s+"focus"),o&&t.elements.container.classList.add(s+"mobile")),t.elements.bg,t.options&&t.options.hasOwnProperty("on")&&t.options.on.hasOwnProperty("show")&&t.options.on.show(t.elements.container,t.options))},100),t.elements.container.appendChild(document.createComment("Created by modal - https://github.com/davidfmiller/modal "))}};if(this.options.url){r(),t.elements.container.classList.add(s+"loading"),c(t.elements.container),t.elements.container.querySelector("svg").addEventListener("click",function(){t.remove()});var l=new XMLHttpRequest;l.onreadystatechange=function(){4===this.readyState&&200===this.status&&t.elements.container&&(t.elements.container.classList.add(s+"node"),t.elements.container.classList.remove(s+"loading"),t.elements.container.innerHTML='<section class="rmr-modal-section">'+this.responseText+"</section>",a())},window.setTimeout(function(){t.options&&(l.open(t.options.hasOwnProperty("method")?t.options.method:"get",t.options.url,!0),l.send())},200)}else if(this.options.image){r(),t.elements.container.classList.add(s+"loading");var u=h("img",this.options.attrs);c(t.elements.container),u.onload=function(){t.elements.container.classList.remove(s+"loading"),a()},window.setTimeout(function(){u.srcset=t.options.image,a()},500),t.elements.container.appendChild(u)}else if(this.options.video){r(),t.elements.container.classList.add(s+"loading");var p=h("video",this.options.attrs);p.setAttribute("tabindex",-1);for(var f in this.options.video)if(this.options.video.hasOwnProperty(f)){var d=h("source",{type:f,src:this.options.video[f]});p.appendChild(d)}c(t.elements.container),p.addEventListener("loadeddata",function(){window.setTimeout(function(){t.elements.container.classList.remove(s+"loading")},400)}),t.elements.container.appendChild(p),a()}else if(this.options.node){r();var m="string"==typeof this.options.node?document.querySelector(this.options.node):this.options.node;if(!m)throw new Error("Invalid node for modal :"+m);t.elements.container.classList.add(s+"node"),t.elements.container.innerHTML='<section class="rmr-modal-section">'+m.innerHTML+"</section>",a()}else if(this.options.html)r(),t.elements.container.classList.add(s+"node"),t.elements.container.innerHTML='<section class="rmr-modal-section">'+this.options.html+"</section>",a();else{if(!this.options.youtube&&!this.options.vimeo)throw new Error("Invalid modal parameters: "+JSON.stringify(this.options));var v=e(this.options.youtube?this.options.youtube:this.options.vimeo);r();var y=this.options.hasOwnProperty("youtube")?"https://www.youtube.com/embed/":"https://player.vimeo.com/video/",g='<iframe src="'+y+(v||"")+(this.options.autoplay?"?autoplay=1":"")+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';t.elements.container.classList.add(s+"video"),t.elements.container.innerHTML=g,a()}return this},u.prototype.remove=function(){var t=this;return document.body.classList.remove(s+"open"),t.elements.container&&t.elements.container.classList.remove(s+"focus"),t.elements.bg&&t.elements.bg.classList.add(s+"dismiss"),document.body.classList.remove(s+"open"),t.options&&t.options.hasOwnProperty("on")&&t.options.on.hasOwnProperty("remove")&&t.options.on.remove(t.elements.container,t.options),window.setTimeout(function(){t&&(t.elements.bg&&document.body.removeChild(t.elements.bg),t.elements.container&&document.body.removeChild(t.elements.container),t.resizeListener=t.keyListener=t.options=null,t.elements={container:null,bg:null})},200),window.removeEventListener("resize",t.resizeListener),document.removeEventListener("keydown",t.keyListener),this},t.exports={Modal:u,clip:e}}()},function(t,e,n){"use strict";!function(){var e="undefined"!=typeof window?window.URL:n(3).URL,o=function(t){if(t instanceof Array)return t;var e=[],n=0;if(!t.length)return e;for(n=0;n<t.length;n++)e.push(t[n]);return e},s=function(t,e){t=o(t);for(var n=t.length-1;n>=0;){if(e?e(t[n]):t[n])return t[n];n--}return null},r=function(t){if(t=""+t,"http:"!==t.substring(0,"5")&&"https://"!==t.substring(0,"8")&&"//"!==t.substring(0,2))return t;if(void 0===e)return null;var n=new e(t),o=n.searchParams;if(-1!==n.hostname.indexOf("youtube.com")){if(o.get("v"))return o.get("v");var r=n.pathname.split("/");return s(r)}if(-1!==n.hostname.indexOf("vimeo.com")){if(-1!==n.hostname.indexOf("player.vimeo.com"))return s(n.pathname.split("/"));var i=s(n.pathname.split("/"));return parseInt(i,10)?i:null}return t};t.exports=r}()},function(t,e,n){"use strict";function o(){this.protocol=null,this.slashes=null,this.auth=null,this.host=null,this.port=null,this.hostname=null,this.hash=null,this.search=null,this.query=null,this.pathname=null,this.path=null,this.href=null}function s(t,e,n){if(t&&l.isObject(t)&&t instanceof o)return t;var s=new o;return s.parse(t,e,n),s}function r(t){return l.isString(t)&&(t=s(t)),t instanceof o?t.format():o.prototype.format.call(t)}function i(t,e){return s(t,!1,!0).resolve(e)}function a(t,e){return t?s(t,!1,!0).resolveObject(e):e}var h=n(4),l=n(7);e.parse=s,e.resolve=i,e.resolveObject=a,e.format=r,e.Url=o;var c=/^([a-z0-9.+-]+:)/i,u=/:[0-9]*$/,p=/^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,f=["<",">",'"',"`"," ","\r","\n","\t"],d=["{","}","|","\\","^","`"].concat(f),m=["'"].concat(d),v=["%","/","?",";","#"].concat(m),y=["/","?","#"],g=/^[+a-z0-9A-Z_-]{0,63}$/,w=/^([+a-z0-9A-Z_-]{0,63})(.*)$/,b={javascript:!0,"javascript:":!0},x={javascript:!0,"javascript:":!0},O={http:!0,https:!0,ftp:!0,gopher:!0,file:!0,"http:":!0,"https:":!0,"ftp:":!0,"gopher:":!0,"file:":!0},L=n(8);o.prototype.parse=function(t,e,n){if(!l.isString(t))throw new TypeError("Parameter 'url' must be a string, not "+typeof t);var o=t.indexOf("?"),s=-1!==o&&o<t.indexOf("#")?"?":"#",r=t.split(s),i=/\\/g;r[0]=r[0].replace(i,"/"),t=r.join(s);var a=t;if(a=a.trim(),!n&&1===t.split("#").length){var u=p.exec(a);if(u)return this.path=a,this.href=a,this.pathname=u[1],u[2]?(this.search=u[2],this.query=e?L.parse(this.search.substr(1)):this.search.substr(1)):e&&(this.search="",this.query={}),this}var f=c.exec(a);if(f){f=f[0];var d=f.toLowerCase();this.protocol=d,a=a.substr(f.length)}if(n||f||a.match(/^\/\/[^@\/]+@[^@\/]+/)){var j="//"===a.substr(0,2);!j||f&&x[f]||(a=a.substr(2),this.slashes=!0)}if(!x[f]&&(j||f&&!O[f])){for(var C=-1,z=0;z<y.length;z++){var P=a.indexOf(y[z]);-1!==P&&(-1===C||P<C)&&(C=P)}var I,q;q=-1===C?a.lastIndexOf("@"):a.lastIndexOf("@",C),-1!==q&&(I=a.slice(0,q),a=a.slice(q+1),this.auth=decodeURIComponent(I)),C=-1;for(var z=0;z<v.length;z++){var P=a.indexOf(v[z]);-1!==P&&(-1===C||P<C)&&(C=P)}-1===C&&(C=a.length),this.host=a.slice(0,C),a=a.slice(C),this.parseHost(),this.hostname=this.hostname||"";var A="["===this.hostname[0]&&"]"===this.hostname[this.hostname.length-1];if(!A)for(var k=this.hostname.split(/\./),z=0,T=k.length;z<T;z++){var S=k[z];if(S&&!S.match(g)){for(var E="",U=0,M=S.length;U<M;U++)S.charCodeAt(U)>127?E+="x":E+=S[U];if(!E.match(g)){var R=k.slice(0,z),N=k.slice(z+1),H=S.match(w);H&&(R.push(H[1]),N.unshift(H[2])),N.length&&(a="/"+N.join(".")+a),this.hostname=R.join(".");break}}}this.hostname.length>255?this.hostname="":this.hostname=this.hostname.toLowerCase(),A||(this.hostname=h.toASCII(this.hostname));var F=this.port?":"+this.port:"",B=this.hostname||"";this.host=B+F,this.href+=this.host,A&&(this.hostname=this.hostname.substr(1,this.hostname.length-2),"/"!==a[0]&&(a="/"+a))}if(!b[d])for(var z=0,T=m.length;z<T;z++){var $=m[z];if(-1!==a.indexOf($)){var _=encodeURIComponent($);_===$&&(_=escape($)),a=a.split($).join(_)}}var Y=a.indexOf("#");-1!==Y&&(this.hash=a.substr(Y),a=a.slice(0,Y));var K=a.indexOf("?");if(-1!==K?(this.search=a.substr(K),this.query=a.substr(K+1),e&&(this.query=L.parse(this.query)),a=a.slice(0,K)):e&&(this.search="",this.query={}),a&&(this.pathname=a),O[d]&&this.hostname&&!this.pathname&&(this.pathname="/"),this.pathname||this.search){var F=this.pathname||"",W=this.search||"";this.path=F+W}return this.href=this.format(),this},o.prototype.format=function(){var t=this.auth||"";t&&(t=encodeURIComponent(t),t=t.replace(/%3A/i,":"),t+="@");var e=this.protocol||"",n=this.pathname||"",o=this.hash||"",s=!1,r="";this.host?s=t+this.host:this.hostname&&(s=t+(-1===this.hostname.indexOf(":")?this.hostname:"["+this.hostname+"]"),this.port&&(s+=":"+this.port)),this.query&&l.isObject(this.query)&&Object.keys(this.query).length&&(r=L.stringify(this.query));var i=this.search||r&&"?"+r||"";return e&&":"!==e.substr(-1)&&(e+=":"),this.slashes||(!e||O[e])&&!1!==s?(s="//"+(s||""),n&&"/"!==n.charAt(0)&&(n="/"+n)):s||(s=""),o&&"#"!==o.charAt(0)&&(o="#"+o),i&&"?"!==i.charAt(0)&&(i="?"+i),n=n.replace(/[?#]/g,function(t){return encodeURIComponent(t)}),i=i.replace("#","%23"),e+s+n+i+o},o.prototype.resolve=function(t){return this.resolveObject(s(t,!1,!0)).format()},o.prototype.resolveObject=function(t){if(l.isString(t)){var e=new o;e.parse(t,!1,!0),t=e}for(var n=new o,s=Object.keys(this),r=0;r<s.length;r++){var i=s[r];n[i]=this[i]}if(n.hash=t.hash,""===t.href)return n.href=n.format(),n;if(t.slashes&&!t.protocol){for(var a=Object.keys(t),h=0;h<a.length;h++){var c=a[h];"protocol"!==c&&(n[c]=t[c])}return O[n.protocol]&&n.hostname&&!n.pathname&&(n.path=n.pathname="/"),n.href=n.format(),n}if(t.protocol&&t.protocol!==n.protocol){if(!O[t.protocol]){for(var u=Object.keys(t),p=0;p<u.length;p++){var f=u[p];n[f]=t[f]}return n.href=n.format(),n}if(n.protocol=t.protocol,t.host||x[t.protocol])n.pathname=t.pathname;else{for(var d=(t.pathname||"").split("/");d.length&&!(t.host=d.shift()););t.host||(t.host=""),t.hostname||(t.hostname=""),""!==d[0]&&d.unshift(""),d.length<2&&d.unshift(""),n.pathname=d.join("/")}if(n.search=t.search,n.query=t.query,n.host=t.host||"",n.auth=t.auth,n.hostname=t.hostname||t.host,n.port=t.port,n.pathname||n.search){var m=n.pathname||"",v=n.search||"";n.path=m+v}return n.slashes=n.slashes||t.slashes,n.href=n.format(),n}var y=n.pathname&&"/"===n.pathname.charAt(0),g=t.host||t.pathname&&"/"===t.pathname.charAt(0),w=g||y||n.host&&t.pathname,b=w,L=n.pathname&&n.pathname.split("/")||[],d=t.pathname&&t.pathname.split("/")||[],j=n.protocol&&!O[n.protocol];if(j&&(n.hostname="",n.port=null,n.host&&(""===L[0]?L[0]=n.host:L.unshift(n.host)),n.host="",t.protocol&&(t.hostname=null,t.port=null,t.host&&(""===d[0]?d[0]=t.host:d.unshift(t.host)),t.host=null),w=w&&(""===d[0]||""===L[0])),g)n.host=t.host||""===t.host?t.host:n.host,n.hostname=t.hostname||""===t.hostname?t.hostname:n.hostname,n.search=t.search,n.query=t.query,L=d;else if(d.length)L||(L=[]),L.pop(),L=L.concat(d),n.search=t.search,n.query=t.query;else if(!l.isNullOrUndefined(t.search)){if(j){n.hostname=n.host=L.shift();var C=!!(n.host&&n.host.indexOf("@")>0)&&n.host.split("@");C&&(n.auth=C.shift(),n.host=n.hostname=C.shift())}return n.search=t.search,n.query=t.query,l.isNull(n.pathname)&&l.isNull(n.search)||(n.path=(n.pathname?n.pathname:"")+(n.search?n.search:"")),n.href=n.format(),n}if(!L.length)return n.pathname=null,n.search?n.path="/"+n.search:n.path=null,n.href=n.format(),n;for(var z=L.slice(-1)[0],P=(n.host||t.host||L.length>1)&&("."===z||".."===z)||""===z,I=0,q=L.length;q>=0;q--)z=L[q],"."===z?L.splice(q,1):".."===z?(L.splice(q,1),I++):I&&(L.splice(q,1),I--);if(!w&&!b)for(;I--;I)L.unshift("..");!w||""===L[0]||L[0]&&"/"===L[0].charAt(0)||L.unshift(""),P&&"/"!==L.join("/").substr(-1)&&L.push("");var A=""===L[0]||L[0]&&"/"===L[0].charAt(0);if(j){n.hostname=n.host=A?"":L.length?L.shift():"";var C=!!(n.host&&n.host.indexOf("@")>0)&&n.host.split("@");C&&(n.auth=C.shift(),n.host=n.hostname=C.shift())}return w=w||n.host&&L.length,w&&!A&&L.unshift(""),L.length?n.pathname=L.join("/"):(n.pathname=null,n.path=null),l.isNull(n.pathname)&&l.isNull(n.search)||(n.path=(n.pathname?n.pathname:"")+(n.search?n.search:"")),n.auth=t.auth||n.auth,n.slashes=n.slashes||t.slashes,n.href=n.format(),n},o.prototype.parseHost=function(){var t=this.host,e=u.exec(t);e&&(e=e[0],":"!==e&&(this.port=e.substr(1)),t=t.substr(0,t.length-e.length)),t&&(this.hostname=t)}},function(t,e,n){(function(t,o){var s;!function(r){function i(t){throw new RangeError(T[t])}function a(t,e){for(var n=t.length,o=[];n--;)o[n]=e(t[n]);return o}function h(t,e){var n=t.split("@"),o="";return n.length>1&&(o=n[0]+"@",t=n[1]),t=t.replace(k,"."),o+a(t.split("."),e).join(".")}function l(t){for(var e,n,o=[],s=0,r=t.length;s<r;)e=t.charCodeAt(s++),e>=55296&&e<=56319&&s<r?(n=t.charCodeAt(s++),56320==(64512&n)?o.push(((1023&e)<<10)+(1023&n)+65536):(o.push(e),s--)):o.push(e);return o}function c(t){return a(t,function(t){var e="";return t>65535&&(t-=65536,e+=U(t>>>10&1023|55296),t=56320|1023&t),e+=U(t)}).join("")}function u(t){return t-48<10?t-22:t-65<26?t-65:t-97<26?t-97:x}function p(t,e){return t+22+75*(t<26)-((0!=e)<<5)}function f(t,e,n){var o=0;for(t=n?E(t/C):t>>1,t+=E(t/e);t>S*L>>1;o+=x)t=E(t/S);return E(o+(S+1)*t/(t+j))}function d(t){var e,n,o,s,r,a,h,l,p,d,m=[],v=t.length,y=0,g=P,w=z;for(n=t.lastIndexOf(I),n<0&&(n=0),o=0;o<n;++o)t.charCodeAt(o)>=128&&i("not-basic"),m.push(t.charCodeAt(o));for(s=n>0?n+1:0;s<v;){for(r=y,a=1,h=x;s>=v&&i("invalid-input"),l=u(t.charCodeAt(s++)),(l>=x||l>E((b-y)/a))&&i("overflow"),y+=l*a,p=h<=w?O:h>=w+L?L:h-w,!(l<p);h+=x)d=x-p,a>E(b/d)&&i("overflow"),a*=d;e=m.length+1,w=f(y-r,e,0==r),E(y/e)>b-g&&i("overflow"),g+=E(y/e),y%=e,m.splice(y++,0,g)}return c(m)}function m(t){var e,n,o,s,r,a,h,c,u,d,m,v,y,g,w,j=[];for(t=l(t),v=t.length,e=P,n=0,r=z,a=0;a<v;++a)(m=t[a])<128&&j.push(U(m));for(o=s=j.length,s&&j.push(I);o<v;){for(h=b,a=0;a<v;++a)(m=t[a])>=e&&m<h&&(h=m);for(y=o+1,h-e>E((b-n)/y)&&i("overflow"),n+=(h-e)*y,e=h,a=0;a<v;++a)if(m=t[a],m<e&&++n>b&&i("overflow"),m==e){for(c=n,u=x;d=u<=r?O:u>=r+L?L:u-r,!(c<d);u+=x)w=c-d,g=x-d,j.push(U(p(d+w%g,0))),c=E(w/g);j.push(U(p(c,0))),r=f(n,y,o==s),n=0,++o}++n,++e}return j.join("")}function v(t){return h(t,function(t){return q.test(t)?d(t.slice(4).toLowerCase()):t})}function y(t){return h(t,function(t){return A.test(t)?"xn--"+m(t):t})}var g=("object"==typeof e&&e&&e.nodeType,"object"==typeof t&&t&&t.nodeType,"object"==typeof o&&o);var w,b=2147483647,x=36,O=1,L=26,j=38,C=700,z=72,P=128,I="-",q=/^xn--/,A=/[^\x20-\x7E]/,k=/[\x2E\u3002\uFF0E\uFF61]/g,T={overflow:"Overflow: input needs wider integers to process","not-basic":"Illegal input >= 0x80 (not a basic code point)","invalid-input":"Invalid input"},S=x-O,E=Math.floor,U=String.fromCharCode;w={version:"1.4.1",ucs2:{decode:l,encode:c},decode:d,encode:m,toASCII:y,toUnicode:v},void 0!==(s=function(){return w}.call(e,n,e,t))&&(t.exports=s)}()}).call(e,n(5)(t),n(6))},function(t,e){t.exports=function(t){return t.webpackPolyfill||(t.deprecate=function(){},t.paths=[],t.children||(t.children=[]),Object.defineProperty(t,"loaded",{enumerable:!0,get:function(){return t.l}}),Object.defineProperty(t,"id",{enumerable:!0,get:function(){return t.i}}),t.webpackPolyfill=1),t}},function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n},function(t,e,n){"use strict";t.exports={isString:function(t){return"string"==typeof t},isObject:function(t){return"object"==typeof t&&null!==t},isNull:function(t){return null===t},isNullOrUndefined:function(t){return null==t}}},function(t,e,n){"use strict";e.decode=e.parse=n(9),e.encode=e.stringify=n(10)},function(t,e,n){"use strict";function o(t,e){return Object.prototype.hasOwnProperty.call(t,e)}t.exports=function(t,e,n,r){e=e||"&",n=n||"=";var i={};if("string"!=typeof t||0===t.length)return i;var a=/\+/g;t=t.split(e);var h=1e3;r&&"number"==typeof r.maxKeys&&(h=r.maxKeys);var l=t.length;h>0&&l>h&&(l=h);for(var c=0;c<l;++c){var u,p,f,d,m=t[c].replace(a,"%20"),v=m.indexOf(n);v>=0?(u=m.substr(0,v),p=m.substr(v+1)):(u=m,p=""),f=decodeURIComponent(u),d=decodeURIComponent(p),o(i,f)?s(i[f])?i[f].push(d):i[f]=[i[f],d]:i[f]=d}return i};var s=Array.isArray||function(t){return"[object Array]"===Object.prototype.toString.call(t)}},function(t,e,n){"use strict";function o(t,e){if(t.map)return t.map(e);for(var n=[],o=0;o<t.length;o++)n.push(e(t[o],o));return n}var s=function(t){switch(typeof t){case"string":return t;case"boolean":return t?"true":"false";case"number":return isFinite(t)?t:"";default:return""}};t.exports=function(t,e,n,a){return e=e||"&",n=n||"=",null===t&&(t=void 0),"object"==typeof t?o(i(t),function(i){var a=encodeURIComponent(s(i))+n;return r(t[i])?o(t[i],function(t){return a+encodeURIComponent(s(t))}).join(e):a+encodeURIComponent(s(t[i]))}).join(e):a?encodeURIComponent(s(a))+n+encodeURIComponent(s(t)):""};var r=Array.isArray||function(t){return"[object Array]"===Object.prototype.toString.call(t)},i=Object.keys||function(t){var e=[];for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&e.push(n);return e}}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+/* global require, module, console, Promise */
+
+(function() {
+
+  'use strict';
+
+  if (! Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector;
+  }
+
+  const
+
+  /**
+    Determine if a string is a valid internet URL
+
+    @param {String} str - the string to be tested
+    @return {Bool} - `true` of `false`
+   */
+  isURL = function(str) {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(str);
+  },
+
+  /**
+   * Determine if we're in a touch-based browser (phone/tablet)
+   *
+   * @return {Bool} `true` or `false`
+   */
+  isTouch = function() {
+
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return false;
+    }
+
+    return typeof window.orientation !== 'undefined';
+
+//    return 'ontouchstart' in window || navigator.msMaxTouchPoints;
+  },
+
+  /*
+   * Generate a unique string suitable for id attributes
+   *
+   * @param basename (String)
+   * @return string
+   */
+  guid = function(basename) {
+    return (basename ? basename : 'rmr-guid-') + parseInt(Math.random() * 100, 10) + '-' + parseInt(Math.random() * 1000, 10);
+  },
+
+  /*
+   * Merge two objects into one, values in b take precedence over values in a
+   *
+   * @param a {Object}
+   * @param b {Object}
+
+   * @return Object
+   */
+  merge = function(a, b) {
+    const o = {};
+    let i = null;
+    for (i in a) {
+      if (a.hasOwnProperty(i)) {
+        o[i] = a[i];
+      }
+    }
+    if (! b) {
+      return o;
+    }
+    for (i in b) {
+      if (b.hasOwnProperty(i)) {
+        o[i] = b[i];
+      }
+    }
+    return o;
+  },
+
+  /*
+   * Convert an array-like thing (ex: NodeList or arguments object) into a proper array
+   *
+   * @param list (array-like thing)
+   * @return Array
+   */
+  arr = function(list) {
+
+    const ret = [];
+    let i = 0;
+
+    if (list instanceof Array) {
+      return list;
+    }
+
+    if (! list.length) {
+      return ret;
+    }
+
+    for (i = 0; i < list.length; i++) {
+      ret.push(list[i]);
+    }
+
+    return ret;
+  },
+
+  /**
+   * Retrieve an element via query selector
+   *
+   * @param {Mixed} arg the element to retrieve
+   * @return {Element} element corresponding to the selector (or null if none exists)
+   */
+  getElement = function(arg) {
+    if (typeof arg === 'string') {
+      return document.querySelector(arg);
+    }
+
+    return arg;
+  },
+
+  /*
+   * Create an element with a set of attributes/values
+   *
+   * @param type (String)
+   * @param attrs {Object}
+   *
+   * @return HTMLElement
+   */
+  makeElement = function(type, attrs) {
+
+     const n = document.createElement(type);
+
+     for (const i in attrs) {
+       if (attrs.hasOwnProperty(i) && attrs[i]) {
+         n.setAttribute(i, attrs[i]);
+       }
+     }
+     return n;
+  },
+
+  /**
+   * Make loader
+   *
+   * @return {Element} SVG element
+   */
+  loader = function() {
+
+/*
+    const svg = makeElement('svg', {
+      version: '1.1',
+      class: 'rmr-loader',
+      xmlns: 'http://www.w3.org/2000/svg',
+      'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+      x: '0px',
+      y: '0px',
+      width: '40px',
+      height: '40px',
+      viewBox: '0 0 40 40',
+      'enable-background': 'new 0 0 40 40',
+      'xml:space': 'preserve'
+    });
+
+    svg.innerHTML = 
+    '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"></path>' +
+    '<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z">' +
+    '<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.8s" repeatCount="indefinite"></animateTransform>' +
+    '</path>';
+*/
+
+    return '<svg version="1.1" class="rmr-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">' +
+    '<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"></path>' +
+    '<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z">' +
+    '<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.8s" repeatCount="indefinite"></animateTransform>' +
+    '</path>' +
+    '</svg>';
+
+//    return svg;
+  },
+
+  /**
+   * Retrieve an object containing browser/screen coordinates for a DOM element
+   *
+   * @param {Element} node the element whose coordinates should be retrieved
+   * @return {Object} An object containing { top : xx, left : xx, bottom: xx, right: xx, width: xx, height: xx }
+   */
+  getRect = function(node) {
+
+    node = getElement(node);
+
+    const
+    rect = node.getBoundingClientRect(),
+    ret = { top: rect.top, left: rect.left, bottom: rect.bottom, right: rect.right }; // create a new object that is not read-only
+
+    ret.top += window.pageYOffset;
+    ret.left += window.pageXOffset;
+
+    ret.bottom += window.pageYOffset;
+    ret.right += window.pageYOffset;
+
+    ret.width = rect.right - rect.left;
+    ret.height = rect.bottom - rect.top;
+
+    return ret;
+  },
+
+
+  /**
+   * Localize a string
+   *
+   * {
+   *   'en' : {
+   *      'key' : 'neighbor'
+   *    },
+   *    'en-ca' : {
+   *      'key' : 'neighbour'
+   *    }
+   *  }
+   *
+   * @param {Object} lookup dictionary
+   * @param {String} key the to localize
+   * @return {String} string
+   */
+  localize = function(lookup, key) {
+
+    if (typeof navigator === 'undefined') {
+      return key;
+    }
+
+    let i, lang;
+
+    for (i in navigator.languages) {
+      if (! navigator.languages.hasOwnProperty(i)) {
+        continue;
+      }
+      lang = navigator.languages[i].toLowerCase();
+      if (lookup.hasOwnProperty(lang) && lookup[lang].hasOwnProperty(key)) {
+        return lookup[lang][key];
+      }
+    }
+
+    for (i in navigator.languages) {
+      if (! navigator.languages.hasOwnProperty(i)) {
+        continue;
+      }
+      lang = navigator.languages[i].split('-')[0].toLowerCase();
+      if (lookup.hasOwnProperty(lang) && lookup[lang].hasOwnProperty(key)) {
+        return lookup[lang][key];
+      }
+    }
+
+//    console.warn('No localization for ' + key);
+    return key;
+  },
+
+  /**
+   * Apply styles to a node
+   *
+   * @param {HTMLElement} node that should have styles applied
+   * @param {Object} styles key/value pairs for styles and values
+   * @return {Element} node
+   */
+  setStyles = function(node, styles) {
+
+    node = getElement(node);
+    if (! node) {
+      return false;
+    }
+
+    for (const i in styles) {
+      if (styles.hasOwnProperty(i) && styles[i]) {
+        node.style[i] = styles[i];
+      }
+    }
+
+    return node;
+  },
+
+  /**
+   * Build a query string from an object
+   *
+   * @param {Object} obj the object to be passed via URL
+   * @return {String} str query string corresponding to the object
+   */
+  queryString = function(obj) {
+
+    if (Object.keys(obj).length === 0) {
+      return '';
+    }
+
+    return Object.keys(obj).reduce(function(a,k) {
+      a.push(k + '=' + encodeURIComponent(obj[k]));
+      return a;
+    },[]).join('&');
+  },
+
+  /**
+   * Generate an object containing keys/values corresponding to form elements
+   *
+   * @param {Element} form element
+   * @return {Object} the key/value pairs for the form
+   */
+  objectFromForm = function(form) {
+
+    form = getElement(form);
+    if (! form) {
+      return {};
+    }
+
+    const
+    inputs = form.querySelectorAll('select,input,textarea'),
+    params = {};
+
+    for (const i in inputs) {
+      if (! inputs.hasOwnProperty(i)) {
+        continue;
+      }
+      const
+        name = inputs[i].getAttribute('name'),
+        type = inputs[i].type ? inputs[i].type : 'text';
+
+      if (inputs[i].hasAttribute('disabled')) {
+        continue;
+      }
+
+      if (type === 'radio' || type === 'checkbox') {
+        if (inputs[i].checked) {
+          params[name] = inputs[i].value;
+        }
+      } else {
+        params[name] = inputs[i].value;
+      }
+    }
+
+    return params;
+  },
+
+  /**
+   * 
+   *
+   * @param {Element} node starting point of search
+   * @param {String} ancestor the selector for the ancestor we're looking for
+   * @return {Element} or `null` if no such ancestor exists
+   */
+  ancestor = function(node, ancestor, includeSelf) {
+
+    node = getElement(node);
+    if (! node) {
+      return null;
+    }
+
+    if (includeSelf && node.matches(ancestor)) {
+      return node;
+    }
+
+    let parent = node.parentNode;
+
+    while (node.parentNode) {
+      parent = node.parentNode;
+      if (parent.matches(ancestor)) {
+        return parent;
+      }
+    }
+
+    return null;
+  },
+  
+  /**
+   * 
+   *
+   * @param {Element} node the node to be removed
+   */
+  removeNode = function(node) {
+
+    node = getElement(node);
+    if (! node) {
+      return null;
+    }
+
+    node.parentNode.removeChild(node);
+
+    return true;
+  },
+
+  /**
+   * Make an XHR request
+   *
+   * @param {Object} config url, method, params, form
+   * @param {Function} handler invoked on completion
+   * @return {XMLHttpRequest} object making the request
+   */
+  xhrRequest = function(config, handler) {
+
+    if (typeof XMLHttpRequest === 'undefined') {
+      return null;
+    }
+
+    const defaults = {
+      form: null,
+      url: '/',
+      method: 'get',
+      params: null
+    };
+
+    config = merge(defaults, config);
+
+    if (config.form) {
+      config.form = getElement(config.form);
+      config.url = config.form.getAttribute('action'),
+      config.method = config.form.getAttribute('method') ? config.form.getAttribute('method') : 'get',
+      config.params = objectFromForm(config.form);
+    }
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+
+      if (this.readyState === 4) {
+        if (handler) {
+          handler(xhttp);
+        }
+      }
+    };
+
+    let url = config.url;
+    if (config.method.toUpperCase() === 'GET' && config.params) {
+      url = url + '?' + queryString(config.params);
+    }
+
+    xhttp.open(config.method, url, true);
+    xhttp.send();
+
+    return xhttp;
+  },
+
+
+  /**
+   * Retrieve the last non-empty element of an array
+   *
+   * @param {Array} list - array to be iterated through
+   * @param {Function} func (optional) function used to evaluate items in the array
+   * @return {Mixed} the last non-empty value in the array (or `null` if no such value exists)
+   */
+  lastValue = function(list, func) {
+
+    list = arr(list);
+
+    let i = list.length - 1;
+    while (i >= 0) {
+      if (func ? func(list[i]) : list[i]) {
+        return list[i];
+      }
+      i--;
+    }
+
+    return null;
+  };
+
+  module.exports = {
+    Browser: {
+      isTouch: isTouch
+    },
+    String: {
+      isURL: isURL,
+      guid: guid,
+      localize: localize
+    },
+    Array: {
+      coerce: arr,
+      last: lastValue
+    },
+    Object: {
+      merge: merge,
+      queryString: queryString
+    },
+    XHR: {
+      request: xhrRequest
+    },
+    Node: {
+      ancestor: ancestor,
+      remove: removeNode,
+      loader: loader,
+      get: getElement,
+      make: makeElement,
+      getRect: getRect,
+      setStyles: setStyles
+    }
+  };
+
+})();
+
+
+/*
+if (require.main === module) {
+
+  if (process.argv.length === 3) {
+    retrieveMetadata(process.argv[2]).then(function(meta) {
+      console.log(JSON.stringify(meta));
+    }).catch(function(err) {
+      console.log('🚫  ' + err);
+    });
+  } else {
+    console.log('🚫  No URL provided');
+  }
+}
+*/
+
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+  'use strict';
+
+  window.Modal = __webpack_require__(2).Modal;
+})();
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* global document,window,Element,module,console */
+
+/*
+ * modal
+ * ©2017 David Miller
+ * https://readmeansrun.com
+ *
+ * modal is licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ */
+
+(function () {
+
+  'use strict';
+
+  var
+  // VERSION = '0.0.1',
+
+  RMR = __webpack_require__(0),
+      getClipID = __webpack_require__(3),
+      MOBILE = RMR.Browser.isTouch(),
+      PREFIX = 'rmr-modal-',
+      LANG = {
+    'close': 'Close'
+  },
+      localize = function localize(key, lookup) {
+    if (!lookup) {
+      lookup = LANG;
+    }
+
+    if (LANG.hasOwnProperty(key)) {
+      return LANG[key];
+    }
+
+    console.warn('No localization for ' + key);
+    return key;
+  },
+
+
+  /*
+   *
+   */
+  addCurtains = function addCurtains(parent) {
+
+    var curtains = RMR.Node.make('div', { class: PREFIX + 'curtains' });
+    curtains.innerHTML = RMR.Node.loader();
+    parent.appendChild(curtains);
+
+    var rect = RMR.Node.getRect(parent),
+        svg = parent.querySelector('svg');
+
+    svg.style.left = (rect.width - 40) / 2 + 'px';
+    svg.style.top = (rect.height - 40) / 2 + 'px';
+  },
+
+
+  /**
+   * Create a Modal instance
+   *
+   * @param {Object} options - args
+   */
+  Modal = function Modal(options) {
+
+    var defaults = {
+      autoplay: 1,
+      z: 1,
+      attrs: {}
+    };
+
+    if (options.hasOwnProperty('aspect') && options.hasOwnProperty('size')) {
+      throw new Error('Invalid arguments: aspect and size provided. Specify one or the other.');
+    }
+
+    this.options = RMR.Object.merge(defaults, options);
+    this.bg = null;
+    this.container = null;
+    this.elements = {
+      bg: null,
+      container: null
+    };
+  };
+
+  /**
+   * Presents the modal
+   *
+   * @return {Object} - instance for chaining
+   * @chainable
+   */
+  Modal.prototype.show = function () {
+    var self = this;
+
+    var dismiss = function dismiss() {
+      self.remove();
+    },
+        init = function init() {
+      self.elements.bg = document.createElement('div');
+      self.elements.bg.classList.add(PREFIX + 'bg');
+      self.elements.bg.style.zIndex = parseInt(self.options.z, 10);
+
+      document.body.classList.add(PREFIX + 'open');
+
+      self.elements.container = RMR.Node.make('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
+      self.elements.container.classList.add(PREFIX + 'dialog');
+      self.elements.container.style.zIndex = parseInt(self.options.z + 1, 10);
+
+      if (self.options.size) {
+        self.elements.container.style.width = self.options.size.width + 'px';
+        self.elements.container.style.height = self.options.size.height + 'px';
+      }
+
+      document.body.insertBefore(self.elements.bg, document.body.childNodes[0]);
+
+      window.setTimeout(function () {
+        self.elements.bg.classList.add(PREFIX + 'focus');
+      }, 0);
+
+      document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
+
+      self.keyListener = document.addEventListener('keydown', function (e) {
+
+        //        console.log(e.keyCode);
+
+        if (e.keyCode === 27) {
+          // escape key
+          self.remove();
+        } else if (e.keyCode === 32 && self.options && self.options.video) {
+          // spacebar
+
+          e.preventDefault();
+
+          var video = self.elements.container.querySelector('video');
+          if (video) {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          }
+        }
+      });
+    },
+        post = function post() {
+      if (!self.options) {
+        return;
+      }
+
+      if (self.options.hasOwnProperty('class')) {
+        self.elements.container.classList.add(self.options.class);
+      }
+
+      var curtains = self.elements.container.querySelector('.' + PREFIX + 'curtains');
+      window.setTimeout(function () {
+        if (curtains && curtains.parentNode) {
+          curtains.parentNode.removeChild(curtains);
+        }
+      }, 200);
+
+      var but = RMR.Node.make('button', { class: PREFIX + 'dismiss', title: localize('close') });
+      but.innerHTML = localize('close');
+      self.elements.container.appendChild(but);
+      but.addEventListener('click', dismiss);
+      but.focus();
+
+      var resizer = function resizer() {
+
+        if (!self || !self.options) {
+          return;
+        }
+
+        var resize = false;
+
+        var aspect = self.options.hasOwnProperty('aspect') ? self.options.aspect : self.options.hasOwnProperty('size') ? self.options.size.width / self.options.size.height : 0,
+            buffer = MOBILE ? 0 : 0.20,
+            // portion of window that should be padding around modal
+        modalSize = { width: 0, height: 0 },
+            windowSize = { width: window.innerWidth, height: window.innerHeight },
+            verticalLimiter = window.innerWidth / window.innerHeight > aspect ? true : false;
+
+        // set size via aspect ratio that fits in browser window
+        if (self.options.hasOwnProperty('aspect')) {
+          resize = true;
+          if (verticalLimiter) {
+            modalSize.height = windowSize.height - windowSize.height * buffer;
+            modalSize.width = modalSize.height * aspect;
+          } else {
+            modalSize.width = windowSize.width - windowSize.width * buffer;
+            modalSize.height = modalSize.width / aspect;
+          }
+
+          // set size via options parameters
+        } else if (self.options.hasOwnProperty('size')) {
+          resize = true;
+          modalSize.width = self.options.size.width;
+          modalSize.height = self.options.size.height;
+        } else {
+
+          var section = self.elements.container.querySelector('section.' + PREFIX + 'section');
+          if (section) {
+            section.style.maxHeight = windowSize.height * (1 - buffer) + 'px';
+          }
+        }
+        // undefined sizing behaviour
+
+        if (resize) {
+          self.elements.container.style.right = '';
+          self.elements.container.style.width = modalSize.width + 'px';
+          self.elements.container.style.height = modalSize.height + 'px';
+          self.elements.container.style.left = (windowSize.width - modalSize.width) / 2 + 'px';
+          self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
+
+          // position svg loader
+          var svg = self.elements.container.querySelector('svg');
+          if (svg) {
+            svg.style.left = (modalSize.width - 40) / 2 + 'px';
+            svg.style.top = (modalSize.height - 40) / 2 + 'px';
+          }
+        }
+
+        //        console.log('resize');
+      };
+
+      resizer();
+      //      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
+      self.resizeListener = window.addEventListener('resize', resizer);
+      //      }
+
+      document.body.classList.add(PREFIX + 'open');
+      if (self.options.hasOwnProperty('class')) {
+        self.elements.container.classList.add(self.options.class);
+      }
+
+      self.elements.bg.addEventListener('click', dismiss);
+      window.setTimeout(function () {
+        if (!self) {
+          return;
+        }
+        if (self.elements.container) {
+          self.elements.container.classList.add(PREFIX + 'focus');
+          if (MOBILE) {
+            self.elements.container.classList.add(PREFIX + 'mobile');
+          }
+        }
+        if (self.elements.bg) {
+          //          self.elements.bg.classList.add(PREFIX + 'focus');
+        }
+
+        if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
+          self.options.on.show(self.elements.container, self.options);
+        }
+      }, 100);
+
+      self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
+    };
+
+    if (this.options.url) {
+
+      init();
+
+      self.elements.container.classList.add(PREFIX + 'loading');
+
+      addCurtains(self.elements.container);
+
+      self.elements.container.querySelector('svg').addEventListener('click', function () {
+        self.remove();
+      });
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+
+        if (this.readyState === 4) {
+          if (this.status === 200) {
+            if (self.elements.container) {
+              self.elements.container.classList.add(PREFIX + 'node');
+              self.elements.container.classList.remove(PREFIX + 'loading');
+              self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.responseText + '</section>';
+              post();
+            }
+          } else {
+            // TODO
+          }
+        }
+      };
+
+      window.setTimeout(function () {
+        if (self.options) {
+          xhttp.open(self.options.hasOwnProperty('method') ? self.options.method : 'get', self.options.url, true);
+          xhttp.send();
+        }
+      }, 200);
+    } else if (this.options.image) {
+
+      init();
+
+      self.elements.container.classList.add(PREFIX + 'loading');
+
+      var image = RMR.Node.make('img', this.options.attrs);
+
+      addCurtains(self.elements.container);
+
+      image.onload = function () {
+        self.elements.container.classList.remove(PREFIX + 'loading');
+        post();
+      };
+
+      window.setTimeout(function () {
+        image.srcset = self.options.image;
+        post();
+      }, 500);
+
+      self.elements.container.appendChild(image);
+    } else if (this.options.video) {
+
+      init();
+
+      self.elements.container.classList.add(PREFIX + 'loading');
+
+      var video = RMR.Node.make('video', this.options.attrs);
+      video.setAttribute('tabindex', -1);
+      for (var i in this.options.video) {
+        if (this.options.video.hasOwnProperty(i)) {
+          var source = RMR.Node.make('source', { type: i, src: this.options.video[i] });
+          video.appendChild(source);
+        }
+      }
+
+      addCurtains(self.elements.container);
+
+      video.addEventListener('loadeddata', function () {
+        //        video.focus();
+        window.setTimeout(function () {
+          self.elements.container.classList.remove(PREFIX + 'loading');
+        }, 400);
+      });
+
+      self.elements.container.appendChild(video);
+      post();
+    } else if (this.options.node) {
+
+      init();
+      var node = typeof this.options.node === 'string' ? document.querySelector(this.options.node) : this.options.node;
+
+      if (!node) {
+        throw new Error('Invalid node for modal :' + node);
+        return;
+      }
+
+      self.elements.container.classList.add(PREFIX + 'node');
+
+      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + node.innerHTML + '</section>';
+      post();
+    } else if (this.options.html) {
+
+      init();
+      self.elements.container.classList.add(PREFIX + 'node');
+      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
+      post();
+    } else if (this.options.youtube || this.options.vimeo) {
+
+      var clip = getClipID(this.options.youtube ? this.options.youtube : this.options.vimeo);
+
+      init();
+
+      var player = this.options.hasOwnProperty('youtube') ? 'https://www.youtube.com/embed/' : 'https://player.vimeo.com/video/',
+          iframe = '<iframe src="' + player + (clip ? clip : '') + (this.options.autoplay ? '?autoplay=1' : '') + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+      self.elements.container.classList.add(PREFIX + 'video');
+      self.elements.container.innerHTML = iframe;
+      post();
+    } else {
+      throw new Error('Invalid modal parameters: ' + JSON.stringify(this.options));
+      return;
+    }
+
+    return this;
+  };
+
+  /**
+   * Remove the modal
+   *
+   * @return {Object} - instance for chaining
+   * @chainable
+   */
+  Modal.prototype.remove = function () {
+    var self = this;
+
+    document.body.classList.remove(PREFIX + 'open');
+
+    if (self.elements.container) {
+      self.elements.container.classList.remove(PREFIX + 'focus');
+    }
+    if (self.elements.bg) {
+      self.elements.bg.classList.add(PREFIX + 'dismiss');
+    }
+
+    document.body.classList.remove(PREFIX + 'open');
+
+    if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
+      self.options.on.remove(self.elements.container, self.options);
+    }
+
+    window.setTimeout(function timeout() {
+      if (!self) {
+        return;
+      }
+
+      if (self.elements.bg) {
+        document.body.removeChild(self.elements.bg);
+      }
+      if (self.elements.container) {
+        document.body.removeChild(self.elements.container);
+      }
+      self.resizeListener = self.keyListener = self.options = null;
+      self.elements = { container: null, bg: null };
+    }, 200);
+
+    window.removeEventListener('resize', self.resizeListener);
+    document.removeEventListener('keydown', self.keyListener);
+
+    return this;
+  };
+
+  module.exports = {
+    Modal: Modal,
+    clip: getClipID
+  };
+})();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* */
+
+(function () {
+
+  'use strict';
+
+  var URL = typeof window !== 'undefined' ? window.URL : __webpack_require__(4).URL,
+      RMR = __webpack_require__(0),
+
+
+  /**
+   * Parse a YouTube or Vimeo URL and retrieve the video/clip ID 
+   *
+   * @param {String} url the URL to be parsed
+   * @return {String} the clip id
+   */
+  getClipID = function getClipID(url) {
+
+    // ensure it's a string
+    url = '' + url;
+
+    if (url.substring(0, '5') !== 'http:' && url.substring(0, '8') !== 'https://' && url.substring(0, 2) !== '//') {
+      return url;
+    }
+
+    // unsupported (older versions of internet explorer)
+    if (typeof URL === 'undefined') {
+      return null;
+    }
+
+    var o = new URL(url),
+        params = o.searchParams;
+
+    if (o.hostname.indexOf('youtube.com') !== -1) {
+      if (params.get('v')) {
+        return params.get('v');
+      }
+
+      var paths = o.pathname.split('/');
+      return RMR.Array.last(paths);
+    } else if (o.hostname.indexOf('vimeo.com') !== -1) {
+
+      if (o.hostname.indexOf('player.vimeo.com') !== -1) {
+        return RMR.Array.last(o.pathname.split('/'));
+      }
+
+      var id = RMR.Array.last(o.pathname.split('/'));
+      if (parseInt(id, 10)) {
+        return id;
+      }
+
+      return null;
+    }
+
+    return url;
+  };
+
+  module.exports = getClipID;
+})();
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var punycode = __webpack_require__(5);
+var util = __webpack_require__(8);
+
+exports.parse = urlParse;
+exports.resolve = urlResolve;
+exports.resolveObject = urlResolveObject;
+exports.format = urlFormat;
+
+exports.Url = Url;
+
+function Url() {
+  this.protocol = null;
+  this.slashes = null;
+  this.auth = null;
+  this.host = null;
+  this.port = null;
+  this.hostname = null;
+  this.hash = null;
+  this.search = null;
+  this.query = null;
+  this.pathname = null;
+  this.path = null;
+  this.href = null;
+}
+
+// Reference: RFC 3986, RFC 1808, RFC 2396
+
+// define these here so at least they only have to be
+// compiled once on the first module load.
+var protocolPattern = /^([a-z0-9.+-]+:)/i,
+    portPattern = /:[0-9]*$/,
+
+    // Special case for a simple path URL
+    simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
+
+    // RFC 2396: characters reserved for delimiting URLs.
+    // We actually just auto-escape these.
+    delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
+
+    // RFC 2396: characters not allowed for various reasons.
+    unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
+
+    // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
+    autoEscape = ['\''].concat(unwise),
+    // Characters that are never ever allowed in a hostname.
+    // Note that any invalid chars are also handled, but these
+    // are the ones that are *expected* to be seen, so we fast-path
+    // them.
+    nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
+    hostEndingChars = ['/', '?', '#'],
+    hostnameMaxLen = 255,
+    hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
+    hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
+    // protocols that can allow "unsafe" and "unwise" chars.
+    unsafeProtocol = {
+      'javascript': true,
+      'javascript:': true
+    },
+    // protocols that never have a hostname.
+    hostlessProtocol = {
+      'javascript': true,
+      'javascript:': true
+    },
+    // protocols that always contain a // bit.
+    slashedProtocol = {
+      'http': true,
+      'https': true,
+      'ftp': true,
+      'gopher': true,
+      'file': true,
+      'http:': true,
+      'https:': true,
+      'ftp:': true,
+      'gopher:': true,
+      'file:': true
+    },
+    querystring = __webpack_require__(9);
+
+function urlParse(url, parseQueryString, slashesDenoteHost) {
+  if (url && util.isObject(url) && url instanceof Url) return url;
+
+  var u = new Url;
+  u.parse(url, parseQueryString, slashesDenoteHost);
+  return u;
+}
+
+Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
+  if (!util.isString(url)) {
+    throw new TypeError("Parameter 'url' must be a string, not " + typeof url);
+  }
+
+  // Copy chrome, IE, opera backslash-handling behavior.
+  // Back slashes before the query string get converted to forward slashes
+  // See: https://code.google.com/p/chromium/issues/detail?id=25916
+  var queryIndex = url.indexOf('?'),
+      splitter =
+          (queryIndex !== -1 && queryIndex < url.indexOf('#')) ? '?' : '#',
+      uSplit = url.split(splitter),
+      slashRegex = /\\/g;
+  uSplit[0] = uSplit[0].replace(slashRegex, '/');
+  url = uSplit.join(splitter);
+
+  var rest = url;
+
+  // trim before proceeding.
+  // This is to support parse stuff like "  http://foo.com  \n"
+  rest = rest.trim();
+
+  if (!slashesDenoteHost && url.split('#').length === 1) {
+    // Try fast path regexp
+    var simplePath = simplePathPattern.exec(rest);
+    if (simplePath) {
+      this.path = rest;
+      this.href = rest;
+      this.pathname = simplePath[1];
+      if (simplePath[2]) {
+        this.search = simplePath[2];
+        if (parseQueryString) {
+          this.query = querystring.parse(this.search.substr(1));
+        } else {
+          this.query = this.search.substr(1);
+        }
+      } else if (parseQueryString) {
+        this.search = '';
+        this.query = {};
+      }
+      return this;
+    }
+  }
+
+  var proto = protocolPattern.exec(rest);
+  if (proto) {
+    proto = proto[0];
+    var lowerProto = proto.toLowerCase();
+    this.protocol = lowerProto;
+    rest = rest.substr(proto.length);
+  }
+
+  // figure out if it's got a host
+  // user@server is *always* interpreted as a hostname, and url
+  // resolution will treat //foo/bar as host=foo,path=bar because that's
+  // how the browser resolves relative URLs.
+  if (slashesDenoteHost || proto || rest.match(/^\/\/[^@\/]+@[^@\/]+/)) {
+    var slashes = rest.substr(0, 2) === '//';
+    if (slashes && !(proto && hostlessProtocol[proto])) {
+      rest = rest.substr(2);
+      this.slashes = true;
+    }
+  }
+
+  if (!hostlessProtocol[proto] &&
+      (slashes || (proto && !slashedProtocol[proto]))) {
+
+    // there's a hostname.
+    // the first instance of /, ?, ;, or # ends the host.
+    //
+    // If there is an @ in the hostname, then non-host chars *are* allowed
+    // to the left of the last @ sign, unless some host-ending character
+    // comes *before* the @-sign.
+    // URLs are obnoxious.
+    //
+    // ex:
+    // http://a@b@c/ => user:a@b host:c
+    // http://a@b?@c => user:a host:c path:/?@c
+
+    // v0.12 TODO(isaacs): This is not quite how Chrome does things.
+    // Review our test case against browsers more comprehensively.
+
+    // find the first instance of any hostEndingChars
+    var hostEnd = -1;
+    for (var i = 0; i < hostEndingChars.length; i++) {
+      var hec = rest.indexOf(hostEndingChars[i]);
+      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
+        hostEnd = hec;
+    }
+
+    // at this point, either we have an explicit point where the
+    // auth portion cannot go past, or the last @ char is the decider.
+    var auth, atSign;
+    if (hostEnd === -1) {
+      // atSign can be anywhere.
+      atSign = rest.lastIndexOf('@');
+    } else {
+      // atSign must be in auth portion.
+      // http://a@b/c@d => host:b auth:a path:/c@d
+      atSign = rest.lastIndexOf('@', hostEnd);
+    }
+
+    // Now we have a portion which is definitely the auth.
+    // Pull that off.
+    if (atSign !== -1) {
+      auth = rest.slice(0, atSign);
+      rest = rest.slice(atSign + 1);
+      this.auth = decodeURIComponent(auth);
+    }
+
+    // the host is the remaining to the left of the first non-host char
+    hostEnd = -1;
+    for (var i = 0; i < nonHostChars.length; i++) {
+      var hec = rest.indexOf(nonHostChars[i]);
+      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
+        hostEnd = hec;
+    }
+    // if we still have not hit it, then the entire thing is a host.
+    if (hostEnd === -1)
+      hostEnd = rest.length;
+
+    this.host = rest.slice(0, hostEnd);
+    rest = rest.slice(hostEnd);
+
+    // pull out port.
+    this.parseHost();
+
+    // we've indicated that there is a hostname,
+    // so even if it's empty, it has to be present.
+    this.hostname = this.hostname || '';
+
+    // if hostname begins with [ and ends with ]
+    // assume that it's an IPv6 address.
+    var ipv6Hostname = this.hostname[0] === '[' &&
+        this.hostname[this.hostname.length - 1] === ']';
+
+    // validate a little.
+    if (!ipv6Hostname) {
+      var hostparts = this.hostname.split(/\./);
+      for (var i = 0, l = hostparts.length; i < l; i++) {
+        var part = hostparts[i];
+        if (!part) continue;
+        if (!part.match(hostnamePartPattern)) {
+          var newpart = '';
+          for (var j = 0, k = part.length; j < k; j++) {
+            if (part.charCodeAt(j) > 127) {
+              // we replace non-ASCII char with a temporary placeholder
+              // we need this to make sure size of hostname is not
+              // broken by replacing non-ASCII by nothing
+              newpart += 'x';
+            } else {
+              newpart += part[j];
+            }
+          }
+          // we test again with ASCII char only
+          if (!newpart.match(hostnamePartPattern)) {
+            var validParts = hostparts.slice(0, i);
+            var notHost = hostparts.slice(i + 1);
+            var bit = part.match(hostnamePartStart);
+            if (bit) {
+              validParts.push(bit[1]);
+              notHost.unshift(bit[2]);
+            }
+            if (notHost.length) {
+              rest = '/' + notHost.join('.') + rest;
+            }
+            this.hostname = validParts.join('.');
+            break;
+          }
+        }
+      }
+    }
+
+    if (this.hostname.length > hostnameMaxLen) {
+      this.hostname = '';
+    } else {
+      // hostnames are always lower case.
+      this.hostname = this.hostname.toLowerCase();
+    }
+
+    if (!ipv6Hostname) {
+      // IDNA Support: Returns a punycoded representation of "domain".
+      // It only converts parts of the domain name that
+      // have non-ASCII characters, i.e. it doesn't matter if
+      // you call it with a domain that already is ASCII-only.
+      this.hostname = punycode.toASCII(this.hostname);
+    }
+
+    var p = this.port ? ':' + this.port : '';
+    var h = this.hostname || '';
+    this.host = h + p;
+    this.href += this.host;
+
+    // strip [ and ] from the hostname
+    // the host field still retains them, though
+    if (ipv6Hostname) {
+      this.hostname = this.hostname.substr(1, this.hostname.length - 2);
+      if (rest[0] !== '/') {
+        rest = '/' + rest;
+      }
+    }
+  }
+
+  // now rest is set to the post-host stuff.
+  // chop off any delim chars.
+  if (!unsafeProtocol[lowerProto]) {
+
+    // First, make 100% sure that any "autoEscape" chars get
+    // escaped, even if encodeURIComponent doesn't think they
+    // need to be.
+    for (var i = 0, l = autoEscape.length; i < l; i++) {
+      var ae = autoEscape[i];
+      if (rest.indexOf(ae) === -1)
+        continue;
+      var esc = encodeURIComponent(ae);
+      if (esc === ae) {
+        esc = escape(ae);
+      }
+      rest = rest.split(ae).join(esc);
+    }
+  }
+
+
+  // chop off from the tail first.
+  var hash = rest.indexOf('#');
+  if (hash !== -1) {
+    // got a fragment string.
+    this.hash = rest.substr(hash);
+    rest = rest.slice(0, hash);
+  }
+  var qm = rest.indexOf('?');
+  if (qm !== -1) {
+    this.search = rest.substr(qm);
+    this.query = rest.substr(qm + 1);
+    if (parseQueryString) {
+      this.query = querystring.parse(this.query);
+    }
+    rest = rest.slice(0, qm);
+  } else if (parseQueryString) {
+    // no query string, but parseQueryString still requested
+    this.search = '';
+    this.query = {};
+  }
+  if (rest) this.pathname = rest;
+  if (slashedProtocol[lowerProto] &&
+      this.hostname && !this.pathname) {
+    this.pathname = '/';
+  }
+
+  //to support http.request
+  if (this.pathname || this.search) {
+    var p = this.pathname || '';
+    var s = this.search || '';
+    this.path = p + s;
+  }
+
+  // finally, reconstruct the href based on what has been validated.
+  this.href = this.format();
+  return this;
+};
+
+// format a parsed object into a url string
+function urlFormat(obj) {
+  // ensure it's an object, and not a string url.
+  // If it's an obj, this is a no-op.
+  // this way, you can call url_format() on strings
+  // to clean up potentially wonky urls.
+  if (util.isString(obj)) obj = urlParse(obj);
+  if (!(obj instanceof Url)) return Url.prototype.format.call(obj);
+  return obj.format();
+}
+
+Url.prototype.format = function() {
+  var auth = this.auth || '';
+  if (auth) {
+    auth = encodeURIComponent(auth);
+    auth = auth.replace(/%3A/i, ':');
+    auth += '@';
+  }
+
+  var protocol = this.protocol || '',
+      pathname = this.pathname || '',
+      hash = this.hash || '',
+      host = false,
+      query = '';
+
+  if (this.host) {
+    host = auth + this.host;
+  } else if (this.hostname) {
+    host = auth + (this.hostname.indexOf(':') === -1 ?
+        this.hostname :
+        '[' + this.hostname + ']');
+    if (this.port) {
+      host += ':' + this.port;
+    }
+  }
+
+  if (this.query &&
+      util.isObject(this.query) &&
+      Object.keys(this.query).length) {
+    query = querystring.stringify(this.query);
+  }
+
+  var search = this.search || (query && ('?' + query)) || '';
+
+  if (protocol && protocol.substr(-1) !== ':') protocol += ':';
+
+  // only the slashedProtocols get the //.  Not mailto:, xmpp:, etc.
+  // unless they had them to begin with.
+  if (this.slashes ||
+      (!protocol || slashedProtocol[protocol]) && host !== false) {
+    host = '//' + (host || '');
+    if (pathname && pathname.charAt(0) !== '/') pathname = '/' + pathname;
+  } else if (!host) {
+    host = '';
+  }
+
+  if (hash && hash.charAt(0) !== '#') hash = '#' + hash;
+  if (search && search.charAt(0) !== '?') search = '?' + search;
+
+  pathname = pathname.replace(/[?#]/g, function(match) {
+    return encodeURIComponent(match);
+  });
+  search = search.replace('#', '%23');
+
+  return protocol + host + pathname + search + hash;
+};
+
+function urlResolve(source, relative) {
+  return urlParse(source, false, true).resolve(relative);
+}
+
+Url.prototype.resolve = function(relative) {
+  return this.resolveObject(urlParse(relative, false, true)).format();
+};
+
+function urlResolveObject(source, relative) {
+  if (!source) return relative;
+  return urlParse(source, false, true).resolveObject(relative);
+}
+
+Url.prototype.resolveObject = function(relative) {
+  if (util.isString(relative)) {
+    var rel = new Url();
+    rel.parse(relative, false, true);
+    relative = rel;
+  }
+
+  var result = new Url();
+  var tkeys = Object.keys(this);
+  for (var tk = 0; tk < tkeys.length; tk++) {
+    var tkey = tkeys[tk];
+    result[tkey] = this[tkey];
+  }
+
+  // hash is always overridden, no matter what.
+  // even href="" will remove it.
+  result.hash = relative.hash;
+
+  // if the relative url is empty, then there's nothing left to do here.
+  if (relative.href === '') {
+    result.href = result.format();
+    return result;
+  }
+
+  // hrefs like //foo/bar always cut to the protocol.
+  if (relative.slashes && !relative.protocol) {
+    // take everything except the protocol from relative
+    var rkeys = Object.keys(relative);
+    for (var rk = 0; rk < rkeys.length; rk++) {
+      var rkey = rkeys[rk];
+      if (rkey !== 'protocol')
+        result[rkey] = relative[rkey];
+    }
+
+    //urlParse appends trailing / to urls like http://www.example.com
+    if (slashedProtocol[result.protocol] &&
+        result.hostname && !result.pathname) {
+      result.path = result.pathname = '/';
+    }
+
+    result.href = result.format();
+    return result;
+  }
+
+  if (relative.protocol && relative.protocol !== result.protocol) {
+    // if it's a known url protocol, then changing
+    // the protocol does weird things
+    // first, if it's not file:, then we MUST have a host,
+    // and if there was a path
+    // to begin with, then we MUST have a path.
+    // if it is file:, then the host is dropped,
+    // because that's known to be hostless.
+    // anything else is assumed to be absolute.
+    if (!slashedProtocol[relative.protocol]) {
+      var keys = Object.keys(relative);
+      for (var v = 0; v < keys.length; v++) {
+        var k = keys[v];
+        result[k] = relative[k];
+      }
+      result.href = result.format();
+      return result;
+    }
+
+    result.protocol = relative.protocol;
+    if (!relative.host && !hostlessProtocol[relative.protocol]) {
+      var relPath = (relative.pathname || '').split('/');
+      while (relPath.length && !(relative.host = relPath.shift()));
+      if (!relative.host) relative.host = '';
+      if (!relative.hostname) relative.hostname = '';
+      if (relPath[0] !== '') relPath.unshift('');
+      if (relPath.length < 2) relPath.unshift('');
+      result.pathname = relPath.join('/');
+    } else {
+      result.pathname = relative.pathname;
+    }
+    result.search = relative.search;
+    result.query = relative.query;
+    result.host = relative.host || '';
+    result.auth = relative.auth;
+    result.hostname = relative.hostname || relative.host;
+    result.port = relative.port;
+    // to support http.request
+    if (result.pathname || result.search) {
+      var p = result.pathname || '';
+      var s = result.search || '';
+      result.path = p + s;
+    }
+    result.slashes = result.slashes || relative.slashes;
+    result.href = result.format();
+    return result;
+  }
+
+  var isSourceAbs = (result.pathname && result.pathname.charAt(0) === '/'),
+      isRelAbs = (
+          relative.host ||
+          relative.pathname && relative.pathname.charAt(0) === '/'
+      ),
+      mustEndAbs = (isRelAbs || isSourceAbs ||
+                    (result.host && relative.pathname)),
+      removeAllDots = mustEndAbs,
+      srcPath = result.pathname && result.pathname.split('/') || [],
+      relPath = relative.pathname && relative.pathname.split('/') || [],
+      psychotic = result.protocol && !slashedProtocol[result.protocol];
+
+  // if the url is a non-slashed url, then relative
+  // links like ../.. should be able
+  // to crawl up to the hostname, as well.  This is strange.
+  // result.protocol has already been set by now.
+  // Later on, put the first path part into the host field.
+  if (psychotic) {
+    result.hostname = '';
+    result.port = null;
+    if (result.host) {
+      if (srcPath[0] === '') srcPath[0] = result.host;
+      else srcPath.unshift(result.host);
+    }
+    result.host = '';
+    if (relative.protocol) {
+      relative.hostname = null;
+      relative.port = null;
+      if (relative.host) {
+        if (relPath[0] === '') relPath[0] = relative.host;
+        else relPath.unshift(relative.host);
+      }
+      relative.host = null;
+    }
+    mustEndAbs = mustEndAbs && (relPath[0] === '' || srcPath[0] === '');
+  }
+
+  if (isRelAbs) {
+    // it's absolute.
+    result.host = (relative.host || relative.host === '') ?
+                  relative.host : result.host;
+    result.hostname = (relative.hostname || relative.hostname === '') ?
+                      relative.hostname : result.hostname;
+    result.search = relative.search;
+    result.query = relative.query;
+    srcPath = relPath;
+    // fall through to the dot-handling below.
+  } else if (relPath.length) {
+    // it's relative
+    // throw away the existing file, and take the new path instead.
+    if (!srcPath) srcPath = [];
+    srcPath.pop();
+    srcPath = srcPath.concat(relPath);
+    result.search = relative.search;
+    result.query = relative.query;
+  } else if (!util.isNullOrUndefined(relative.search)) {
+    // just pull out the search.
+    // like href='?foo'.
+    // Put this after the other two cases because it simplifies the booleans
+    if (psychotic) {
+      result.hostname = result.host = srcPath.shift();
+      //occationaly the auth can get stuck only in host
+      //this especially happens in cases like
+      //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
+      var authInHost = result.host && result.host.indexOf('@') > 0 ?
+                       result.host.split('@') : false;
+      if (authInHost) {
+        result.auth = authInHost.shift();
+        result.host = result.hostname = authInHost.shift();
+      }
+    }
+    result.search = relative.search;
+    result.query = relative.query;
+    //to support http.request
+    if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
+      result.path = (result.pathname ? result.pathname : '') +
+                    (result.search ? result.search : '');
+    }
+    result.href = result.format();
+    return result;
+  }
+
+  if (!srcPath.length) {
+    // no path at all.  easy.
+    // we've already handled the other stuff above.
+    result.pathname = null;
+    //to support http.request
+    if (result.search) {
+      result.path = '/' + result.search;
+    } else {
+      result.path = null;
+    }
+    result.href = result.format();
+    return result;
+  }
+
+  // if a url ENDs in . or .., then it must get a trailing slash.
+  // however, if it ends in anything else non-slashy,
+  // then it must NOT get a trailing slash.
+  var last = srcPath.slice(-1)[0];
+  var hasTrailingSlash = (
+      (result.host || relative.host || srcPath.length > 1) &&
+      (last === '.' || last === '..') || last === '');
+
+  // strip single dots, resolve double dots to parent dir
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = srcPath.length; i >= 0; i--) {
+    last = srcPath[i];
+    if (last === '.') {
+      srcPath.splice(i, 1);
+    } else if (last === '..') {
+      srcPath.splice(i, 1);
+      up++;
+    } else if (up) {
+      srcPath.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (!mustEndAbs && !removeAllDots) {
+    for (; up--; up) {
+      srcPath.unshift('..');
+    }
+  }
+
+  if (mustEndAbs && srcPath[0] !== '' &&
+      (!srcPath[0] || srcPath[0].charAt(0) !== '/')) {
+    srcPath.unshift('');
+  }
+
+  if (hasTrailingSlash && (srcPath.join('/').substr(-1) !== '/')) {
+    srcPath.push('');
+  }
+
+  var isAbsolute = srcPath[0] === '' ||
+      (srcPath[0] && srcPath[0].charAt(0) === '/');
+
+  // put the host back
+  if (psychotic) {
+    result.hostname = result.host = isAbsolute ? '' :
+                                    srcPath.length ? srcPath.shift() : '';
+    //occationaly the auth can get stuck only in host
+    //this especially happens in cases like
+    //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
+    var authInHost = result.host && result.host.indexOf('@') > 0 ?
+                     result.host.split('@') : false;
+    if (authInHost) {
+      result.auth = authInHost.shift();
+      result.host = result.hostname = authInHost.shift();
+    }
+  }
+
+  mustEndAbs = mustEndAbs || (result.host && srcPath.length);
+
+  if (mustEndAbs && !isAbsolute) {
+    srcPath.unshift('');
+  }
+
+  if (!srcPath.length) {
+    result.pathname = null;
+    result.path = null;
+  } else {
+    result.pathname = srcPath.join('/');
+  }
+
+  //to support request.http
+  if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
+    result.path = (result.pathname ? result.pathname : '') +
+                  (result.search ? result.search : '');
+  }
+  result.auth = relative.auth || result.auth;
+  result.slashes = result.slashes || relative.slashes;
+  result.href = result.format();
+  return result;
+};
+
+Url.prototype.parseHost = function() {
+  var host = this.host;
+  var port = portPattern.exec(host);
+  if (port) {
+    port = port[0];
+    if (port !== ':') {
+      this.port = port.substr(1);
+    }
+    host = host.substr(0, host.length - port.length);
+  }
+  if (host) this.hostname = host;
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
+;(function(root) {
+
+	/** Detect free variables */
+	var freeExports = typeof exports == 'object' && exports &&
+		!exports.nodeType && exports;
+	var freeModule = typeof module == 'object' && module &&
+		!module.nodeType && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (
+		freeGlobal.global === freeGlobal ||
+		freeGlobal.window === freeGlobal ||
+		freeGlobal.self === freeGlobal
+	) {
+		root = freeGlobal;
+	}
+
+	/**
+	 * The `punycode` object.
+	 * @name punycode
+	 * @type Object
+	 */
+	var punycode,
+
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
+
+	/** Bootstring parameters */
+	base = 36,
+	tMin = 1,
+	tMax = 26,
+	skew = 38,
+	damp = 700,
+	initialBias = 72,
+	initialN = 128, // 0x80
+	delimiter = '-', // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	regexNonASCII = /[^\x20-\x7E]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g, // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	floor = Math.floor,
+	stringFromCharCode = String.fromCharCode,
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+	 * A generic error utility function.
+	 * @private
+	 * @param {String} type The error type.
+	 * @returns {Error} Throws a `RangeError` with the applicable error message.
+	 */
+	function error(type) {
+		throw new RangeError(errors[type]);
+	}
+
+	/**
+	 * A generic `Array#map` utility function.
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} callback The function that gets called for every array
+	 * item.
+	 * @returns {Array} A new array of values returned by the callback function.
+	 */
+	function map(array, fn) {
+		var length = array.length;
+		var result = [];
+		while (length--) {
+			result[length] = fn(array[length]);
+		}
+		return result;
+	}
+
+	/**
+	 * A simple `Array#map`-like wrapper to work with domain name strings or email
+	 * addresses.
+	 * @private
+	 * @param {String} domain The domain name or email address.
+	 * @param {Function} callback The function that gets called for every
+	 * character.
+	 * @returns {Array} A new string of characters returned by the callback
+	 * function.
+	 */
+	function mapDomain(string, fn) {
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
+	}
+
+	/**
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
+	 * @see `punycode.ucs2.encode`
+	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+	 * @memberOf punycode.ucs2
+	 * @name decode
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
+	 */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Creates a string based on an array of numeric code points.
+	 * @see `punycode.ucs2.decode`
+	 * @memberOf punycode.ucs2
+	 * @name encode
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
+	 */
+	function ucs2encode(array) {
+		return map(array, function(value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+	 * Converts a basic code point into a digit/integer.
+	 * @see `digitToBasic()`
+	 * @private
+	 * @param {Number} codePoint The basic numeric code point value.
+	 * @returns {Number} The numeric value of a basic code point (for use in
+	 * representing integers) in the range `0` to `base - 1`, or `base` if
+	 * the code point does not represent a value.
+	 */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+	 * Converts a digit/integer into a basic code point.
+	 * @see `basicToDigit()`
+	 * @private
+	 * @param {Number} digit The numeric value of a basic code point.
+	 * @returns {Number} The basic code point whose value (when used for
+	 * representing integers) is `digit`, which needs to be in the range
+	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+	 * used; else, the lowercase form is used. The behavior is undefined
+	 * if `flag` is non-zero and `digit` has no uppercase form.
+	 */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+	 * Bias adaptation function as per section 3.4 of RFC 3492.
+	 * https://tools.ietf.org/html/rfc3492#section-3.4
+	 * @private
+	 */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (/* no initialization */; delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
+	 * @memberOf punycode
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
+	 */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+		    /** Cached calculation results */
+		    baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base; /* no condition */; k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
+	 * Punycode string of ASCII-only symbols.
+	 * @memberOf punycode
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
+	 */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+		    /** `inputLength` will hold the number of code points in `input`. */
+		    inputLength,
+		    /** Cached calculation results */
+		    handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base; /* no condition */; k += base) {
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(
+							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+						);
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+
+		}
+		return output.join('');
+	}
+
+	/**
+	 * Converts a Punycode string representing a domain name or an email address
+	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+	 * it doesn't matter if you call it on a string that has already been
+	 * converted to Unicode.
+	 * @memberOf punycode
+	 * @param {String} input The Punycoded domain name or email address to
+	 * convert to Unicode.
+	 * @returns {String} The Unicode representation of the given Punycode
+	 * string.
+	 */
+	function toUnicode(input) {
+		return mapDomain(input, function(string) {
+			return regexPunycode.test(string)
+				? decode(string.slice(4).toLowerCase())
+				: string;
+		});
+	}
+
+	/**
+	 * Converts a Unicode string representing a domain name or an email address to
+	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
+	 * i.e. it doesn't matter if you call it with a domain that's already in
+	 * ASCII.
+	 * @memberOf punycode
+	 * @param {String} input The domain name or email address to convert, as a
+	 * Unicode string.
+	 * @returns {String} The Punycode representation of the given domain name or
+	 * email address.
+	 */
+	function toASCII(input) {
+		return mapDomain(input, function(string) {
+			return regexNonASCII.test(string)
+				? 'xn--' + encode(string)
+				: string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+		 * A string representing the current Punycode.js version number.
+		 * @memberOf punycode
+		 * @type String
+		 */
+		'version': '1.4.1',
+		/**
+		 * An object of methods to convert from JavaScript's internal character
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+		 * @memberOf punycode
+		 * @type Object
+		 */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		true
+	) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+			return punycode;
+		}).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (freeExports && freeModule) {
+		if (module.exports == freeExports) {
+			// in Node.js, io.js, or RingoJS v0.8.0+
+			freeModule.exports = punycode;
+		} else {
+			// in Narwhal or RingoJS v0.7.0-
+			for (key in punycode) {
+				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+			}
+		}
+	} else {
+		// in Rhino or a web browser
+		root.punycode = punycode;
+	}
+
+}(this));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module), __webpack_require__(7)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  isString: function(arg) {
+    return typeof(arg) === 'string';
+  },
+  isObject: function(arg) {
+    return typeof(arg) === 'object' && arg !== null;
+  },
+  isNull: function(arg) {
+    return arg === null;
+  },
+  isNullOrUndefined: function(arg) {
+    return arg == null;
+  }
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(10);
+exports.encode = exports.stringify = __webpack_require__(11);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ })
+/******/ ]);
