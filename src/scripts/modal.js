@@ -197,7 +197,7 @@
 
           const section = self.elements.container.querySelector('section.' + PREFIX + 'section');
           if (section) {
-            section.style.maxHeight = (windowSize.height * (1 - buffer))  + 'px';
+            section.style.maxHeight = parseInt(window.getComputedStyle(self.elements.container).height, 10)  + 'px';
           }
 
         }
