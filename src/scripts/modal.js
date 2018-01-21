@@ -343,7 +343,8 @@
     } else if (this.options.node) {
 
       init();
-      const node = typeof this.options.node === 'string' ? document.querySelector(this.options.node) : this.options.node;
+
+      const node = RMR.Node.get(this.options.node);
 
       if (! node) {
         throw new Error('Invalid node for modal :' + node);
