@@ -264,7 +264,7 @@
       self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
     };
 
-    if (this.options.iframe) {
+    if (this.options.g) {
 
       init();
 
