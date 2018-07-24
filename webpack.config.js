@@ -1,3 +1,4 @@
+/* globals require, __dirname, module, webpack */
 
 const
   path = require('path'),
@@ -14,12 +15,12 @@ const config = {
   },
   watch: true,
   plugins : [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    })
+//     new webpack.optimize.UglifyJsPlugin({
+//       compress: { warnings: false }
+//     })
   ],
   module: {
-    rules: [
+    rules: [/*
       {
         test: /\.js$/,
 //        include: path.resolve(__dirname, 'src'),
@@ -28,10 +29,11 @@ const config = {
           options: {
             presets: ['es2015'],
           }
-        }]
+        }*/
+        ]
       }
-    ]
-  }
-};
+  };
+
 
 module.exports = config;
+
