@@ -427,9 +427,14 @@
 
     document.body.classList.remove(PREFIX + 'open');
 
+    // fire `remove` event, if provided
     if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('remove')) {
       self.options.on.remove(self.elements.container, self.options);
     }
+
+    // remove event listeners
+    window.removeEventListener('resize', self.resizeListener);
+    document.removeEventListener('keydown', self.keyListener);
 
     window.setTimeout(
       function timeout() {
@@ -447,9 +452,6 @@
         self.elements = { container: null, bg: null };
       }, 200
     );
-
-    window.removeEventListener('resize', self.resizeListener);
-    document.removeEventListener('keydown', self.keyListener);
 
     return this;
   };
