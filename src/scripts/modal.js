@@ -20,6 +20,8 @@
 
   RMR = require('rmr-util'),
 
+//  Backdrop = require('rmr-backdrop'),
+
   getClipID = require('./clip'),
 
   MOBILE = RMR.Browser.isTouch(),
@@ -97,6 +99,8 @@
     dismiss = function() {
       self.remove();
     },
+
+    // logic to run before context-specific initialization
     init = function() {
       self.elements.bg = document.createElement('div');
       self.elements.bg.classList.add(PREFIX + 'bg');
@@ -141,9 +145,11 @@
           }
         }
       });
-
     },
+
+    // logic to run after context-specific initialization
     post = function() {
+
       if (! self.options) {
         return;
       }
@@ -153,7 +159,11 @@
       }
 
       const curtains = self.elements.container.querySelector('.' + PREFIX + 'curtains');
-      window.setTimeout(function() { if (curtains && curtains.parentNode) { curtains.parentNode.removeChild(curtains); } }, 200);
+      window.setTimeout(function() {
+        if (curtains && curtains.parentNode) {
+          curtains.parentNode.removeChild(curtains);
+        }
+      }, 200);
 
 
       const but = RMR.Node.make('button', { class: PREFIX + 'dismiss', title: localize('close')} );
@@ -254,7 +264,19 @@
       self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
     };
 
-    if (this.options.url) {
+    if (this.options.g) {
+
+      init();
+
+      const
+      iframe = '<iframe src="' + this.options.iframe  + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+      self.elements.container.classList.add(PREFIX + 'iframe');
+      self.elements.container.innerHTML = iframe;
+
+      post();
+
+    } else if (this.options.url) {
 
       init();
 

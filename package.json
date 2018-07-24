@@ -33,6 +33,7 @@
   },
   "homepage": "https://davidfmiller.github.io/modal",
   "dependencies": {
+    "rmr-backdrop": "^0.1.2",
     "rmr-util": "^1.0.0"
   }
 }
