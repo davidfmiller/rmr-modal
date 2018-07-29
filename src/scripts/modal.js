@@ -22,7 +22,7 @@
 
 //  Backdrop = require('rmr-backdrop'),
 
-  getClipID = require('./clip'),
+  getClipID = require('./modal-clip'),
 
   MOBILE = RMR.Browser.isTouch(),
 
