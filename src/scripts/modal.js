@@ -49,7 +49,7 @@
    */
   addCurtains = function(parent) {
 
-    const curtains = RMR.Node.make('div', { class: PREFIX + 'curtains' });
+    const curtains = RMR.Node.create('div', { class: PREFIX + 'curtains' });
     curtains.innerHTML = RMR.Node.loader();
     parent.appendChild(curtains);
 
@@ -69,6 +69,7 @@
 
     const defaults = {
       autoplay: 1,
+      blur: false,
       z: 1,
       attrs: {}
     };
@@ -82,7 +83,8 @@
     this.container = null;
     this.elements = {
       bg: null,
-      container: null
+      container: null,
+      blur: null
     };
   };
 
@@ -93,6 +95,7 @@
    * @chainable
    */
   Modal.prototype.show = function() {
+
     const self = this;
 
     const
@@ -102,13 +105,13 @@
 
     // logic to run before context-specific initialization
     init = function() {
-      self.elements.bg = document.createElement('div');
-      self.elements.bg.classList.add(PREFIX + 'bg');
+      self.elements.bg = RMR.Node.create('div', { class: PREFIX + 'bg' });
+//      self.elements.bg.classList.add(PREFIX + 'bg');
       self.elements.bg.style.zIndex = parseInt(self.options.z, 10);
 
       document.body.classList.add(PREFIX + 'open');
 
-      self.elements.container = RMR.Node.make('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
+      self.elements.container = RMR.Node.create('div', { tabindex: -1, role: 'dialog', 'aria-hidden': true });
       self.elements.container.classList.add(PREFIX + 'dialog');
       self.elements.container.style.zIndex = parseInt(self.options.z + 1, 10);
 
@@ -117,13 +120,24 @@
         self.elements.container.style.height = self.options.size.height + 'px';
       }
 
-      document.body.insertBefore(self.elements.bg, document.body.childNodes[0]);
+      if (self.options.blur) {
+        self.elements.blur = RMR.Node.create('div', { class: PREFIX + 'blur' });
+        while (document.body.childNodes.length > 0) {
+          const n = document.body.firstChild;
+          RMR.Node.remove(n);
+          self.elements.blur.appendChild(n);
+        }
+      }
+      document.body.appendChild(self.elements.bg);
 
       window.setTimeout(function() {
         self.elements.bg.classList.add(PREFIX + 'focus');
       }, 0);
-
       document.body.insertBefore(self.elements.container, document.body.childNodes[0]);
+ 
+      if (self.options.blur) {
+        document.body.appendChild(self.elements.blur);
+      }
 
       self.keyListener = document.addEventListener('keydown', (e) => {
 
@@ -166,7 +180,7 @@
       }, 200);
 
 
-      const but = RMR.Node.make('button', { class: PREFIX + 'dismiss', title: localize('close')} );
+      const but = RMR.Node.create('button', { class: PREFIX + 'dismiss', title: localize('close')} );
       but.innerHTML = localize('close');
       self.elements.container.appendChild(but);
       but.addEventListener('click', dismiss);
@@ -318,7 +332,7 @@
 
       self.elements.container.classList.add(PREFIX + 'loading');
 
-      const image = RMR.Node.make('img', this.options.attrs);
+      const image = RMR.Node.create('img', this.options.attrs);
 
       addCurtains(self.elements.container);
 
@@ -341,11 +355,11 @@
 
       self.elements.container.classList.add(PREFIX + 'loading');
 
-      const video = RMR.Node.make('video', this.options.attrs);
+      const video = RMR.Node.create('video', this.options.attrs);
       video.setAttribute('tabindex', -1);
       for (const i in this.options.video) {
         if (this.options.video.hasOwnProperty(i)) {
-          const source = RMR.Node.make('source', { type: i, src: this.options.video[i] });
+          const source = RMR.Node.create('source', { type: i, src: this.options.video[i] });
           video.appendChild(source);
         }
       }
@@ -417,6 +431,16 @@
     const self = this;
 
     document.body.classList.remove(PREFIX + 'open');
+
+    if (self.elements.blur && self.elements.blur.childNodes) {
+      while (self.elements.blur.childNodes.length > 0) {
+        const n = self.elements.blur.firstChild;
+        RMR.Node.remove(n);
+        document.body.appendChild(n);
+      }
+      document.body.removeChild(self.elements.blur);
+    }
+
 
     if (self.elements.container) {
       self.elements.container.classList.remove(PREFIX + 'focus');

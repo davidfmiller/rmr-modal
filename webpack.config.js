@@ -14,6 +14,8 @@ const config = {
     filename: 'modal.bundle.js'
   },
   watch: true,
+//  mode: 'production',
+  mode: 'development',
   plugins : [
 //     new webpack.optimize.UglifyJsPlugin({
 //       compress: { warnings: false }
