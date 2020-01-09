@@ -1,5 +1,5 @@
 {
-  "name": "modal",
+  "name": "rmr-modal",
   "version": "0.1.0",
   "description": "Modal content presentation for your website",
   "directories": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:davidfmiller/modal.git"
+    "url": "git@github.com:davidfmiller/rmr-modal.git"
   },
   "author": "davidfmiller",
   "license": "ISC",
@@ -28,9 +28,9 @@
     "webpack": "^3.12.0"
   },
   "bugs": {
-    "url": "https://github.com/davidfmiller/modal/issues"
+    "url": "https://github.com/davidfmiller/rmr-modal/issues"
   },
-  "homepage": "https://davidfmiller.github.io/modal",
+  "homepage": "https://davidfmiller.github.io/rmr-modal",
   "dependencies": {
     "rmr-backdrop": "^0.1.2",
     "rmr-util": "^1.1.29"
