@@ -1,4 +1,4 @@
 (function() {
   'use strict';
-  window.Modal = require('./modal.js').Modal;
+  window.Modal = require('./rmr-modal.js').Modal;
 })();

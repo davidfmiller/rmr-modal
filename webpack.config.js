@@ -11,7 +11,7 @@ const config = {
   entry: './src/scripts/index.js',
   output: {
     path: path.resolve(__dirname, 'docs/build/'),
-    filename: 'modal.bundle.js'
+    filename: 'rmr-modal.bundle.js'
   },
   watch: true,
 //  mode: 'production',

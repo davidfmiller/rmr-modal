@@ -4,8 +4,8 @@
 
   'use strict';
 
-  const URL = typeof window !== 'undefined' ? window.URL : require('url').URL,
-
+  const
+  URL = typeof window !== 'undefined' ? window.URL : require('url').URL,
   RMR = require('rmr-util'),
 
   /**
