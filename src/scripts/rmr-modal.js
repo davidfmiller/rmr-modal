@@ -342,7 +342,7 @@
       };
 
       window.setTimeout(function() {
-        image.srcset = self.options.image;
+        image.srcset = RMR.Node.isa(self.options.image) ? (self.options.image.srcset ? self.options.image.srcset : self.options.image.src) : self.options.image;
         post();
       }, 500);
 
