@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   youtube = function() {
     init({
       youtube: 'sNaR1JRNayU',
+      blur: true,
       size: { width: 400, height: 225 }
     });
   },
