@@ -343,8 +343,7 @@
 
       window.setTimeout(function() {
         image.srcset = RMR.Node.isa(self.options.image) ? (self.options.image.srcset ? self.options.image.srcset : self.options.image.src) : self.options.image;
-        post();
-      }, 500);
+      }, 200);
 
       self.elements.container.appendChild(image);
 
