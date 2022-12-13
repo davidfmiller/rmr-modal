@@ -1,6 +1,6 @@
 {
   "name": "rmr-modal",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Modal content presentation for your website",
   "directories": {
     "doc": "docs"
@@ -32,6 +32,6 @@
   },
   "homepage": "https://davidfmiller.github.io/rmr-modal",
   "dependencies": {
-    "rmr-util": "^1.1.134"
+    "rmr-util": "^1.1.135"
   }
 }
