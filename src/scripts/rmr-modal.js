@@ -240,14 +240,10 @@
             svg.style.top = (modalSize.height - 40) / 2  + 'px';
           }
         }
-
-//        console.log('resize');
       };
 
       resizer();
-//      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
-        self.resizeListener = window.addEventListener('resize', resizer);
-//      }
+      self.resizeListener = window.addEventListener('resize', resizer);
 
       document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
@@ -264,9 +260,6 @@
           if (MOBILE) {
             self.elements.container.classList.add(PREFIX + 'mobile');
           }
-        }
-        if (self.elements.bg) {
-//          self.elements.bg.classList.add(PREFIX + 'focus');
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
@@ -377,7 +370,6 @@
       addCurtains(self.elements.container);
 
       video.addEventListener('loadeddata', () => {
-//        video.focus();
         window.setTimeout(function() {
           self.elements.container.classList.remove(PREFIX + 'loading');
         }, 400);
@@ -405,8 +397,26 @@
     } else if (this.options.html) {
 
       init();
-      self.elements.container.classList.add(PREFIX + 'node');
-      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
+
+      const container = self.elements.container;
+
+      container.classList.add(PREFIX + 'node');
+      container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
+
+      const section = container.querySelector('section');
+      if (this.options.title) {
+        section.setAttribute('title', this.options.title);
+      }
+
+      if (this.options.link) {
+        
+        section.setAttribute('data-rmr-link', this.options.link);
+        section.addEventListener('click', e => {
+          e.preventDefault();
+          window.open(this.options.link);
+        });
+      }
+
       post();
 
     } else if (this.options.youtube || this.options.vimeo) {

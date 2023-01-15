@@ -139,6 +139,10 @@ $modalDuration : 0.2s;
       opacity: 1;
       position: relative;
       width: 100%;
+
+      &[data-rmr-link] {
+        cursor: pointer;
+      }
     }
     height: auto;
     left: 10%;
