@@ -110,6 +110,16 @@ document.addEventListener('DOMContentLoaded', function(event) {
     });
   },
 
+  imageLink = function() {
+    init({
+      image: 'assets/image.jpg',
+      link: 'https://dfmllc.ca',
+      aspect : 3 / 2,
+      title: 'LLC'
+    });
+  },
+
+
   xhr = function() {
     init ({
       url: 'xhr.html',
@@ -135,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   document.querySelector('button.video-scale').addEventListener('click', videoScale);
   document.querySelector('button.video-fixed').addEventListener('click', videoFixed);
   document.querySelector('button.image').addEventListener('click', image);
+  document.querySelector('button.image-link').addEventListener('click', imageLink);
   document.querySelector('button.iframe').addEventListener('click', iframe);
   xhrbut.addEventListener('click', xhr);
 

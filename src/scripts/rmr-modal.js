@@ -346,6 +346,17 @@
 
       self.elements.container.appendChild(image);
 
+      if (this.options.title) {
+        image.setAttribute('title', this.options.title);
+      }
+
+      if (this.options.link) {
+        image.setAttribute('data-rmr-link', this.options.link.url);
+        image.addEventListener('click', e => {
+          e.preventDefault();
+          window.open(this.options.link);
+        });
+      }
 
     } else if (this.options.video) {
 
