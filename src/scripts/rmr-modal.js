@@ -212,11 +212,12 @@
 
         // set size via options parameters
         } else if (self.options.hasOwnProperty('size')) {
+
           resize = true;
           modalSize.width = self.options.size.width;
           modalSize.height = self.options.size.height;
-        } else {
 
+        } else {
           const section = self.elements.container.querySelector('section.' + PREFIX + 'section');
           if (section) {
             section.style.maxHeight = parseInt(window.getComputedStyle(self.elements.container).height, 10)  + 'px';
@@ -233,7 +234,7 @@
           self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
 
           // position svg loader
-          const svg = self.elements.container.querySelector('svg');
+          const svg = self.elements.container.querySelector('svg.rmr-loader');
           if (svg) {
             svg.style.left = (modalSize.width - 40) / 2  + 'px';
             svg.style.top = (modalSize.height - 40) / 2  + 'px';
