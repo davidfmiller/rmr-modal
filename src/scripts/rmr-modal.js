@@ -20,8 +20,6 @@
 
   RMR = require('rmr-util'),
 
-//  Backdrop = require('rmr-backdrop'),
-
   getClipID = require('./rmr-modal-clip'),
 
   MOBILE = RMR.Browser.isTouch(),
@@ -214,11 +212,12 @@
 
         // set size via options parameters
         } else if (self.options.hasOwnProperty('size')) {
+
           resize = true;
           modalSize.width = self.options.size.width;
           modalSize.height = self.options.size.height;
-        } else {
 
+        } else {
           const section = self.elements.container.querySelector('section.' + PREFIX + 'section');
           if (section) {
             section.style.maxHeight = parseInt(window.getComputedStyle(self.elements.container).height, 10)  + 'px';
@@ -235,20 +234,16 @@
           self.elements.container.style.top = (windowSize.height - modalSize.height) / 2 + 'px';
 
           // position svg loader
-          const svg = self.elements.container.querySelector('svg');
+          const svg = self.elements.container.querySelector('svg.rmr-loader');
           if (svg) {
             svg.style.left = (modalSize.width - 40) / 2  + 'px';
             svg.style.top = (modalSize.height - 40) / 2  + 'px';
           }
         }
-
-//        console.log('resize');
       };
 
       resizer();
-//      if (self.options.hasOwnProperty('size') || self.options.hasOwnProperty('aspect')) {
-        self.resizeListener = window.addEventListener('resize', resizer);
-//      }
+      self.resizeListener = window.addEventListener('resize', resizer);
 
       document.body.classList.add(PREFIX + 'open');
       if (self.options.hasOwnProperty('class')) {
@@ -265,9 +260,6 @@
           if (MOBILE) {
             self.elements.container.classList.add(PREFIX + 'mobile');
           }
-        }
-        if (self.elements.bg) {
-//          self.elements.bg.classList.add(PREFIX + 'focus');
         }
 
         if (self.options && self.options.hasOwnProperty('on') && self.options.on.hasOwnProperty('show')) {
@@ -347,6 +339,17 @@
 
       self.elements.container.appendChild(image);
 
+      if (this.options.title) {
+        image.setAttribute('title', this.options.title);
+      }
+
+      if (this.options.link) {
+        image.setAttribute('data-rmr-link', this.options.link.url);
+        image.addEventListener('click', e => {
+          e.preventDefault();
+          window.open(this.options.link);
+        });
+      }
 
     } else if (this.options.video) {
 
@@ -366,7 +369,6 @@
       addCurtains(self.elements.container);
 
       video.addEventListener('loadeddata', () => {
-//        video.focus();
         window.setTimeout(function() {
           self.elements.container.classList.remove(PREFIX + 'loading');
         }, 400);
@@ -394,8 +396,26 @@
     } else if (this.options.html) {
 
       init();
-      self.elements.container.classList.add(PREFIX + 'node');
-      self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
+
+      const container = self.elements.container;
+
+      container.classList.add(PREFIX + 'node');
+      container.innerHTML = '<section class="' + PREFIX + 'section">' + this.options.html + '</section>';
+
+      const section = container.querySelector('section');
+      if (this.options.title) {
+        section.setAttribute('title', this.options.title);
+      }
+
+      if (this.options.link) {
+        
+        section.setAttribute('data-rmr-link', this.options.link);
+        section.addEventListener('click', e => {
+          e.preventDefault();
+          window.open(this.options.link);
+        });
+      }
+
       post();
 
     } else if (this.options.youtube || this.options.vimeo) {
