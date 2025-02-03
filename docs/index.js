@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   iframe = function() {
     init({
-      iframe: 'https://dfm.photography',
+      iframe: 'https://photos.dfmllc.ca',
       aspect: 16 / 9,
       blur: true
 //      size: { width: 560, height: 320 }
