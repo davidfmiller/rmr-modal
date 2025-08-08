@@ -77,8 +77,6 @@
     }
 
     this.options = RMR.Object.merge(defaults, options);
-    this.bg = null;
-    this.container = null;
     this.elements = {
       bg: null,
       container: null,
