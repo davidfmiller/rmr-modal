@@ -39,6 +39,19 @@ $modalDuration : 0.2s;
   transition: background $modalDuration, opacity $modalDuration;
   z-index: 1;
 
+  &.rmr-modal-error {
+    background-color: #FFD300;
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+    left: 50%;
+
+    background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyBoZWlnaHQ9IjIzNiIgdmlld0JveD0iMCAwIDIzNiAyMzYiIHdpZHRoPSIyMzYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJtMCAwaDIzNnYyMzZoLTIzNnoiLz48L2RlZnM+PHBhdGggZD0ibTExOC4xMjA4MzkgMjM2Yy03LjQ5OTk0NiAwLTE0LjI5Mzg4Ny0yLjUzODg3MS0xOS45MTg4MTY4LTcuNDUyNzY1LTYuMDg1MTMzMi01LjMxNTkyNC05LjIwMjAyMjItMTIuNzc3OTA5LTkuMjAyMDIyMi0yMS42MDgwMzQgMC03Ljg5MjgxNSAyLjg4Mjc5NTUtMTQuOTIyMjUgOC40MDYwNjg0LTIwLjQ4MDI2MiA1LjUyODA5ODYtNS41NjI4NjggMTIuNTU1MzkzNi04LjQ1ODkzOSAyMC40NzMwOTI2LTguNDU4OTM5IDcuODc5OTkzIDAgMTQuOTA5MzYxIDIuODY2MTg1IDIwLjUwNzA0IDguMzcyNDg5IDUuNjUzNTI1IDUuNTYxMjM5IDguNjEzNzk5IDEyLjYyNjUwNSA4LjYxMzc5OSAyMC41NjY3MTIgMCA4LjcwOTYyOC0zLjA2NjkyMiAxNi4xMTQ1NS05LjA0Njk1NSAyMS40NjM1NjgtNS41OTI2MzMgNS4wMDI0OTYtMTIuMzYzNjg3IDcuNTk3MjMxLTE5LjgzMjIwNiA3LjU5NzIzMXptLTI4LjAxMDM3MzctMTc4LjY3MDkyMzJjLS43NDE1ODUzLTExLjU5OTg3NjctMS4xMTA0NjUzLTE5LjkxMjUyMjktMS4xMTA0NjUzLTI1LjEyOTUxMiAwLTkuMzk3OTY5MSAyLjY5NzYyNjUtMTcuMjU0Njk5NSA4LjE1Njk3MTctMjMuMTIzMDk5NjUgNS41NzQwNDEzLTUuOTkxNjg5NzkgMTMuMDM0MTYzMy05LjA3NjQ2NTE1IDIxLjY4ODkwMTMtOS4wNzY0NjUxNSAxMC45MTk5NTMgMCAxOS4zMjY4MjcgNC41NjYyNDA0NSAyMy41NjI3ODMgMTMuMzA1NzI3MyAzLjEyOTMzOCA2LjQ1NjM0NzkgNC41OTEzNDQgMTQuODgzODUyMyA0LjU5MTM0NCAyNS41NzcwNDY2IDAgNS43MDgxMzQxLS4yOTk5MzkgMTEuNTA1MTE3Mi0uODg2NTQ1IDE3LjIyMjMyMTdsLTUuMTg5MjYyIDU5LjgyMzcwMjRjLS42Njk2NTQgOC40NjU0NjQtMi4xNzYyIDE1LjE0Mjg2OC00LjY4NTgxNiAyMC4yOTk4MTUtMy42NjE0MjcgNy41MjM3NzctMTAuNDc0ODM1IDExLjc3MTM4Ny0xOC44NDI1NzIgMTEuNzcxMzg3LTguNDk5MzY4IDAtMTUuMzU0NzA1LTQuMjQ2NTYtMTguODI2NDk4My0xMS44MTA3MzItMi4yNjQwMTkyLTQuOTMyNzM0LTMuNzIzMzA0MS0xMS41NzQyODEtNC41NzU5NzEtMjAuNDU1MzY1eiIgeGxpbms6aHJlZj0iI2EiLz48L3N2Zz4=);
+    background-size: 25px 25px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
   &.rmr-modal-xhr {
     transition: background $modalDuration, opacity $modalDuration, width $modalDuration, left $modalDuration, right $modalDuration, top $modalDuration, height $modalDuration;
   }
@@ -144,6 +157,7 @@ $modalDuration : 0.2s;
         cursor: pointer;
       }
     }
+    max-height: 80vh;
     height: auto;
     left: 10%;
     margin: 0 auto;
