@@ -1,17 +1,16 @@
-footer {
-
-}
 
 .modal-target {
   display: none;
 }
 
 .rmr-modal-dialog.rmr-modal-node {
-  background: #fff;
   color: #000;
+/* 
+  background: #fff;
   width: 50%;
   left: 25%;
   font-family: sans-serif;
+ */
 }
 
 .rmr-modal-dialog h1 {
@@ -32,7 +31,7 @@ footer {
   background: yellow;
 }
 .rmr-modal-dialog.xhr-class {
-  background: aqua;
+/*   background: aqua; */
 }
 
 .rmr-modal-dialog footer {
