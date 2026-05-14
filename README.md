@@ -1,6 +1,6 @@
 # modal
 
-[Docs](https://davidfmiller.github.io/modal)
+[Docs](https://davidfmiller.github.io/rmr-modal)
 
 ## TODO
 
