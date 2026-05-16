@@ -158,7 +158,7 @@
     },
 
     // logic to run after context-specific initialization
-    post = function() {
+    post = function(success) {
 
       if (! self.options) {
         return;
@@ -175,12 +175,7 @@
         }
       }, 200);
 
-
-      const but = RMR.Node.create('button', { class: PREFIX + 'dismiss', title: localize('close')} );
-      but.innerHTML = localize('close');
-      self.elements.container.appendChild(but);
-      but.addEventListener('click', dismiss);
-      but.focus();
+      self.elements.bg.addEventListener('click', dismiss);
 
       const resizer = function() {
 
@@ -241,6 +236,18 @@
       };
 
       resizer();
+
+      if (!success) {
+        self.elements.container.classList.add(PREFIX + 'error');
+        return;
+      }
+
+      const but = RMR.Node.create('button', { class: PREFIX + 'dismiss', title: localize('close')} );
+      but.innerHTML = localize('close');
+      self.elements.container.appendChild(but);
+      but.addEventListener('click', dismiss);
+      but.focus();
+
       self.resizeListener = window.addEventListener('resize', resizer);
 
       document.body.classList.add(PREFIX + 'open');
@@ -248,7 +255,6 @@
         self.elements.container.classList.add(self.options.class);
       }
 
-      self.elements.bg.addEventListener('click', dismiss);
       window.setTimeout(() => {
         if (! self) {
           return;
@@ -265,20 +271,19 @@
         }
       }, 100);
 
-      self.elements.container.appendChild(document.createComment('Created by modal - https://github.com/davidfmiller/modal '));
+      self.elements.container.appendChild(document.createComment('Created by modal - 🧲 https://github.com/davidfmiller/modal '));
     };
 
     if (this.options.iframe) {
 
       init();
 
-      const
-      iframe = '<iframe src="' + this.options.iframe  + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+      const iframe = '<iframe src="' + this.options.iframe  + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
       self.elements.container.classList.add(PREFIX + 'iframe');
       self.elements.container.innerHTML = iframe;
 
-      post();
+      post(true);
 
     } else if (this.options.url) {
 
@@ -296,15 +301,15 @@
       xhttp.onreadystatechange = function() {
 
         if (this.readyState === 4) {
+          self.elements.container.classList.remove(PREFIX + 'loading');
           if (this.status === 200) {
             if (self.elements.container) {
               self.elements.container.classList.add(PREFIX + 'node');
-              self.elements.container.classList.remove(PREFIX + 'loading');
               self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + this.responseText + '</section>';
-              post();
+              post(true);
             }
           } else {
-// TODO
+            post(false);
           }
         }
       };
@@ -328,7 +333,7 @@
 
       image.onload = () => {
         self.elements.container.classList.remove(PREFIX + 'loading');
-        post();
+        post(true);
       };
 
       window.setTimeout(function() {
@@ -373,7 +378,7 @@
       });
 
       self.elements.container.appendChild(video);
-      post();
+      post(true);
 
     } else if (this.options.node) {
 
@@ -389,7 +394,7 @@
       self.elements.container.classList.add(PREFIX + 'node');
 
       self.elements.container.innerHTML = '<section class="' + PREFIX + 'section">' + node.innerHTML + '</section>';
-      post();
+      post(true);
 
     } else if (this.options.html) {
 
@@ -414,7 +419,7 @@
         });
       }
 
-      post();
+      post(true);
 
     } else if (this.options.youtube || this.options.vimeo) {
 
@@ -428,7 +433,7 @@
 
       self.elements.container.classList.add(PREFIX + 'video');
       self.elements.container.innerHTML = iframe;
-      post();
+      post(true);
 
     } else {
       throw new Error('Invalid modal parameters: ' + JSON.stringify(this.options));
